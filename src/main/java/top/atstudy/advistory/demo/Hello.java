@@ -1,4 +1,4 @@
-package top.atstudy.advistory;
+package top.atstudy.advistory.demo;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;

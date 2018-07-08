@@ -1,4 +1,4 @@
-package top.atstudy.advistory;
+package top.atstudy.advistory.demo;
 
 /**
  * Created with IntelliJ IDEA.

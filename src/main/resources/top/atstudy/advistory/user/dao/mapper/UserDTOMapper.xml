@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.atstudy.advistory.user.dao.mapper.UserDTOMapper" >
+    <!-- 字段与实体的映射 -->
+    <resultMap id="BaseResultMap" type="top.atstudy.advistory.user.dao.dto.UserDTO">
+        <id column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="BIT" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+    </resultMap>
+    <!-- 根据条件查询，全部 -->
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from wechat_user where user_id = #{userId}
+    </select>
+
+</mapper>
