@@ -1,7 +1,5 @@
 package top.atstudy.advistory.user.controller;
 
-import com.sun.javaws.exceptions.BadVersionResponseException;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.advistory.base.enums.BadRequest;
@@ -10,7 +8,6 @@ import top.atstudy.advistory.base.enums.Unauthorized;
 import top.atstudy.advistory.user.dao.IUserDao;
 import top.atstudy.advistory.user.dao.dto.UserDTO;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.SessionUser;
 
 /**
  * Created with IntelliJ IDEA.
