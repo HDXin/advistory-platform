@@ -16,12 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 public class LogInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 
+    /**
+     * 记录 request 数据
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("Request Url : {}", request.getRequestURI());
         logger.info("Request Method: {}", request.getMethod());
-        logger.info("Header Content-Type：{}", request.getContentType());
-
+        logger.info("Content-Type：{}", request.getContentType());
         return true;
     }
+
 }

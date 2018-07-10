@@ -24,7 +24,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobaExceptionHandler {
 
-    @ExceptionHandler({APIException.class,FrameworkException.class, Exception.class})
+    @ExceptionHandler({APIException.class, FrameworkException.class})
     public ResponseEntity<Map<String,String>> globaException(HttpServletRequest request, FrameworkException exception){
 
         IErrorEnum errorEnum = exception.getErrorEnum();
@@ -49,7 +49,6 @@ public class GlobaExceptionHandler {
 
             responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.FORBIDDEN);
         }
-
 
         return responseEntity;
     }
