@@ -3,7 +3,6 @@ package top.atstudy.component.interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,8 +18,9 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("feign invoke | HttpMethod : {}, Url : {}", request.getMethod(), request.getRequestURI());
-        logger.info("feign interceptor Content-Type：{}", request.getContentType());
+        logger.info("Request Url : {}", request.getRequestURI());
+        logger.info("Request Method: {}", request.getMethod());
+        logger.info("Header Content-Type：{}", request.getContentType());
 
         return true;
     }
