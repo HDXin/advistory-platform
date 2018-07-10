@@ -22,6 +22,7 @@ import java.util.Iterator;
 
 @Component
 public class DefaultImageCompressor implements ImageCompressor {
+
     @Value("${image.quality}")
     private float quality;
 

@@ -1,21 +1,23 @@
 package top.atstudy.component.image.controller;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
+import top.atstudy.component.enums.EnumImageType;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.image.service.ImageService;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +41,7 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping("/single")
-    public String uploadSingleImage(@RequestBody HttpServletRequest request) throws IOException, APIException {
+    public String uploadSingleImage(HttpServletRequest request) throws IOException, APIException {
         MultipartFile[] files = parseMultiFiles(request);
         if (files == null || files.length == 0) {
             return null;
@@ -50,7 +52,7 @@ public class ImageController {
     }
 
     @PostMapping("/multi")
-    public List<String> uploadMultiImages(@RequestBody HttpServletRequest request) throws IOException, APIException {
+    public List<String> uploadMultiImages(HttpServletRequest request) throws IOException, APIException {
         MultipartFile[] files = parseMultiFiles(request);
         String fileNames = Arrays.stream(files).map(MultipartFile::getOriginalFilename)
                 .filter(StringUtils::isNotBlank).collect(Collectors.joining(" , "));
@@ -59,8 +61,47 @@ public class ImageController {
             return null;
         }
 
-        return imageService.uploadImages(getSessionUserFromGateway(), checkImageCompress(), files);
+        return imageService.uploadImages(checkImageCompress(request), files);
     }
+
+    @GetMapping("/download/**")
+    public void getImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String path = request.getServletPath();
+        String[] images = path.split("image");
+        String pathStr = "";
+        if (images.length > 1) {
+            pathStr = images[1];
+        }
+        if (StringUtils.isEmpty(pathStr) || pathStr.equals("/")) {
+            throw new IllegalArgumentException();
+        }
+
+        pathStr = pathStr.substring(9);
+        pathStr = pathStr.replaceAll("..//", "");
+        Map<String, Object> readMap = this.imageService.read(pathStr);
+        if (readMap == null | readMap.size() == 0) {
+            return;
+        }
+
+        responseImage(readMap, response);
+    }
+
+    private void responseImage(Map<String, Object> readMap, HttpServletResponse response) throws IOException {
+        InputStream input = (InputStream) readMap.get("inputStream");
+        String fileType = readMap.get("imageSuffix").toString();
+//        HttpServletResponse response = super.getResponse();
+        ServletOutputStream outputStream = response.getOutputStream();
+        response.setContentType(EnumImageType.typeOf(fileType.toLowerCase()).type);
+        byte[] by = new byte[1024];
+        int length;
+        while ((length = input.read(by)) != -1) {
+            outputStream.write(by, 0, length);
+        }
+        outputStream.flush();
+        IOUtils.closeQuietly(outputStream);
+        IOUtils.closeQuietly(input);
+    }
+
 
 
     private MultipartFile[] parseMultiFiles(HttpServletRequest httpServletRequest) {
