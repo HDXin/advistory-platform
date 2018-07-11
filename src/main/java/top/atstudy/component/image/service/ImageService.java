@@ -3,6 +3,7 @@ package top.atstudy.component.image.service;
 import org.springframework.web.multipart.MultipartFile;
 import top.atstudy.component.exception.APIException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 

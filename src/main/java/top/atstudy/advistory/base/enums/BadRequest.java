@@ -11,7 +11,9 @@ import top.atstudy.component.enums.http.IError400Enum;
  */
 public enum BadRequest implements IError400Enum<BadRequest> {
 
-    PARAMS_INVALID(4000101, "请求参数不合法");
+    PARAMS_INVALID(4000101, "请求参数不合法"),
+    QR_CODE_CREATE_FAIL(4000201, "二维码创建失败"),
+    ;
 
     private Integer code;
     private String message;

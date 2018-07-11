@@ -1,4 +1,4 @@
-package top.atstudy.component.image.service;
+package top.atstudy.component.image.service.impl;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -12,6 +12,8 @@ import top.atstudy.component.base.config.ImageSizeConfig;
 import top.atstudy.component.base.util.StringUtils;
 import top.atstudy.component.enums.ImageSize;
 import top.atstudy.component.exception.APIException;
+import top.atstudy.component.image.service.ImageService;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -50,7 +52,7 @@ public class ImageServiceImpl implements ImageService {
     private static final Pattern IMAGE_SIZE_PATTERN = Pattern.compile("\\dx\\d");
 
     @Autowired
-    private DefaultImageCompressor defaultImageCompressor;
+    private DefaultImageCompressorImpl defaultImageCompressor;
 
     @Autowired
     private ImageSizeConfig imageSizeConfig;
@@ -117,7 +119,6 @@ public class ImageServiceImpl implements ImageService {
             }
         }
 
-
         // 若没有指定格式,则返回原图
         String fileName = file.getName().toLowerCase();
         final String size = IMAGE_SIZE_PATTERN.matcher(fileName).find() ? fileName : DEFAULT_IMAGE_SIZE;
@@ -134,7 +135,6 @@ public class ImageServiceImpl implements ImageService {
 
         return readMap;
     }
-
 
     private File loadSizedFile(File dir, String size) throws IOException {
         // 检查是否存在目录

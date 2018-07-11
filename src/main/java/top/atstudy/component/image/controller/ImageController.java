@@ -1,5 +1,6 @@
 package top.atstudy.component.image.controller;
 
+import com.google.zxing.WriterException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -89,7 +90,6 @@ public class ImageController {
     private void responseImage(Map<String, Object> readMap, HttpServletResponse response) throws IOException {
         InputStream input = (InputStream) readMap.get("inputStream");
         String fileType = readMap.get("imageSuffix").toString();
-//        HttpServletResponse response = super.getResponse();
         ServletOutputStream outputStream = response.getOutputStream();
         response.setContentType(EnumImageType.typeOf(fileType.toLowerCase()).type);
         byte[] by = new byte[1024];

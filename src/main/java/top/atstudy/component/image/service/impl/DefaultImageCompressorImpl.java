@@ -1,4 +1,4 @@
-package top.atstudy.component.image.service;
+package top.atstudy.component.image.service.impl;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
@@ -8,6 +8,8 @@ import com.drew.metadata.Tag;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import top.atstudy.component.image.service.ImageCompressor;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -21,7 +23,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 @Component
-public class DefaultImageCompressor implements ImageCompressor {
+public class DefaultImageCompressorImpl implements ImageCompressor {
 
     @Value("${image.quality}")
     private float quality;
