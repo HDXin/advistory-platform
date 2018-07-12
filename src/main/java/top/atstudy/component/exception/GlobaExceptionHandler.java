@@ -10,6 +10,7 @@ import top.atstudy.component.enums.http.IError401Enum;
 import top.atstudy.component.enums.http.IError403Enum;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class GlobaExceptionHandler {
 
     @ExceptionHandler({APIException.class, FrameworkException.class})
-    public ResponseEntity<Map<String,String>> globaException(HttpServletRequest request, FrameworkException exception){
+    public ResponseEntity<Map<String,String>> globaException(HttpServletRequest request, HttpServletResponse response, FrameworkException exception){
 
         IErrorEnum errorEnum = exception.getErrorEnum();
         Map<String, String> map = new HashMap<>();

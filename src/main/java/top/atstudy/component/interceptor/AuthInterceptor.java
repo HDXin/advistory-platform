@@ -19,7 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info(" ===>> preHandle ...");
+        logger.info(" ===>> auth preHandle ...");
         return true;
     }
 
