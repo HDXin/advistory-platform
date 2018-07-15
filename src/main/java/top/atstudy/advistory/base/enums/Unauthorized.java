@@ -10,8 +10,8 @@ import top.atstudy.component.enums.http.IError401Enum;
  * Time: 4:38
  */
 public enum Unauthorized implements IError401Enum<Unauthorized> {
-    USER_LOGIN_AUTH_FAILED(4010101, "登陆授权失败，账号或密码错误"),
 
+    UNAUTHORIZED(4010101, "未授权"),
 
     ;
 

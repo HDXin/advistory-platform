@@ -51,4 +51,16 @@ public class AuthController extends BasicController{
     }
 
 
+    public static void main(String[] args) {
+
+        String str = "yyOQqyiela6W%2Fz%2Fmq%2B75m3XoTDFr6VCb1OTPUdgkf88xXnOZYTJEOCl01zEGN1YXAU27RozSxK4qbx9k3wDmwMxRCpo31D0CZ30NeolXQHS0BuesGEZMh5hlIq%2FxnfHN95LC2likftfd2ay%2FGM1C%2BVwjP8FADLjckYG3xDQhIUw%3D";
+        AuthToken authToken = AuthToken.parse(str);
+
+        logger.info(" ==>> {}", authToken.userId);
+
+
+
+    }
+
+
 }

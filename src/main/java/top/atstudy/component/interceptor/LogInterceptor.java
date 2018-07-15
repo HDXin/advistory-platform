@@ -3,6 +3,7 @@ package top.atstudy.component.interceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,12 +66,11 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+        System.out.println("---------------- <<Response Body>> ------------------------");
         this.logger.info("<-- <<Response-Http-Status>> : {}", response.getStatus());
         this.logger.info("<-- <<Response-Content-Type>> : {}", request.getContentType());
-//        this.logger.info("<-- {}", getBody(response));
-
-        this.logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
+        this.logger.info("<-- {}", getResponseData());
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
     }
 
     /**
@@ -95,11 +95,8 @@ public class LogInterceptor implements HandlerInterceptor {
         return null;
     }
 
-    private String getBody(HttpServletResponse response) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "utf-8"));
-        String str = null;
-        bw.write(str);
-
-        return str;
+    public static String getResponseData() {
+        String result = MDC.get("X-RESPONSE-DATA");
+        return result == null ? "" : result;
     }
 }

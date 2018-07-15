@@ -1,5 +1,6 @@
 package top.atstudy.component.base.controller;
 
+import top.atstudy.advistory.base.enums.BadRequest;
 import top.atstudy.advistory.base.enums.Unauthorized;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
@@ -23,7 +24,7 @@ public abstract class BasicController {
             setCookies(response, authToken);
             return authToken.token();
         }else{
-            throw new APIException(Unauthorized.USER_LOGIN_AUTH_FAILED);
+            throw new APIException(BadRequest.USER_LOGIN_AUTH_FAILED);
         }
     }
 

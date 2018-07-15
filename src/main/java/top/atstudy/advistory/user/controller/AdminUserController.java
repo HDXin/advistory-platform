@@ -47,7 +47,7 @@ public class AdminUserController {
         if(userId.equals(400L)){
             throw new APIException(BadRequest.PARAMS_INVALID);
         }else if(userId.equals(401L)){
-            throw new APIException(Unauthorized.USER_LOGIN_AUTH_FAILED);
+            throw new APIException(BadRequest.USER_LOGIN_AUTH_FAILED);
         }else if(userId.equals(403L)){
             throw new APIException(Forbidden.SERVER_FORBIDDEN);
         }
