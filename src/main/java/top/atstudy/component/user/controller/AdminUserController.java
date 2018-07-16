@@ -40,7 +40,7 @@ public class AdminUserController extends BasicController {
     @ResponseBody
     @PostMapping("")
     public AdminUserResp create(@RequestBody AdminUserReq req){
-        return this.adminUserService.createAndGet(req, null);
+        return this.adminUserService.createAndGet(req, getSessionUser());
     }
 
     @ResponseBody
@@ -48,7 +48,7 @@ public class AdminUserController extends BasicController {
     public AdminUserResp update(@PathVariable("userId") Long userId,
                                 @RequestBody AdminUserReq req){
         req.setUserId(userId);
-        return this.adminUserService.update(req, null);
+        return this.adminUserService.update(req, getSessionUser());
     }
 
     @GetMapping("/{id}")

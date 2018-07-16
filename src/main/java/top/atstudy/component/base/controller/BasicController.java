@@ -63,4 +63,13 @@ public abstract class BasicController {
     public void setResponse(HttpServletResponse response) {
         this.response = response;
     }
+
+    protected SessionUser getSessionUser(){
+
+        SessionUser sessionUser = new SessionUser();
+        sessionUser.setUserId(-99L);
+        sessionUser.setUserName("test");
+
+        return sessionUser;
+    }
 }

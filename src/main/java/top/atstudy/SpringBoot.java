@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @EnableTransactionManagement
 @MapperScan(basePackages = {
-        "top.atstudy.advistory.user.dao.mapper",
         "top.atstudy.advistory.article.dao.mapper",
         "top.atstudy.component.user.dao.mapper"
 })
