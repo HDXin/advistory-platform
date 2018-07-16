@@ -1,7 +1,9 @@
 package top.atstudy.component.base.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import top.atstudy.component.interceptor.AuthInterceptor;
 import top.atstudy.component.interceptor.LogInterceptor;
@@ -25,5 +27,8 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
         super.addInterceptors(registry);
     }
+
+
+
 
 }

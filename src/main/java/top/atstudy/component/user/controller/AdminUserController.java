@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.controller.BasicController;
 import top.atstudy.component.exception.APIException;
+import top.atstudy.component.user.SessionUser;
 import top.atstudy.component.user.service.IAdminUserService;
 import top.atstudy.component.user.vo.req.AdminUserQuery;
 import top.atstudy.component.user.vo.req.AdminUserReq;
@@ -40,7 +41,8 @@ public class AdminUserController extends BasicController {
     @ResponseBody
     @PostMapping("")
     public AdminUserResp create(@RequestBody AdminUserReq req){
-        return this.adminUserService.createAndGet(req, getSessionUser());
+        SessionUser sessionUser = getSessionUser();
+        return this.adminUserService.createAndGet(req, sessionUser);
     }
 
     @ResponseBody
