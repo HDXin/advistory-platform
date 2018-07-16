@@ -58,8 +58,6 @@ public class AuthController extends BasicController{
 
         logger.info(" ==>> {}", authToken.userId);
 
-
-
     }
 
 

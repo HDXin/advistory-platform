@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan(basePackages = {
         "top.atstudy.advistory.user.dao.mapper",
-        "top.atstudy.advistory.article.dao.mapper"
+        "top.atstudy.advistory.article.dao.mapper",
+        "top.atstudy.component.user.dao.mapper"
 })
 public class SpringBoot {
     private static final Logger logger = LoggerFactory.getLogger(SpringBoot.class);

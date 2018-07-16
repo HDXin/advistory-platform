@@ -10,8 +10,7 @@ package top.atstudy.component.user;
 public class SessionUser {
 
     private Long userId;
-    private String username;
-    private String openid;
+    private String userName;
 
     public Long getUserId() {
         return userId;
@@ -21,19 +20,11 @@ public class SessionUser {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
