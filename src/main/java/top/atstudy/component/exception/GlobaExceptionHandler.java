@@ -33,12 +33,12 @@ public class GlobaExceptionHandler {
     public ResponseEntity<Map<String,String>> globaException(HttpServletRequest request, HttpServletResponse response, Exception exception){
 
         ResponseEntity responseEntity = null;
+        Map<String, String> map = new HashMap<>();
+        map.put("timestamp", new Date().toString());
+        map.put("path", request.getRequestURI());
         if(exception instanceof APIException
             || exception instanceof FrameworkException){
             IErrorEnum errorEnum = ((FrameworkException)exception).getErrorEnum();
-            Map<String, String> map = new HashMap<>();
-            map.put("timestamp", new Date().toString());
-            map.put("path", request.getRequestURI());
             map.put("code", errorEnum.getCode().toString());
             map.put("message", errorEnum.getMessage());
             if(errorEnum instanceof IError400Enum){
@@ -50,8 +50,12 @@ public class GlobaExceptionHandler {
             }
             logger.info("==>> {}", map.toString());
         }else {
-            responseEntity = new ResponseEntity<Map<String, String>>(HttpStatus.INTERNAL_SERVER_ERROR);
             logger.info("==>> {}", exception.getMessage());
+
+            map.put("code", "500");
+            map.put("message", exception.getMessage());
+            responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+            exception.printStackTrace();
         }
 
         return responseEntity;
