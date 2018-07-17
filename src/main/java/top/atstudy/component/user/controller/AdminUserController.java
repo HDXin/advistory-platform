@@ -3,6 +3,7 @@ package top.atstudy.component.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
+import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.base.controller.BasicController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.user.SessionUser;
@@ -11,6 +12,9 @@ import top.atstudy.component.user.vo.req.AdminUserQuery;
 import top.atstudy.component.user.vo.req.AdminUserReq;
 import top.atstudy.component.user.vo.req.PassVo;
 import top.atstudy.component.user.vo.resp.AdminUserResp;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/admin/user")

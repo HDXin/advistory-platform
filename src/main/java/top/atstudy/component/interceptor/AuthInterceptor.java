@@ -10,6 +10,7 @@ import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.base.config.SelfConfig;
 import top.atstudy.component.exception.APIException;
+import top.atstudy.component.user.SessionUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -61,8 +62,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (AuthToken.isActive(authToken)) {
             // place user info
-            request.setAttribute(Constants.SESSION_USER_ID, authToken.userId);
-            request.setAttribute(Constants.SESSION_AUTH_TOKEN, authToken);
+            SessionUser sessionUser = new SessionUser();
+            sessionUser.setUserId(authToken.userId);
+            sessionUser.setUserName(authToken.userName);
+            request.setAttribute(Constants.SESSION_USER_KEY, sessionUser);
             return true;
         }
 

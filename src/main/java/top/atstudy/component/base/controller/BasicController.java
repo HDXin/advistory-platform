@@ -1,13 +1,13 @@
 package top.atstudy.component.base.controller;
 
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import top.atstudy.advistory.base.enums.BadRequest;
-import top.atstudy.advistory.base.enums.Unauthorized;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.exception.FrameworkException;
 import top.atstudy.component.user.SessionUser;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 20:08
  */
 public abstract class BasicController {
-
-    private HttpServletRequest request;
-    private HttpServletResponse response;
 
     protected String buildAuthToken(HttpServletResponse response, AuthToken authToken) throws FrameworkException {
         if(null != authToken && authToken.token() != null){
@@ -48,27 +45,14 @@ public abstract class BasicController {
         response.addCookie(cookie);
     }
 
-    public HttpServletRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(HttpServletRequest request) {
-        this.request = request;
-    }
-
-    public HttpServletResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(HttpServletResponse response) {
-        this.response = response;
-    }
-
     protected SessionUser getSessionUser(){
-
-        SessionUser sessionUser = new SessionUser();
-        sessionUser.setUserId(-99L);
-        sessionUser.setUserName("test");
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        SessionUser sessionUser = (SessionUser) request.getAttribute(Constants.SESSION_USER_KEY);
+        if(sessionUser == null || sessionUser.getUserId() == null){
+            sessionUser = new SessionUser();
+            sessionUser.setUserId(-99L);
+            sessionUser.setUserName("test");
+        }
 
         return sessionUser;
     }

@@ -12,6 +12,7 @@ public class Constants {
     public static final String SESSION = "session";
     public static final String SESSION_AUTH_TOKEN = "session_authToken";
     public static final String SESSION_USER_ID = "userId";
+    public static final String SESSION_USER_KEY = "sessionUser";
     public static final String SESSION_USER_TYPE = "userType";
 
     public static final int DEFAULT_PAGE_OFFSET = 0;
