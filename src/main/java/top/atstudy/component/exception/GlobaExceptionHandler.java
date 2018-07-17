@@ -50,8 +50,6 @@ public class GlobaExceptionHandler {
             }
             logger.info("==>> {}", map.toString());
         }else {
-            logger.info("==>> {}", exception.getMessage());
-
             map.put("code", "500");
             map.put("message", exception.getMessage());
             responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
