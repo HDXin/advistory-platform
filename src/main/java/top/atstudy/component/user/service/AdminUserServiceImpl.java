@@ -2,6 +2,7 @@ package top.atstudy.component.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.enums.EnumDeleted;
@@ -69,6 +70,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
         return this.adminUserDao.countByQuery(query);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public AdminUserResp createAndGet(AdminUserReq req, IOperatorAware operator) {
         AdminUserDTO target = req.convertToDTO();
