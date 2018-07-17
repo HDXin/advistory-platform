@@ -18,14 +18,9 @@ import java.util.stream.Collectors;
  */
 public class AdminUserResp extends BaseSpecFields implements Serializable {
 
-
     private Long userId;
 
     private String userName;
-
-    private String password;
-
-    private String passwordSalt;
 
     private String photo;
 
@@ -55,22 +50,6 @@ public class AdminUserResp extends BaseSpecFields implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
     }
 
     public String getPhoto() {

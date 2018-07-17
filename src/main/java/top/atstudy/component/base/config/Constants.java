@@ -8,6 +8,7 @@ package top.atstudy.component.base.config;
  * Time: 20:09
  */
 public class Constants {
+    public static final String DEFAULT_PASSWORD = "123456";
     public static final String SESSION = "session";
     public static final String SESSION_AUTH_TOKEN = "session_authToken";
     public static final String SESSION_USER_ID = "userId";
