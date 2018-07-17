@@ -19,7 +19,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthToken createToken(LoginReq loginReq) {
-        return createToken(loginReq.getUserId(), loginReq.getUsername());
+        return createToken(loginReq.getUserId(), loginReq.getUserName());
     }
 
     @Override

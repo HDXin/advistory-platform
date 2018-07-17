@@ -162,4 +162,11 @@ public interface IAdminUserDao {
      * 这里需要业务逻辑层做回滚, 生成的代码没有做回滚操作
      */
     boolean batchRemove(List<AdminUserDTO> targets);
+
+    /**
+     * 根据用户名获取用户
+     * @param userName
+     * @return
+     */
+    AdminUserDTO getByName(String userName);
 }

@@ -1,5 +1,6 @@
 package top.atstudy.component.user.dao;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,6 +137,21 @@ public class AdminUserDaoImpl extends BaseDao implements IAdminUserDao {
             result = this.getById(target.getUserId());
         }
         return result;
+    }
+
+    @Override
+    public AdminUserDTO getByName(String userName) {
+
+        if(StringUtils.isBlank(userName))
+            return null;
+
+        AdminUserDTOExample example = new AdminUserDTOExample();
+        AdminUserDTOExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                .andUserNameEqualTo(userName);
+
+        List<AdminUserDTO> list = this.adminUserDTOMapper.selectByExample(example);
+        return CollectionUtils.isEmpty(list) ? null:list.get(0);
     }
 
     @Override

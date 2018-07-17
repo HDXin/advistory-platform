@@ -1,5 +1,7 @@
 package top.atstudy.component.auth.vo;
 
+import top.atstudy.component.user.vo.resp.AdminUserResp;
+
 /**
  * Created with IntelliJ IDEA.
  * Description:
@@ -7,19 +9,9 @@ package top.atstudy.component.auth.vo;
  * Date: 2018-07-12
  * Time: 19:58
  */
-public class AuthVo {
-
-    private String username;
+public class AuthVo extends AdminUserResp{
 
     private String token;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getToken() {
         return token;
