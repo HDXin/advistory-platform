@@ -84,8 +84,10 @@ public class AdminUserServiceImpl implements IAdminUserService {
             throw new APIException(BadRequest.ADMIN_USER_NAME_NULL);
 
         //2.判断用户是否已存在
-        if(!validUserName(null, req.getUserName()))
-            throw new APIException(BadRequest.ADMIN_USER_NAME_EXISTS);
+        if(!validUserName(null, req.getUserName())){
+//            throw new APIException(BadRequest.ADMIN_USER_NAME_EXISTS);
+            throw new RuntimeException("测试入职抛出");
+        }
 
         //3.创建用户
         AdminUserDTO target = req.convertToDTO();
