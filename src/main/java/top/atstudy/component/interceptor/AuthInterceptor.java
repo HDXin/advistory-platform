@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
-import top.atstudy.advistory.base.enums.Unauthorized;
+import top.atstudy.advistory.base.enums.http.Unauthorized;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.base.config.SelfConfig;
@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.soap.Addressing;
 import java.io.IOException;
 
 /**

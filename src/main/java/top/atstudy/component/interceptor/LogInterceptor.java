@@ -6,6 +6,8 @@ import org.slf4j.MDC;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import top.atstudy.component.filter.ReusableHttpServletResponseWrapper;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -66,8 +68,8 @@ public class LogInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
         System.out.println("---------------- <<Response Body>> ------------------------");
         this.logger.info("<-- <<Response-Http-Status>> : {}", response.getStatus());
-        this.logger.info("<-- <<Response-Content-Type>> : {}", request.getContentType());
-        this.logger.info("<-- {}", getResponseData());
+        this.logger.info("<-- <<Response-Content-Type>> : {}", response.getContentType());
+//        this.logger.info("<-- {}", ((ReusableHttpServletResponseWrapper)response).getResponseData("utf-8"));
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
     }
 
@@ -93,8 +95,4 @@ public class LogInterceptor implements HandlerInterceptor {
         return null;
     }
 
-    public static String getResponseData() {
-        String result = MDC.get("X-RESPONSE-DATA");
-        return result == null ? "" : result;
-    }
 }

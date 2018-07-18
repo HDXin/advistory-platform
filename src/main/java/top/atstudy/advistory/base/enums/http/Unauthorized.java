@@ -1,4 +1,4 @@
-package top.atstudy.advistory.base.enums;
+package top.atstudy.advistory.base.enums.http;
 
 import top.atstudy.component.enums.http.IError401Enum;
 

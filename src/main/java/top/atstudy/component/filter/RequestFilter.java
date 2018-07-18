@@ -32,6 +32,8 @@ public class RequestFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         ReusableHttpServletRequestWrapper requestWrapper = new ReusableHttpServletRequestWrapper(request);
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+//        ReusableHttpServletResponseWrapper responseWrapper = new ReusableHttpServletResponseWrapper(response);
+
         filterChain.doFilter(requestWrapper, response);
     }
 

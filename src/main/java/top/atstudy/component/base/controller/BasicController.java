@@ -2,7 +2,7 @@ package top.atstudy.component.base.controller;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import top.atstudy.advistory.base.enums.BadRequest;
+import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.exception.APIException;

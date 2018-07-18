@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import top.atstudy.advistory.base.enums.BadRequest;
+import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.base.config.LogoConfig;
 import top.atstudy.component.base.util.StringUtils;
 import top.atstudy.component.exception.APIException;

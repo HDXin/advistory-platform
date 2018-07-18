@@ -28,7 +28,7 @@ public class GlobaExceptionHandler extends ResponseEntityExceptionHandler{
     private Logger logger = LoggerFactory.getLogger(GlobaExceptionHandler.class);
 
     @ResponseBody
-    @ExceptionHandler({APIException.class, FrameworkException.class, Throwable.class})
+    @ExceptionHandler({APIException.class, FrameworkException.class, Exception.class, Throwable.class})
     public ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable throwable){
 
         //获取错误码

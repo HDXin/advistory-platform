@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import top.atstudy.advistory.base.enums.BadRequest;
+import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.auth.service.AuthService;
 import top.atstudy.component.auth.vo.AuthVo;
 import top.atstudy.component.auth.vo.LoginReq;

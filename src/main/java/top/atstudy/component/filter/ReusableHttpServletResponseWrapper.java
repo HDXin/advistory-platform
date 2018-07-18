@@ -1,7 +1,6 @@
 package top.atstudy.component.filter;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
@@ -16,7 +15,6 @@ import java.io.*;
 public class ReusableHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
     private HttpServletResponse original;
-    private byte[] respBytes;
     private boolean firstTime = true;
 
     /**
@@ -32,49 +30,30 @@ public class ReusableHttpServletResponseWrapper extends HttpServletResponseWrapp
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        if(this.firstTime){
+        if(this.firstTime)
             this.firstTime();
-        }
 
-        ByteArrayOutputStream bos  = new ByteArrayOutputStream();
-        bos.write(this.respBytes);
-        return new PrintWriter(new OutputStreamWriter(bos));
+        return super.getWriter();
     }
+
 
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
-
-        if(this.firstTime){
+        if(this.firstTime)
             this.firstTime();
-        }
 
-        return new ServletOutputStream() {
-            @Override
-            public boolean isReady() {
-                return false;
-            }
-
-            @Override
-            public void setWriteListener(WriteListener listener) {
-
-            }
-
-            @Override
-            public void write(int b) throws IOException {
-
-            }
-        };
+        return super.getOutputStream();
     }
 
-    private synchronized void firstTime() throws IOException {
+    /**
+     * 将数据读入缓冲流
+     */
+    private void firstTime() throws IOException {
+
         if (this.firstTime) {
             this.firstTime = false;
-            ServletOutputStream sos = this.original.getOutputStream();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            this.respBytes = bos.toByteArray();
-            sos.write(this.respBytes);
-            sos.close();
-            bos.close();
+
         }
     }
 }
+
