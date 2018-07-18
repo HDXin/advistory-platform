@@ -14,7 +14,6 @@ import top.atstudy.component.enums.base.IErrorEnum;
 import top.atstudy.component.enums.http.IError400Enum;
 import top.atstudy.component.enums.http.IError401Enum;
 import top.atstudy.component.enums.http.IError403Enum;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -29,30 +28,28 @@ public class GlobaExceptionHandler extends ResponseEntityExceptionHandler{
     private Logger logger = LoggerFactory.getLogger(GlobaExceptionHandler.class);
 
     @ResponseBody
-    @ExceptionHandler({APIException.class, FrameworkException.class, Exception.class})
-    public ResponseEntity<?> handleControllerException(HttpServletRequest request, Exception exception){
+    @ExceptionHandler({APIException.class, FrameworkException.class, Throwable.class})
+    public ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable throwable){
 
         //获取错误码
-        HttpStatus status = getStatus(exception);
+        HttpStatus status = getStatus(throwable);
         //获取错误信息
-        ErrorVo errorVo = getErrorVo(request, exception);
+        ErrorVo errorVo = getErrorVo(request, throwable);
         errorVo.setPath(request.getRequestURI());
         logger.info("==>> {}", JSONObject.toJSONString(errorVo));
 
-
-        logger.info("===>> error: {}", exception);
         return new ResponseEntity<>(errorVo, status);
     }
 
     /**
      * 获取状态码
-     * @param ex
+     * @param throwable
      * @return
      */
-    private HttpStatus getStatus(Exception ex) {
-        if(ex instanceof APIException
-                || ex instanceof FrameworkException){
-            IErrorEnum errorEnum = ((FrameworkException)ex).getErrorEnum();
+    private HttpStatus getStatus(Throwable throwable) {
+        if(throwable instanceof APIException
+                || throwable instanceof FrameworkException){
+            IErrorEnum errorEnum = ((FrameworkException)throwable).getErrorEnum();
             if(errorEnum instanceof IError400Enum){
                 return HttpStatus.BAD_REQUEST;
             }else if(errorEnum instanceof IError401Enum){
@@ -60,20 +57,20 @@ public class GlobaExceptionHandler extends ResponseEntityExceptionHandler{
             }else if(errorEnum instanceof IError403Enum) {
                 return HttpStatus.FORBIDDEN;
             }else{
-                ex.printStackTrace();
+                logger.info("===>> error: {}", throwable);
                 return HttpStatus.INTERNAL_SERVER_ERROR;
             }
         }
-        ex.printStackTrace();
+        logger.info("===>> error: {}", throwable);
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    private ErrorVo getErrorVo(HttpServletRequest request, Exception ex){
+    private ErrorVo getErrorVo(HttpServletRequest request, Throwable throwable){
 
         ErrorVo errorVo = new ErrorVo();
-        if(ex instanceof APIException
-                || ex instanceof FrameworkException){
-            IErrorEnum errorEnum = ((FrameworkException)ex).getErrorEnum();
+        if(throwable instanceof APIException
+                || throwable instanceof FrameworkException){
+            IErrorEnum errorEnum = ((FrameworkException)throwable).getErrorEnum();
             errorVo.setCode((Integer)errorEnum.getCode());
             errorVo.setMessage(errorEnum.getMessage());
         }else{
