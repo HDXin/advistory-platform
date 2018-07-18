@@ -39,6 +39,8 @@ public class GlobaExceptionHandler extends ResponseEntityExceptionHandler{
         errorVo.setPath(request.getRequestURI());
         logger.info("==>> {}", JSONObject.toJSONString(errorVo));
 
+
+        logger.info("===>> error: {}", exception);
         return new ResponseEntity<>(errorVo, status);
     }
 
