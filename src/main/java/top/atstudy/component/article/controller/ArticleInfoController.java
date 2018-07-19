@@ -125,13 +125,15 @@ public class ArticleInfoController extends BasicController {
         if(articleInfoResp == null || articleInfoResp.getArticleId() == null)
             return true;
 
+        //编辑时存在, 即不唯一
         if(articleId == null)
             return false;
 
+        //排除当前编程项
         if(articleId.equals(articleInfoResp.getArticleId()))
             return true;
 
-        return false;
+        return true;
     }
 
     /**
