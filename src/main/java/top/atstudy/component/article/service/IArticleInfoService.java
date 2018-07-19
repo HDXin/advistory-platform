@@ -33,6 +33,6 @@ public interface IArticleInfoService {
 
     boolean remove(Long id, IOperatorAware operator);
 
-
+    ArticleInfoResp getByCode(String code);
 }
 

@@ -23,7 +23,8 @@ public enum BadRequest implements IError400Enum<BadRequest> {
     ADMIN_USER_NAME_NOT_EXISTS(4000607, "该用户不存在"),
     ADMIN_USER_NAME_OR_PASS_INVALID(4000608, "用户名或密码不正确"),
 
-
+    ARTICLE_CODE_IS_NULL(4000701, "文章code不能为空"),
+    ARTICLE_CODE_IS_EXISTS(4000702, "文章code已存在"),
 
     ;
 

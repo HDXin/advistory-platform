@@ -1,6 +1,7 @@
 package top.atstudy.component.article.vo.resp;
 
 import top.atstudy.component.article.dao.dto.ArticleInfoDTO;
+import top.atstudy.component.article.vo.ArticleContentEntity;
 import top.atstudy.component.base.BaseSpecFields;
 import top.atstudy.component.base.util.BeanUtils;
 
@@ -89,5 +90,16 @@ public class ArticleInfoResp extends BaseSpecFields implements Serializable {
 
     public ArticleInfoDTO convertToDTO() {
         return BeanUtils.copyProperties(this, ArticleInfoDTO.class);
+    }
+
+    public static ArticleResp toArticleResp(ArticleInfoResp articleInfoResp){
+
+        ArticleResp articleResp = BeanUtils.copyProperties(articleInfoResp, ArticleResp.class);
+        ArticleContentEntity contentEntity = ArticleContentEntity.toJavaObj(articleInfoResp.getContent());
+        if(contentEntity != null){
+            articleResp.setContentItemList(contentEntity.getContentItemList());
+        }
+
+        return articleResp;
     }
 }

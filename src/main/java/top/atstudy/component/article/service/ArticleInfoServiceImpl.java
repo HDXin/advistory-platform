@@ -1,5 +1,7 @@
 package top.atstudy.component.article.service;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.atstudy.component.article.dao.IArticleInfoDao;
@@ -40,7 +42,6 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
         ArticleInfoDTOExample.Criteria criteria = example.createCriteria();
         criteria.andArticleIdEqualTo(id);
         criteria.andDeletedEqualTo(EnumDeleted.NORMAL);
-        List<ArticleInfoDTO> targets = this.articleInfoDao.listByExample(example);
         ArticleInfoDTO targetDto = this.articleInfoDao.getByExample(example);
         if (targetDto != null) {
             target = ArticleInfoResp.parseSinglet(targetDto);
@@ -91,6 +92,22 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
         target.setOperator(operator, false);
         return this.articleInfoDao.remove(target);
     }
+
+    @Override
+    public ArticleInfoResp getByCode(String code) {
+        if(StringUtils.isBlank(code))
+            return null;
+
+        ArticleInfoDTOExample example = new ArticleInfoDTOExample();
+        ArticleInfoDTOExample.Criteria criteria = example.createCriteria();
+
+        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                .andCodeEqualTo(code);
+
+        List<ArticleInfoDTO> list = this.articleInfoDao.listByExample(example);
+        return CollectionUtils.isEmpty(list) ? null: ArticleInfoResp.parseSinglet(list.get(0));
+    }
+
     /******* GetSet Area ******/
 
     /******* Method Area *******/
