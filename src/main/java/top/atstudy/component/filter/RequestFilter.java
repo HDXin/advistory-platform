@@ -32,6 +32,13 @@ public class RequestFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         ReusableHttpServletRequestWrapper requestWrapper = new ReusableHttpServletRequestWrapper(request);
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        //解决跨域问题
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+
 //        ReusableHttpServletResponseWrapper responseWrapper = new ReusableHttpServletResponseWrapper(response);
 
         filterChain.doFilter(requestWrapper, response);
