@@ -22,9 +22,9 @@ import top.atstudy.component.enums.StringCodeEnumTypeHandler;
 @ServletComponentScan
 @EnableTransactionManagement
 @MapperScan(basePackages = {
-        "top.atstudy.advistory.article.dao.mapper",
         "top.atstudy.component.user.dao.mapper",
-        "top.atstudy.component.swiper.dao.mapper"
+        "top.atstudy.component.swiper.dao.mapper",
+        "top.atstudy.component.article.dao.mapper"
 })
 public class SpringBoot {
     private static final Logger logger = LoggerFactory.getLogger(SpringBoot.class);
