@@ -2,6 +2,7 @@ package top.atstudy.component.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -32,14 +33,20 @@ public class RequestFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         ReusableHttpServletRequestWrapper requestWrapper = new ReusableHttpServletRequestWrapper(request);
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+//        ReusableHttpServletResponseWrapper responseWrapper = new ReusableHttpServletResponseWrapper(response);
 
         //解决跨域问题
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+//        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE");
+        if (requestWrapper.getMethod().equals("OPTIONS")) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("OPTIONS returns OK");
+            return;
+        }
 
-//        ReusableHttpServletResponseWrapper responseWrapper = new ReusableHttpServletResponseWrapper(response);
 
         filterChain.doFilter(requestWrapper, response);
     }
