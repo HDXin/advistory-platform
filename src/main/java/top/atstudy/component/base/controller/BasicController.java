@@ -1,11 +1,14 @@
 package top.atstudy.component.base.controller;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
+import top.atstudy.component.base.config.SelfConfig;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.exception.FrameworkException;
 import top.atstudy.component.user.SessionUser;
@@ -22,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BasicController {
 
-    @Value("${cookie.domain}")
-    private String cookieDomain;
+    @Autowired
+    private SelfConfig selfConfig;
 
     protected String buildAuthToken(HttpServletResponse response, AuthToken authToken) throws FrameworkException {
         if(null != authToken && authToken.token() != null){
@@ -35,17 +38,19 @@ public abstract class BasicController {
     }
 
     protected void setCookies(HttpServletResponse response, AuthToken authToken) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, authToken.token());
         cookie.setMaxAge(Constants.AUTH_TOKEN_AGE_MAX);
-        cookie.setDomain(cookieDomain);
+        cookie.setDomain(getCookieDomain(request));
         cookie.setSecure(false);
         cookie.setPath("/");
         response.addCookie(cookie);
     }
 
     protected void clearCookies(HttpServletResponse response){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, "");
-        cookie.setDomain(cookieDomain);
+        cookie.setDomain(getCookieDomain(request));
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -61,5 +66,13 @@ public abstract class BasicController {
         }
 
         return sessionUser;
+    }
+
+    private String getCookieDomain(HttpServletRequest request){
+        String domain = selfConfig.getCookieDomain();
+        if(StringUtils.isBlank(domain)){
+            domain = request.getServerName();
+        }
+        return domain;
     }
 }

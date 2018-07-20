@@ -1,6 +1,5 @@
 package top.atstudy.component.auth.service;
 
-import top.atstudy.component.auth.vo.AuthVo;
 import top.atstudy.component.auth.vo.LoginReq;
 import top.atstudy.component.base.config.AuthToken;
 
