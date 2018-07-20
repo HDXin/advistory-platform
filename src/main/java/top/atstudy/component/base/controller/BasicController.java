@@ -1,5 +1,6 @@
 package top.atstudy.component.base.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.atstudy.advistory.base.enums.http.BadRequest;
@@ -21,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BasicController {
 
+    @Value("${cookie.domain}")
+    private String cookieDomain;
+
     protected String buildAuthToken(HttpServletResponse response, AuthToken authToken) throws FrameworkException {
         if(null != authToken && authToken.token() != null){
             setCookies(response, authToken);
@@ -33,6 +37,7 @@ public abstract class BasicController {
     protected void setCookies(HttpServletResponse response, AuthToken authToken) {
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, authToken.token());
         cookie.setMaxAge(Constants.AUTH_TOKEN_AGE_MAX);
+        cookie.setDomain(cookieDomain);
         cookie.setSecure(false);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -40,6 +45,7 @@ public abstract class BasicController {
 
     protected void clearCookies(HttpServletResponse response){
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, "");
+        cookie.setDomain(cookieDomain);
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
