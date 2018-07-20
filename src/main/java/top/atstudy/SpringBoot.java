@@ -10,10 +10,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import top.atstudy.component.enums.EnumDeleted;
-import top.atstudy.component.enums.EnumUserStatus;
-import top.atstudy.component.enums.NumberCodeEnumTypeHandler;
-import top.atstudy.component.enums.StringCodeEnumTypeHandler;
+import top.atstudy.component.enums.*;
 
 /**
  * Created by admin on 2017/11/15.
@@ -24,7 +21,8 @@ import top.atstudy.component.enums.StringCodeEnumTypeHandler;
 @MapperScan(basePackages = {
         "top.atstudy.component.user.dao.mapper",
         "top.atstudy.component.swiper.dao.mapper",
-        "top.atstudy.component.article.dao.mapper"
+        "top.atstudy.component.article.dao.mapper",
+        "top.atstudy.advistory.member.dao.mapper"
 })
 public class SpringBoot {
     private static final Logger logger = LoggerFactory.getLogger(SpringBoot.class);
@@ -36,6 +34,7 @@ public class SpringBoot {
         SqlSessionFactory sqlSessionFactory = applicationContext.getBean(SqlSessionFactory.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumDeleted.class, NumberCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumUserStatus.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumMemberLevel.class, StringCodeEnumTypeHandler.class);
     }
 
 }
