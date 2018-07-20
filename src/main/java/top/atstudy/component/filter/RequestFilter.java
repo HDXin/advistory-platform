@@ -39,14 +39,13 @@ public class RequestFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-//        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
         if (requestWrapper.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("OPTIONS returns OK");
             return;
         }
-
 
         filterChain.doFilter(requestWrapper, response);
     }
