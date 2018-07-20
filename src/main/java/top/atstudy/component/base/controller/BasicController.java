@@ -33,6 +33,7 @@ public abstract class BasicController {
     protected void setCookies(HttpServletResponse response, AuthToken authToken) {
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, authToken.token());
         cookie.setMaxAge(Constants.AUTH_TOKEN_AGE_MAX);
+        cookie.setDomain("51alf.cn");
         cookie.setSecure(false);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -40,6 +41,7 @@ public abstract class BasicController {
 
     protected void clearCookies(HttpServletResponse response){
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, "");
+        cookie.setDomain("51alf.cn");
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
