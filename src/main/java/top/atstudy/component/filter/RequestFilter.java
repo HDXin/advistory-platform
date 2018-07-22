@@ -38,9 +38,9 @@ public class RequestFilter implements Filter {
         //解决跨域问题
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie");
-//        response.addHeader("Access-Control-Allow-Credentials", "true");
-//        response.setHeader("Access-Control-Max-Age", "3600");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie, token");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Max-Age", "3600");
         if (requestWrapper.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("OPTIONS returns OK");
