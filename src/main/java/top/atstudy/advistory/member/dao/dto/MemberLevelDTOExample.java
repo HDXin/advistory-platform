@@ -350,52 +350,62 @@ public class MemberLevelDTOExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionEqualTo(Integer value) {
+        public Criteria andDescriptionEqualTo(String value) {
             addCriterion("description =", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotEqualTo(Integer value) {
+        public Criteria andDescriptionNotEqualTo(String value) {
             addCriterion("description <>", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThan(Integer value) {
+        public Criteria andDescriptionGreaterThan(String value) {
             addCriterion("description >", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
             addCriterion("description >=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThan(Integer value) {
+        public Criteria andDescriptionLessThan(String value) {
             addCriterion("description <", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThanOrEqualTo(Integer value) {
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
             addCriterion("description <=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIn(List<Integer> values) {
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
             addCriterion("description in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotIn(List<Integer> values) {
+        public Criteria andDescriptionNotIn(List<String> values) {
             addCriterion("description not in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionBetween(Integer value1, Integer value2) {
+        public Criteria andDescriptionBetween(String value1, String value2) {
             addCriterion("description between", value1, value2, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotBetween(Integer value1, Integer value2) {
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
             addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }

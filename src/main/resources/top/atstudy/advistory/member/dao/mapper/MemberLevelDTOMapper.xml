@@ -3,8 +3,8 @@
 <mapper namespace="top.atstudy.advistory.member.dao.mapper.MemberLevelDTOMapper">
   <resultMap id="BaseResultMap" type="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
     <id column="member_level_id" jdbcType="BIGINT" property="memberLevelId" />
-    <result column="level" jdbcType="VARCHAR" property="level" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
-    <result column="description" jdbcType="INTEGER" property="description" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="origin_price" jdbcType="BIGINT" property="originPrice" />
     <result column="final_price" jdbcType="BIGINT" property="finalPrice" />
     <result column="months" jdbcType="INTEGER" property="months" />
@@ -12,7 +12,7 @@
     <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
     <result column="display_order" jdbcType="INTEGER" property="displayOrder" />
     <result column="version" jdbcType="INTEGER" property="version" />
-    <result column="deleted" jdbcType="INTEGER" property="deleted" typeHandler="top.atstudy.component.enums.NumberCodeEnumTypeHandler"/>
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
     <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -132,7 +132,7 @@
       deleted, create_user_id, create_user_name, 
       create_time, update_user_id, update_user_name, 
       update_time, last_update)
-    values (#{level,jdbcType=VARCHAR}, #{description,jdbcType=INTEGER}, #{originPrice,jdbcType=BIGINT}, 
+    values (#{level,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{originPrice,jdbcType=BIGINT}, 
       #{finalPrice,jdbcType=BIGINT}, #{months,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, 
       #{orderNumber,jdbcType=INTEGER}, #{displayOrder,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
       #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, 
@@ -202,7 +202,7 @@
         #{level,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
-        #{description,jdbcType=INTEGER},
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="originPrice != null">
         #{originPrice,jdbcType=BIGINT},
@@ -267,7 +267,7 @@
         level = #{record.level,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
-        description = #{record.description,jdbcType=INTEGER},
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.originPrice != null">
         origin_price = #{record.originPrice,jdbcType=BIGINT},
@@ -323,7 +323,7 @@
     update member_level
     set member_level_id = #{record.memberLevelId,jdbcType=BIGINT},
       level = #{record.level,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
       origin_price = #{record.originPrice,jdbcType=BIGINT},
       final_price = #{record.finalPrice,jdbcType=BIGINT},
       months = #{record.months,jdbcType=INTEGER},
@@ -350,7 +350,7 @@
         level = #{level,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
-        description = #{description,jdbcType=INTEGER},
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="originPrice != null">
         origin_price = #{originPrice,jdbcType=BIGINT},
@@ -403,7 +403,7 @@
   <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
     update member_level
     set level = #{level,jdbcType=VARCHAR},
-      description = #{description,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
       origin_price = #{originPrice,jdbcType=BIGINT},
       final_price = #{finalPrice,jdbcType=BIGINT},
       months = #{months,jdbcType=INTEGER},

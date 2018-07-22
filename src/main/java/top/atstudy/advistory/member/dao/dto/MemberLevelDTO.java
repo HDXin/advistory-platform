@@ -11,7 +11,7 @@ public class MemberLevelDTO extends BaseDTO implements Serializable {
 
     private EnumMemberLevel level;
 
-    private Integer description;
+    private String description;
 
     private Long originPrice;
 
@@ -43,12 +43,12 @@ public class MemberLevelDTO extends BaseDTO implements Serializable {
         this.level = level;
     }
 
-    public Integer getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Integer description) {
-        this.description = description;
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public Long getOriginPrice() {

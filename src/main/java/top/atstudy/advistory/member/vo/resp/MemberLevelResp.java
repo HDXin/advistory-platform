@@ -24,7 +24,7 @@ public class MemberLevelResp extends BaseSpecFields implements Serializable {
 
     private EnumMemberLevel level;
 
-    private Integer description;
+    private String description;
 
     private Long originPrice;
 
@@ -54,11 +54,11 @@ public class MemberLevelResp extends BaseSpecFields implements Serializable {
         this.level = level;
     }
 
-    public Integer getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Integer description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
