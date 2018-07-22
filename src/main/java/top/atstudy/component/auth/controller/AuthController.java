@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.auth.service.AuthService;
-import top.atstudy.component.auth.vo.AuthVo;
-import top.atstudy.component.auth.vo.LoginReq;
+import top.atstudy.component.auth.vo.AdminAuthVo;
+import top.atstudy.component.auth.vo.AppAuthVo;
+import top.atstudy.component.auth.vo.AdminLoginReq;
+import top.atstudy.component.auth.vo.AppLoginReq;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.controller.BasicController;
 import top.atstudy.component.base.util.BeanUtils;
@@ -18,6 +20,8 @@ import top.atstudy.component.exception.APIException;
 import top.atstudy.component.exception.FrameworkException;
 import top.atstudy.component.user.dao.IAdminUserDao;
 import top.atstudy.component.user.dao.dto.AdminUserDTO;
+import top.atstudy.component.user.service.IAppUserService;
+import top.atstudy.component.user.vo.resp.AppUserResp;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,44 +43,65 @@ public class AuthController extends BasicController{
     @Autowired
     private IAdminUserDao adminUserDao;
 
+    @Autowired
+    private IAppUserService appUserService;
+
     @PostMapping("/mini/login")
-    public String miniLogin(@RequestBody AuthVo authVo){
+    public AppAuthVo miniLogin(HttpServletResponse response,
+                               @RequestBody AppLoginReq appLoginReq) throws FrameworkException {
 
-//        AuthToken authToken = new AuthToken();
+        //1.jscode 不能为空
+        if(StringUtils.isBlank(appLoginReq.getJscode()))
+            throw new APIException(BadRequest.APP_USER_JSCODE_IS_NULL);
 
+        //2.获取当前用户的 openid
+        String openid = null;
 
-        return null;
+        //3.查询出当前 openid 对应的用户
+        AppUserResp appUserResp = this.appUserService.getByOpenid(openid, getSessionUser());
+
+        //4.创建 token
+        appLoginReq.setUserId(appUserResp.getUserId());
+        appLoginReq.setUserName(appUserResp.getUserName());
+        AuthToken authToken = authService.createToken(appLoginReq);
+        String token = buildAuthToken(response, authToken);
+        logger.info(" --->> token: {}", token);
+
+        //5.封装返回结果
+        AppAuthVo authVo = BeanUtils.copyProperties(appUserResp, AppAuthVo.class);
+        authVo.setToken(token);
+        return authVo;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/admin/login")
-    public AuthVo adminLogin(HttpServletResponse response, @RequestBody LoginReq loginReq) throws FrameworkException {
+    public AdminAuthVo adminLogin(HttpServletResponse response, @RequestBody AdminLoginReq adminLoginReq) throws FrameworkException {
 
         //1.用户名不能为空
-        if(StringUtils.isBlank(loginReq.getUserName()))
+        if(StringUtils.isBlank(adminLoginReq.getUserName()))
             throw new APIException(BadRequest.ADMIN_USER_NAME_NULL);
 
         //2.密码不能为空
-        if(StringUtils.isBlank(loginReq.getPassword()))
+        if(StringUtils.isBlank(adminLoginReq.getPassword()))
             throw new APIException(BadRequest.ADMIN_USER_PASSWORD_NULL);
 
         //3.判断用户是否存在
-        AdminUserDTO temp = adminUserDao.getByName(loginReq.getUserName());
+        AdminUserDTO temp = adminUserDao.getByName(adminLoginReq.getUserName());
         if(temp == null || temp.getUserId() == null)
             throw new APIException(BadRequest.ADMIN_USER_NAME_NOT_EXISTS);
 
         //4.判断用户名或密码是否匹配
-        if(!temp.getPassword().equals(PasswordCrypt.encrypt(loginReq.getPassword())))
+        if(!temp.getPassword().equals(PasswordCrypt.encrypt(adminLoginReq.getPassword())))
             throw new APIException(BadRequest.ADMIN_USER_NAME_OR_PASS_INVALID);
 
         //5.创建 token
-        loginReq.setUserId(temp.getUserId());
-        AuthToken authToken = authService.createToken(loginReq);
+        adminLoginReq.setUserId(temp.getUserId());
+        AuthToken authToken = authService.createToken(adminLoginReq);
         String token = buildAuthToken(response, authToken);
         logger.info(" --->> token: {}", token);
 
         //6.封装返回结果
-        AuthVo authVo = BeanUtils.copyProperties(temp, AuthVo.class);
+        AdminAuthVo authVo = BeanUtils.copyProperties(temp, AdminAuthVo.class);
         authVo.setToken(token);
         return authVo;
     }

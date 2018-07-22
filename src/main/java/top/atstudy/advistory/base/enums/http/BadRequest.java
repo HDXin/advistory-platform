@@ -26,6 +26,9 @@ public enum BadRequest implements IError400Enum<BadRequest> {
     ARTICLE_CODE_IS_NULL(4000701, "文章code不能为空"),
     ARTICLE_CODE_IS_EXISTS(4000702, "文章code已存在"),
 
+    APP_USER_JSCODE_IS_NULL(4000801, "jscode不能为空"),
+    APP_USER_JSCODE_INVALID(4000802, "jscode不正确"),
+
     ;
 
     private Integer code;

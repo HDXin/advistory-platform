@@ -1,0 +1,222 @@
+package top.atstudy.component.user.dao.dto;
+
+import top.atstudy.component.base.BaseDTO;
+import top.atstudy.component.enums.EnumDeleted;
+import top.atstudy.component.enums.EnumUserStatus;
+import top.atstudy.component.enums.EnumUserType;
+import java.io.Serializable;
+import java.util.Date;
+
+public class AppUserDTO extends BaseDTO implements Serializable {
+    private Long userId;
+
+    private String userName;
+
+    private String openid;
+
+    private String fullName;
+
+    private String nickname;
+
+    private String photo;
+
+    private Boolean gender;
+
+    private String mobile;
+
+    private Boolean mobileValid;
+
+    private String tel;
+
+    private String email;
+
+    private EnumUserStatus userStatus;
+
+    private String idcardImageReverse;
+
+    private String idcardImageFront;
+
+    private String idcardName;
+
+    private String idcardNo;
+
+    private Date endTime;
+
+    private Date beginTime;
+
+    private EnumUserType userType;
+
+    private Boolean idcardValid;
+
+    private EnumDeleted deleted;
+
+    private static final long serialVersionUID = 1L;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName == null ? null : fullName.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo == null ? null : photo.trim();
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public Boolean getMobileValid() {
+        return mobileValid;
+    }
+
+    public void setMobileValid(Boolean mobileValid) {
+        this.mobileValid = mobileValid;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public EnumUserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(EnumUserStatus userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getIdcardImageReverse() {
+        return idcardImageReverse;
+    }
+
+    public void setIdcardImageReverse(String idcardImageReverse) {
+        this.idcardImageReverse = idcardImageReverse == null ? null : idcardImageReverse.trim();
+    }
+
+    public String getIdcardImageFront() {
+        return idcardImageFront;
+    }
+
+    public void setIdcardImageFront(String idcardImageFront) {
+        this.idcardImageFront = idcardImageFront == null ? null : idcardImageFront.trim();
+    }
+
+    public String getIdcardName() {
+        return idcardName;
+    }
+
+    public void setIdcardName(String idcardName) {
+        this.idcardName = idcardName == null ? null : idcardName.trim();
+    }
+
+    public String getIdcardNo() {
+        return idcardNo;
+    }
+
+    public void setIdcardNo(String idcardNo) {
+        this.idcardNo = idcardNo == null ? null : idcardNo.trim();
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public EnumUserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(EnumUserType userType) {
+        this.userType = userType;
+    }
+
+    public Boolean getIdcardValid() {
+        return idcardValid;
+    }
+
+    public void setIdcardValid(Boolean idcardValid) {
+        this.idcardValid = idcardValid;
+    }
+
+    public EnumDeleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(EnumDeleted deleted) {
+        this.deleted = deleted;
+    }
+}

@@ -4,14 +4,16 @@ package top.atstudy.component.auth.vo;
  * Created with IntelliJ IDEA.
  * Description:
  * User: hdxin
- * Date: 2018-07-12
- * Time: 20:29
+ * Date: 2018-07-23
+ * Time: 0:19
  */
-public class LoginReq {
+public class AppLoginReq {
 
     private Long userId;
+
     private String userName;
-    private String password;
+
+    private String jscode;
 
     public Long getUserId() {
         return userId;
@@ -29,11 +31,11 @@ public class LoginReq {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getJscode() {
+        return jscode;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setJscode(String jscode) {
+        this.jscode = jscode;
     }
 }

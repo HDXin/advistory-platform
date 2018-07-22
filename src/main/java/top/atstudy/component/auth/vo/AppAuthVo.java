@@ -1,15 +1,15 @@
 package top.atstudy.component.auth.vo;
 
-import top.atstudy.component.user.vo.resp.AdminUserResp;
+import top.atstudy.component.user.vo.resp.AppUserResp;
 
 /**
  * Created with IntelliJ IDEA.
  * Description:
  * User: hdxin
- * Date: 2018-07-12
- * Time: 19:58
+ * Date: 2018-07-23
+ * Time: 0:20
  */
-public class AuthVo extends AdminUserResp{
+public class AppAuthVo extends AppUserResp{
 
     private String token;
 
