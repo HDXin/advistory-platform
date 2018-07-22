@@ -10,9 +10,11 @@ import top.atstudy.advistory.member.vo.req.MemberLevelQuery;
 import top.atstudy.component.base.BaseDao;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.Pagination;
+import top.atstudy.component.base.SortField;
 import top.atstudy.component.enums.EnumDeleted;
 import top.atstudy.component.enums.EnumOrder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +85,6 @@ public class MemberLevelDaoImpl extends BaseDao implements IMemberLevelDao {
     public Page<MemberLevelDTO> findByQuery(MemberLevelQuery query) {
         Page<MemberLevelDTO> page = new Page<>(query);
         MemberLevelDTOExample example = this.buildQueryExample(query);
-
         this.loadDefaultOrder(example);
         long total = this.memberLevelDTOMapper.countByExample(example);
         page.setTotal(total);
@@ -173,7 +174,10 @@ public class MemberLevelDaoImpl extends BaseDao implements IMemberLevelDao {
         MemberLevelDTOExample example = new MemberLevelDTOExample();
         MemberLevelDTOExample.Criteria criteria = example.createCriteria();
         criteria.andDeletedEqualTo(EnumDeleted.NORMAL);
-        String orderBySql = super.buildSortSql(query.buildSortFields());
+        List<SortField> sortFields = new ArrayList<>();
+        sortFields.add(new SortField("order_number", EnumOrder.ASC));
+        sortFields.add(new SortField("final_price", EnumOrder.ASC));
+        String orderBySql = super.buildSortSql(sortFields);
         example.setOrderByClause(orderBySql);
         example.limit(query.getOffset(), query.getLimit());
         return example;

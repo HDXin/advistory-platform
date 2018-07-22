@@ -46,17 +46,17 @@ public class MemberLevelController extends BasicController {
     public MemberLevelResp create(@PathVariable("memberLevelId") Long memberLevelId,
                                   @RequestBody MemberLevelReq req){
         req.setMemberLevelId(memberLevelId);
-        return this.memberLevelService.createAndGet(req, getSessionUser());
+        return this.memberLevelService.update(req, getSessionUser());
     }
 
     /**
      * 获取会员等级价格信息
-     * @param id
+     * @param memberLevelId
      * @return
      */
-    @GetMapping("/{id}")
-    public MemberLevelResp get(@PathVariable("id") Long id) {
-        MemberLevelResp target = this.memberLevelService.getById(id);
+    @GetMapping("/{memberLevelId}")
+    public MemberLevelResp get(@PathVariable("memberLevelId") Long memberLevelId) {
+        MemberLevelResp target = this.memberLevelService.getById(memberLevelId);
         return target;
     }
 
