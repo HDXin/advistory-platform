@@ -42,7 +42,7 @@ public abstract class BasicController {
         Cookie cookie = new Cookie(Constants.AUTH_TOKEN_NAME, authToken.token());
         cookie.setMaxAge(Constants.AUTH_TOKEN_AGE_MAX);
         cookie.setDomain(getCookieDomain(request));
-        cookie.setSecure(false);
+//        cookie.setSecure(false);
         cookie.setPath("/");
         response.addCookie(cookie);
     }
