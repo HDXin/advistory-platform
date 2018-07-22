@@ -227,14 +227,16 @@ create table feedback_info
 
 alter table feedback_info comment '已经反馈';
 
+drop table if exists member_level;
+
 /*==============================================================*/
 /* Table: member_level                                          */
 /*==============================================================*/
 create table member_level
 (
    member_level_id      bigint(20) not null auto_increment comment '主键',
-   level                vachar(30) comment '会员等级',
-   description          int comment '等级描述',
+   level                varchar(30) comment '会员等级',
+   description          varchar(60) comment '等级描述',
    origin_price         bigint(20) comment '原价',
    final_price          bigint(20) comment '折后价',
    months               int(11) comment '月数',
@@ -254,6 +256,7 @@ create table member_level
 );
 
 alter table member_level comment '会员价格表';
+
 
 /*==============================================================*/
 /* Table: order_info                                            */
