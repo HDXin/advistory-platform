@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 
 @RestController
-@RequestMapping("/qrcode")
+@RequestMapping("/api/qrcode")
 public class QrcodeController {
     private static final Logger logger = LoggerFactory.getLogger(QrcodeController.class);
 

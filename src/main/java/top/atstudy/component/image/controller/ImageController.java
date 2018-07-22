@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageController {
     private static final Logger logger = LoggerFactory.getLogger(ImageController.class);
 
