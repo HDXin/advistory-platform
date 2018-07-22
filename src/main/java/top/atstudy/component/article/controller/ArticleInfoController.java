@@ -36,7 +36,7 @@ import java.util.List;
  * Tim Zhang - 2017/11/15 下午1:27
  */
 @RestController
-@RequestMapping("/admin/article")
+@RequestMapping("/api/admin/article")
 public class ArticleInfoController extends BasicController {
     /******* Fields Area *******/
 

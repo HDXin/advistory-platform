@@ -27,7 +27,7 @@ import top.atstudy.component.swiper.vo.resp.SwiperInfoResp;
  * Tim Zhang - 2017/11/15 下午1:27
  */
 @RestController
-@RequestMapping("/admin/swiper")
+@RequestMapping("/api/admin/swiper")
 public class SwiperInfoController extends BasicController {
     /******* Fields Area *******/
 

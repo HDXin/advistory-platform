@@ -27,7 +27,7 @@ import top.atstudy.component.exception.APIException;
  * Tim Zhang - 2017/11/15 下午1:27
  */
 @RestController
-@RequestMapping("/admin/memberLevel")
+@RequestMapping("/api/admin/memberLevel")
 public class MemberLevelController extends BasicController {
     /******* Fields Area *******/
 

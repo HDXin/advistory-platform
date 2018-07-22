@@ -26,7 +26,7 @@ import top.atstudy.component.setting.vo.resp.SettingResp;
  * Tim Zhang - 2017/11/15 下午1:27
  */
 @RestController
-@RequestMapping("/admin/setting")
+@RequestMapping("/api/admin/setting")
 public class SettingController extends BasicController {
     /******* Fields Area *******/
 

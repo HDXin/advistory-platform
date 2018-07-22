@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 19:56
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController extends BasicController{
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
