@@ -23,6 +23,7 @@ import top.atstudy.component.enums.*;
         "top.atstudy.component.swiper.dao.mapper",
         "top.atstudy.component.article.dao.mapper",
         "top.atstudy.component.setting.dao.mapper",
+        "top.atstudy.component.feedback.dao.mapper",
         "top.atstudy.advistory.member.dao.mapper"
 })
 public class SpringBoot {
