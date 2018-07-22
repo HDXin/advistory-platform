@@ -3,7 +3,7 @@
 <mapper namespace="top.atstudy.advistory.member.dao.mapper.MemberLevelDTOMapper">
   <resultMap id="BaseResultMap" type="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
     <id column="member_level_id" jdbcType="BIGINT" property="memberLevelId" />
-    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="level" jdbcType="VARCHAR" property="level" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="origin_price" jdbcType="BIGINT" property="originPrice" />
     <result column="final_price" jdbcType="BIGINT" property="finalPrice" />
@@ -12,7 +12,7 @@
     <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
     <result column="display_order" jdbcType="INTEGER" property="displayOrder" />
     <result column="version" jdbcType="INTEGER" property="version" />
-    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted"  typeHandler="top.atstudy.component.enums.NumberCodeEnumTypeHandler"/>
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
     <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
