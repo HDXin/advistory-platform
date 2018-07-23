@@ -36,13 +36,42 @@ public class AppUserController extends BasicController {
     /******* Construction Area *******/
     /******* GetSet Area ******/
 
-
+    /**
+     * 用户详情
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public AppUserResp get(@PathVariable("id") Long id) {
         AppUserResp target = this.appUserService.getById(id);
         return target;
     }
 
+    /**
+     * 启用
+     * @param userId
+     * @return
+     */
+    @PutMapping("/{userId}/enable")
+    public boolean enable(@PathVariable("userId") Long userId){
+        return this.appUserService.enable(userId, getSessionUser());
+    }
+
+    /**
+     * 禁用
+     * @param userId
+     * @return
+     */
+    @PutMapping("/{userId}/disable")
+    public boolean disable(@PathVariable("userId") Long userId){
+        return this.appUserService.disable(userId, getSessionUser());
+    }
+
+    /**
+     * 用户列表
+     * @param query
+     * @return
+     */
     @GetMapping("")
     public Page<AppUserResp> find(AppUserQuery query) {
         Page<AppUserResp> target = this.appUserService.findByQuery(query);

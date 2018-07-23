@@ -3,6 +3,7 @@ package top.atstudy.component.user.service;
 
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
+import top.atstudy.component.user.SessionUser;
 import top.atstudy.component.user.vo.req.AppUserQuery;
 import top.atstudy.component.user.vo.req.AppUserReq;
 import top.atstudy.component.user.vo.resp.AppUserResp;
@@ -39,5 +40,21 @@ public interface IAppUserService {
      * @return
      */
     AppUserResp getByOpenid(String openid, IOperatorAware operator);
+
+    /**
+     * 启用
+     * @param userId
+     * @param operator
+     * @return
+     */
+    boolean enable(Long userId, IOperatorAware operator);
+
+    /**
+     * 禁用
+     * @param userId
+     * @param operator
+     * @return
+     */
+    boolean disable(Long userId, IOperatorAware operator);
 }
 

@@ -24,7 +24,8 @@ import top.atstudy.component.enums.*;
         "top.atstudy.component.article.dao.mapper",
         "top.atstudy.component.setting.dao.mapper",
         "top.atstudy.component.feedback.dao.mapper",
-        "top.atstudy.advistory.member.dao.mapper"
+        "top.atstudy.advistory.member.dao.mapper",
+        "top.atstudy.advistory.advistory.dao.mapper"
 })
 public class SpringBoot {
     private static final Logger logger = LoggerFactory.getLogger(SpringBoot.class);
@@ -32,11 +33,13 @@ public class SpringBoot {
         logger.info(" ===>> spring boot main ... ");
         ApplicationContext applicationContext = SpringApplication.run(SpringBoot.class, args);
 
-
         SqlSessionFactory sqlSessionFactory = applicationContext.getBean(SqlSessionFactory.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumDeleted.class, NumberCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumUserStatus.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumMemberLevel.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumMemberLevel.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryType.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryDetailType.class, StringCodeEnumTypeHandler.class);
     }
 
 }

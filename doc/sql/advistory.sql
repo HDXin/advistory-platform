@@ -56,59 +56,52 @@ create table admin_user
 
 alter table admin_user comment '运营管理账号表';
 
-/*==============================================================*/
-/* Table: advistory_detail                                      */
-/*==============================================================*/
-create table advistory_detail
-(
-   advistory_detail_id  bigint(20) not null auto_increment comment '主键',
-   advistory_id         bigint(20) comment '文章ID',
-   content              varchar(3000) comment '文本',
-   image                varchar(300) comment '图片',
-   linke                varchar(300) comment '跳转',
-   display_order        int(11) default 0 comment '顺序号',
-   version              int(11) default 0 comment '版本号',
-   deleted              int(11) default 1 comment '状态',
-   create_user_id       bigint(20) comment '创建人',
-   create_user_name     varchar(30) comment '创建人姓名',
-   create_time          datetime comment '创建时间',
-   update_user_id       bigint(20) comment '修改人',
-   update_user_name     varchar(30) comment '更新人姓名',
-   update_time          datetime comment '修改时间',
-   last_update          timestamp comment '最后更新时间',
-   primary key (advistory_detail_id)
-);
+CREATE TABLE `advistory_detail` (
+  `advistory_detail_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `advistory_id` bigint(20) DEFAULT NULL COMMENT '文章ID',
+  `advistory_detail_type` varchar(30) DEFAULT NULL COMMENT '类型',
+  `content` varchar(3000) DEFAULT NULL COMMENT '文本',
+  `background` varchar(300) DEFAULT NULL COMMENT '背景图',
+  `link` varchar(300) DEFAULT NULL COMMENT '跳转',
+  `display_order` int(11) DEFAULT '0' COMMENT '顺序号',
+  `version` int(11) DEFAULT '0' COMMENT '版本号',
+  `deleted` int(11) DEFAULT '1' COMMENT '状态',
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(30) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '修改人',
+  `update_user_name` varchar(30) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`advistory_detail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='咨询详情';
 
-alter table advistory_detail comment '咨询详情';
 
-/*==============================================================*/
-/* Table: advistory_info                                        */
-/*==============================================================*/
-create table advistory_info
-(
-   advistory_id         bigint(20) not null auto_increment comment '主键',
-   advistory_type       varchar(30) comment '文章类型',
-   title                varchar(60) comment '标题',
-   digest               varchar(300) comment '摘要',
-   favorite_number      int(11) default 0 comment '收藏数',
-   read_number          int(11) default 0 comment '阅读数',
-   publish_time         datetime comment '发布时间(搜索范围判断字段)',
-   cover_image          varchar(300) comment '封面图',
-   author               varchar(30) comment '作者',
-   display_order        int(11) default 0 comment '顺序号',
-   version              int(11) default 0 comment '版本号',
-   deleted              int(11) default 1 comment '状态',
-   create_user_id       bigint(20) comment '创建人',
-   create_user_name     varchar(30) comment '创建人姓名',
-   create_time          datetime comment '创建时间',
-   update_user_id       bigint(20) comment '修改人',
-   update_user_name     varchar(30) comment '更新人姓名',
-   update_time          datetime comment '修改时间',
-   last_update          timestamp comment '最后更新时间',
-   primary key (advistory_id)
-);
 
-alter table advistory_info comment '咨询';
+CREATE TABLE `advistory_info` (
+  `advistory_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `advistory_type` varchar(30) DEFAULT NULL COMMENT '文章类型',
+  `title` varchar(60) DEFAULT NULL COMMENT '标题',
+  `digest` varchar(300) DEFAULT NULL COMMENT '摘要',
+  `favorite_number` bigint(20) DEFAULT '0' COMMENT '收藏数',
+  `read_number` bigint(20) DEFAULT '0' COMMENT '阅读数',
+  `publish_time` datetime DEFAULT NULL COMMENT '发布时间(搜索范围判断字段)',
+  `cover_image` varchar(300) DEFAULT NULL COMMENT '封面图',
+  `author` varchar(30) DEFAULT NULL COMMENT '作者',
+  `display_order` int(11) DEFAULT '0' COMMENT '顺序号',
+  `version` int(11) DEFAULT '0' COMMENT '版本号',
+  `deleted` int(11) DEFAULT '1' COMMENT '状态',
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(30) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '修改人',
+  `update_user_name` varchar(30) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`advistory_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='咨询';
+
+
 
 /*==============================================================*/
 /* Table: application_user                                      */

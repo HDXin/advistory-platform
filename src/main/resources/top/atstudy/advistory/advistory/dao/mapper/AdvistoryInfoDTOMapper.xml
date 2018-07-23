@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.atstudy.advistory.advistory.dao.mapper.AdvistoryInfoDTOMapper">
+  <resultMap id="BaseResultMap" type="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
+    <id column="advistory_id" jdbcType="BIGINT" property="advistoryId" />
+    <result column="advistory_type" jdbcType="VARCHAR" property="advistoryType" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="favorite_number" jdbcType="BIGINT" property="favoriteNumber" />
+    <result column="read_number" jdbcType="BIGINT" property="readNumber" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="cover_image" jdbcType="VARCHAR" property="coverImage" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="display_order" jdbcType="INTEGER" property="displayOrder" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" typeHandler="top.atstudy.component.enums.NumberCodeEnumTypeHandler"/>
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_user_name" jdbcType="VARCHAR" property="updateUserName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    advistory_id, advistory_type, title, digest, favorite_number, read_number, publish_time, 
+    cover_image, author, display_order, version, deleted, create_user_id, create_user_name, 
+    create_time, update_user_id, update_user_name, update_time, last_update
+  </sql>
+  <select id="selectByExample" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from advistory_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from advistory_info
+    where advistory_id = #{advistoryId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from advistory_info
+    where advistory_id = #{advistoryId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTOExample">
+    delete from advistory_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
+    <selectKey keyProperty="advistoryId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into advistory_info (advistory_type, title, digest, 
+      favorite_number, read_number, publish_time, 
+      cover_image, author, display_order, 
+      version, deleted, create_user_id, 
+      create_user_name, create_time, update_user_id, 
+      update_user_name, update_time, last_update
+      )
+    values (#{advistoryType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      #{favoriteNumber,jdbcType=BIGINT}, #{readNumber,jdbcType=BIGINT}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{coverImage,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, 
+      #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
+      #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
+    <selectKey keyProperty="advistoryId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into advistory_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="advistoryType != null">
+        advistory_type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="favoriteNumber != null">
+        favorite_number,
+      </if>
+      <if test="readNumber != null">
+        read_number,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="coverImage != null">
+        cover_image,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="displayOrder != null">
+        display_order,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateUserName != null">
+        update_user_name,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lastUpdate != null">
+        last_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="advistoryType != null">
+        #{advistoryType,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteNumber != null">
+        #{favoriteNumber,jdbcType=BIGINT},
+      </if>
+      <if test="readNumber != null">
+        #{readNumber,jdbcType=BIGINT},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coverImage != null">
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="displayOrder != null">
+        #{displayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null">
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdate != null">
+        #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTOExample" resultType="java.lang.Long">
+    select count(*) from advistory_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update advistory_info
+    <set>
+      <if test="record.advistoryId != null">
+        advistory_id = #{record.advistoryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.advistoryType != null">
+        advistory_type = #{record.advistoryType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.digest != null">
+        digest = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.favoriteNumber != null">
+        favorite_number = #{record.favoriteNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.readNumber != null">
+        read_number = #{record.readNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.publishTime != null">
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.coverImage != null">
+        cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayOrder != null">
+        display_order = #{record.displayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUserId != null">
+        create_user_id = #{record.createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createUserName != null">
+        create_user_name = #{record.createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null">
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateUserName != null">
+        update_user_name = #{record.updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdate != null">
+        last_update = #{record.lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update advistory_info
+    set advistory_id = #{record.advistoryId,jdbcType=BIGINT},
+      advistory_type = #{record.advistoryType,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      digest = #{record.digest,jdbcType=VARCHAR},
+      favorite_number = #{record.favoriteNumber,jdbcType=BIGINT},
+      read_number = #{record.readNumber,jdbcType=BIGINT},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      display_order = #{record.displayOrder,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      create_user_id = #{record.createUserId,jdbcType=BIGINT},
+      create_user_name = #{record.createUserName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      update_user_name = #{record.updateUserName,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      last_update = #{record.lastUpdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
+    update advistory_info
+    <set>
+      <if test="advistoryType != null">
+        advistory_type = #{advistoryType,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteNumber != null">
+        favorite_number = #{favoriteNumber,jdbcType=BIGINT},
+      </if>
+      <if test="readNumber != null">
+        read_number = #{readNumber,jdbcType=BIGINT},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coverImage != null">
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="displayOrder != null">
+        display_order = #{displayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateUserName != null">
+        update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdate != null">
+        last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where advistory_id = #{advistoryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
+    update advistory_info
+    set advistory_type = #{advistoryType,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      digest = #{digest,jdbcType=VARCHAR},
+      favorite_number = #{favoriteNumber,jdbcType=BIGINT},
+      read_number = #{readNumber,jdbcType=BIGINT},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      display_order = #{displayOrder,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_user_name = #{updateUserName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_update = #{lastUpdate,jdbcType=TIMESTAMP}
+    where advistory_id = #{advistoryId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -107,6 +107,24 @@ public class AppUserServiceImpl implements IAppUserService {
     }
 
     @Override
+    public boolean enable(Long userId, IOperatorAware operator) {
+        AppUserDTO target = new AppUserDTO();
+        target.setUserId(userId);
+        target.setUserStatus(EnumUserStatus.ENABLE);
+        target.setOperator(operator, false);
+        return this.appUserDao.update(target);
+    }
+
+    @Override
+    public boolean disable(Long userId, IOperatorAware operator) {
+        AppUserDTO target = new AppUserDTO();
+        target.setUserId(userId);
+        target.setUserStatus(EnumUserStatus.DISABLE);
+        target.setOperator(operator, false);
+        return this.appUserDao.update(target);
+    }
+
+    @Override
     public boolean remove(Long id, IOperatorAware operator) {
         AppUserDTO target = this.appUserDao.getById(id);
         target.setOperator(operator, false);
