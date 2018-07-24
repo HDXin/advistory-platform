@@ -22,8 +22,10 @@ import top.atstudy.component.user.dao.IAdminUserDao;
 import top.atstudy.component.user.dao.dto.AdminUserDTO;
 import top.atstudy.component.user.service.IAppUserService;
 import top.atstudy.component.user.vo.resp.AppUserResp;
+import top.atstudy.component.wechat.accesstoken.service.IAccessTokenService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,16 +48,19 @@ public class AuthController extends BasicController{
     @Autowired
     private IAppUserService appUserService;
 
+    @Autowired
+    private IAccessTokenService accessTokenService;
+
     @PostMapping("/mini/login")
     public AppAuthVo miniLogin(HttpServletResponse response,
-                               @RequestBody AppLoginReq appLoginReq) throws FrameworkException {
+                               @RequestBody AppLoginReq appLoginReq) throws FrameworkException, IOException {
 
         //1.jscode 不能为空
         if(StringUtils.isBlank(appLoginReq.getJscode()))
             throw new APIException(BadRequest.APP_USER_JSCODE_IS_NULL);
 
         //2.获取当前用户的 openid
-        String openid = null;
+        String openid = accessTokenService.getBookAccessToken();
 
         //3.查询出当前 openid 对应的用户
         AppUserResp appUserResp = this.appUserService.getByOpenid(openid, getSessionUser());

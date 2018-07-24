@@ -18,6 +18,8 @@ public class Constants {
     public static final int DEFAULT_PAGE_OFFSET = 0;
     public static final int DEFAULT_PAGE_LIMIT = 15;
 
+    public static final int DEFAULT_LIMIT = 100;
+
     /**
      * AuthToken 活跃时间（即自动续期最大间隔）（24小时）
      */
