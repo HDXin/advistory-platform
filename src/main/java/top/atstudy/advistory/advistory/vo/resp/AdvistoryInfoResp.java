@@ -3,7 +3,10 @@ package top.atstudy.advistory.advistory.vo.resp;
 import top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO;
 import top.atstudy.component.base.BaseSpecFields;
 import top.atstudy.component.base.util.BeanUtils;
+import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
+import top.atstudy.component.enums.EnumDeleted;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +25,8 @@ public class AdvistoryInfoResp extends BaseSpecFields implements Serializable {
 
     private Long advistoryId;
 
+    private EnumAdvistoryLevel advistoryLevel;
+
     private EnumAdvistoryType advistoryType;
 
     private String title;
@@ -32,11 +37,21 @@ public class AdvistoryInfoResp extends BaseSpecFields implements Serializable {
 
     private Long readNumber;
 
-    private Date publishTime;
-
     private String coverImage;
 
+    private Boolean recommendStatus;
+
+    private Long publishUserId;
+
+    private String publishUserName;
+
+    private Date publishOperationTime;
+
+    private Date publishTime;
+
     private String author;
+
+    private EnumDeleted deleted;
 
     private List<AdvistoryDetailResp> details = new ArrayList<>();
 
@@ -112,6 +127,56 @@ public class AdvistoryInfoResp extends BaseSpecFields implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author == null ? null : author.trim();
+    }
+
+    public EnumAdvistoryLevel getAdvistoryLevel() {
+        return advistoryLevel;
+    }
+
+    public void setAdvistoryLevel(EnumAdvistoryLevel advistoryLevel) {
+        this.advistoryLevel = advistoryLevel;
+    }
+
+    public Boolean getRecommendStatus() {
+        return recommendStatus;
+    }
+
+    public void setRecommendStatus(Boolean recommendStatus) {
+        this.recommendStatus = recommendStatus;
+    }
+
+    public Long getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(Long publishUserId) {
+        this.publishUserId = publishUserId;
+    }
+
+    public String getPublishUserName() {
+        return publishUserName;
+    }
+
+    public void setPublishUserName(String publishUserName) {
+        this.publishUserName = publishUserName;
+    }
+
+    public Date getPublishOperationTime() {
+        return publishOperationTime;
+    }
+
+    public void setPublishOperationTime(Date publishOperationTime) {
+        this.publishOperationTime = publishOperationTime;
+    }
+
+    @Override
+    public EnumDeleted getDeleted() {
+        return deleted;
+    }
+
+    @Override
+    public void setDeleted(EnumDeleted deleted) {
+        this.deleted = deleted;
     }
 
     public List<AdvistoryDetailResp> getDetails() {

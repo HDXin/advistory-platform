@@ -163,4 +163,17 @@ public interface IAdvistoryDetailDao {
      * 这里需要业务逻辑层做回滚, 生成的代码没有做回滚操作
      */
     boolean batchRemove(List<AdvistoryDetailDTO> targets);
+
+    /**
+     * 删除指定文件的详情
+     * @param advistoryId
+     */
+    void deleteByAdvistoryId(Long advistoryId);
+
+    /**
+     * 获取咨询详情
+     * @param advistroyId
+     * @return
+     */
+    List<AdvistoryDetailDTO> getByAdvistoryId(Long advistroyId);
 }

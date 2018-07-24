@@ -31,6 +31,8 @@ public class AdvistoryDetailReq implements Serializable {
 
     private String link;
 
+    private Integer displayOrder;
+
     private static final long serialVersionUID = 1L;
 
     public Long getAdvistoryDetailId() {
@@ -81,6 +83,13 @@ public class AdvistoryDetailReq implements Serializable {
         this.link = link == null ? null : link.trim();
     }
 
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
+    }
 
     public static AdvistoryDetailDTO convertToDTO(AdvistoryDetailReq req) {
         return req.convertToDTO();

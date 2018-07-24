@@ -2,7 +2,9 @@ package top.atstudy.advistory.advistory.vo.req;
 
 import top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO;
 import top.atstudy.component.base.util.BeanUtils;
+import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
+import top.atstudy.component.enums.EnumDeleted;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public class AdvistoryInfoReq implements Serializable {
 
     private Long advistoryId;
 
+    private EnumAdvistoryLevel advistoryLevel;
+
     private EnumAdvistoryType advistoryType;
 
     private String title;
@@ -33,11 +37,23 @@ public class AdvistoryInfoReq implements Serializable {
 
     private Long readNumber;
 
-    private Date publishTime;
-
     private String coverImage;
 
+    private Boolean recommendStatus;
+
+    private Long publishUserId;
+
+    private String publishUserName;
+
+    private Date publishOperationTime;
+
+    private Date publishTime;
+
+    private String publishTimeStr;
+
     private String author;
+
+    private EnumDeleted deleted;
 
     private List<AdvistoryDetailReq> details = new ArrayList<>();
 
@@ -99,6 +115,14 @@ public class AdvistoryInfoReq implements Serializable {
         this.publishTime = publishTime;
     }
 
+    public String getPublishTimeStr() {
+        return publishTimeStr;
+    }
+
+    public void setPublishTimeStr(String publishTimeStr) {
+        this.publishTimeStr = publishTimeStr;
+    }
+
     public String getCoverImage() {
         return coverImage;
     }
@@ -113,6 +137,54 @@ public class AdvistoryInfoReq implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author == null ? null : author.trim();
+    }
+
+    public EnumAdvistoryLevel getAdvistoryLevel() {
+        return advistoryLevel;
+    }
+
+    public void setAdvistoryLevel(EnumAdvistoryLevel advistoryLevel) {
+        this.advistoryLevel = advistoryLevel;
+    }
+
+    public Boolean getRecommendStatus() {
+        return recommendStatus;
+    }
+
+    public void setRecommendStatus(Boolean recommendStatus) {
+        this.recommendStatus = recommendStatus;
+    }
+
+    public Long getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(Long publishUserId) {
+        this.publishUserId = publishUserId;
+    }
+
+    public String getPublishUserName() {
+        return publishUserName;
+    }
+
+    public void setPublishUserName(String publishUserName) {
+        this.publishUserName = publishUserName;
+    }
+
+    public Date getPublishOperationTime() {
+        return publishOperationTime;
+    }
+
+    public void setPublishOperationTime(Date publishOperationTime) {
+        this.publishOperationTime = publishOperationTime;
+    }
+
+    public EnumDeleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(EnumDeleted deleted) {
+        this.deleted = deleted;
     }
 
     public List<AdvistoryDetailReq> getDetails() {

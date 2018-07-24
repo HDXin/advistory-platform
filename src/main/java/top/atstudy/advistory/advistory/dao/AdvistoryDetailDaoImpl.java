@@ -10,9 +10,11 @@ import top.atstudy.advistory.advistory.vo.req.AdvistoryDetailQuery;
 import top.atstudy.component.base.BaseDao;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.Pagination;
+import top.atstudy.component.base.SortField;
 import top.atstudy.component.enums.EnumDeleted;
 import top.atstudy.component.enums.EnumOrder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -145,6 +147,23 @@ public class AdvistoryDetailDaoImpl extends BaseDao implements IAdvistoryDetailD
     }
 
     @Override
+    public void deleteByAdvistoryId(Long advistoryId) {
+
+        if(advistoryId == null)
+            return ;
+
+        AdvistoryDetailDTOExample example = new AdvistoryDetailDTOExample();
+        AdvistoryDetailDTOExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                .andAdvistoryIdEqualTo(advistoryId);
+
+        AdvistoryDetailDTO record = new AdvistoryDetailDTO();
+        record.setDeleted(EnumDeleted.DELETED);
+
+        this.advistoryDetailDTOMapper.updateByExampleSelective(record, example);
+    }
+
+    @Override
     public boolean batchCreate(List<AdvistoryDetailDTO> targets) {
         boolean batchFlag = targets.stream().map(this::create).filter(v -> !v).count() == 0;
         return batchFlag;
@@ -154,6 +173,23 @@ public class AdvistoryDetailDaoImpl extends BaseDao implements IAdvistoryDetailD
     public boolean batchUpdate(List<AdvistoryDetailDTO> targets) {
         boolean batchFlag = targets.stream().map(this::update).filter(v -> !v).count() == 0;
         return batchFlag;
+    }
+
+    @Override
+    public List<AdvistoryDetailDTO> getByAdvistoryId(Long advistroyId) {
+
+        if(advistroyId == null)
+            return null;
+
+        AdvistoryDetailDTOExample example = new AdvistoryDetailDTOExample();
+        AdvistoryDetailDTOExample.Criteria criteria = example.createCriteria();
+        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                .andAdvistoryIdEqualTo(advistroyId);
+
+        List<SortField> sortFields = new ArrayList<>();
+        sortFields.add(new SortField("display_order", EnumOrder.ASC));
+        example.setOrderByClause(buildSortSql(sortFields));
+        return this.advistoryDetailDTOMapper.selectByExample(example);
     }
 
     @Override

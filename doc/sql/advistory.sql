@@ -78,28 +78,42 @@ CREATE TABLE `advistory_detail` (
 
 
 
-CREATE TABLE `advistory_info` (
-  `advistory_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `advistory_type` varchar(30) DEFAULT NULL COMMENT '文章类型',
-  `title` varchar(60) DEFAULT NULL COMMENT '标题',
-  `digest` varchar(300) DEFAULT NULL COMMENT '摘要',
-  `favorite_number` bigint(20) DEFAULT '0' COMMENT '收藏数',
-  `read_number` bigint(20) DEFAULT '0' COMMENT '阅读数',
-  `publish_time` datetime DEFAULT NULL COMMENT '发布时间(搜索范围判断字段)',
-  `cover_image` varchar(300) DEFAULT NULL COMMENT '封面图',
-  `author` varchar(30) DEFAULT NULL COMMENT '作者',
-  `display_order` int(11) DEFAULT '0' COMMENT '顺序号',
-  `version` int(11) DEFAULT '0' COMMENT '版本号',
-  `deleted` int(11) DEFAULT '1' COMMENT '状态',
-  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `create_user_name` varchar(30) DEFAULT NULL COMMENT '创建人姓名',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_user_id` bigint(20) DEFAULT NULL COMMENT '修改人',
-  `update_user_name` varchar(30) DEFAULT NULL COMMENT '更新人姓名',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
-  PRIMARY KEY (`advistory_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='咨询';
+drop table if exists advistory_info;
+
+/*==============================================================*/
+/* Table: advistory_info                                        */
+/*==============================================================*/
+create table advistory_info
+(
+   advistory_id         bigint(20) not null auto_increment comment '主键',
+   advistory_level      varchar(30) comment '文章等级',
+   advistory_type       varchar(30) comment '文章类型',
+   title                varchar(60) comment '标题',
+   digest               varchar(300) comment '摘要',
+   favorite_number      bigint(20) default 0 comment '收藏数',
+   read_number          bigint(20) default 0 comment '阅读数',
+   cover_image          varchar(300) comment '封面图',
+   recommend_status     tinyint(1) comment '是否推荐',
+   publish_user_id      bigint(20) comment '发布人ID',
+   publish_user_name    varchar(30) comment '发布人名',
+   publish_operation_time datetime comment '操作发布时间',
+   publish_time         datetime comment '发布时间(搜索范围判断字段)',
+   author               varchar(30) comment '作者',
+   display_order        int(11) default 0 comment '顺序号',
+   version              int(11) default 0 comment '版本号',
+   deleted              int(11) default 0 comment '状态',
+   create_user_id       bigint(20) comment '创建人',
+   create_user_name     varchar(30) comment '创建人姓名',
+   create_time          datetime comment '创建时间',
+   update_user_id       bigint(20) comment '修改人',
+   update_user_name     varchar(30) comment '更新人姓名',
+   update_time          datetime comment '修改时间',
+   last_update          timestamp comment '最后更新时间',
+   primary key (advistory_id)
+);
+
+alter table advistory_info comment '咨询';
+
 
 
 

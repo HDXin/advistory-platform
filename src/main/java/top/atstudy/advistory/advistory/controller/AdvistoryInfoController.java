@@ -10,6 +10,8 @@ import top.atstudy.component.base.Page;
 import top.atstudy.component.base.controller.BasicController;
 import top.atstudy.component.exception.APIException;
 
+import java.text.ParseException;
+
 /**
  * smart-mybatis-spring-boot-starter
  * <p>
@@ -43,7 +45,7 @@ public class AdvistoryInfoController extends BasicController {
      * @return
      */
     @PostMapping("")
-    public AdvistoryInfoResp create(@RequestBody AdvistoryInfoReq req){
+    public AdvistoryInfoResp create(@RequestBody AdvistoryInfoReq req) throws ParseException {
         return this.advistoryInfoService.createAndGet(req, getSessionUser());
     }
 
@@ -55,7 +57,7 @@ public class AdvistoryInfoController extends BasicController {
      */
     @PutMapping("/{advistoryId}")
     public AdvistoryInfoResp update(@PathVariable("advistoryId") Long advistoryId,
-                                    @RequestBody AdvistoryInfoReq req){
+                                    @RequestBody AdvistoryInfoReq req) throws ParseException {
         req.setAdvistoryId(advistoryId);
         return this.advistoryInfoService.update(req, getSessionUser());
     }
@@ -68,6 +70,7 @@ public class AdvistoryInfoController extends BasicController {
     @GetMapping("/{id}")
     public AdvistoryInfoResp get(@PathVariable("id") Long id) {
         AdvistoryInfoResp target = this.advistoryInfoService.getById(id);
+
         return target;
     }
 

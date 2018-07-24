@@ -1,6 +1,7 @@
 package top.atstudy.advistory.advistory.dao.dto;
 
 import top.atstudy.component.base.BaseDTO;
+import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
 import top.atstudy.component.enums.EnumDeleted;
 import java.io.Serializable;
@@ -8,6 +9,8 @@ import java.util.Date;
 
 public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
     private Long advistoryId;
+
+    private EnumAdvistoryLevel advistoryLevel;
 
     private EnumAdvistoryType advistoryType;
 
@@ -19,9 +22,17 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     private Long readNumber;
 
-    private Date publishTime;
-
     private String coverImage;
+
+    private Boolean recommendStatus;
+
+    private Long publishUserId;
+
+    private String publishUserName;
+
+    private Date publishOperationTime;
+
+    private Date publishTime;
 
     private String author;
 
@@ -35,6 +46,14 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     public void setAdvistoryId(Long advistoryId) {
         this.advistoryId = advistoryId;
+    }
+
+    public EnumAdvistoryLevel getAdvistoryLevel() {
+        return advistoryLevel;
+    }
+
+    public void setAdvistoryLevel(EnumAdvistoryLevel advistoryLevel) {
+        this.advistoryLevel = advistoryLevel;
     }
 
     public EnumAdvistoryType getAdvistoryType() {
@@ -77,20 +96,52 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
         this.readNumber = readNumber;
     }
 
-    public Date getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
-    }
-
     public String getCoverImage() {
         return coverImage;
     }
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage == null ? null : coverImage.trim();
+    }
+
+    public Boolean getRecommendStatus() {
+        return recommendStatus;
+    }
+
+    public void setRecommendStatus(Boolean recommendStatus) {
+        this.recommendStatus = recommendStatus;
+    }
+
+    public Long getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(Long publishUserId) {
+        this.publishUserId = publishUserId;
+    }
+
+    public String getPublishUserName() {
+        return publishUserName;
+    }
+
+    public void setPublishUserName(String publishUserName) {
+        this.publishUserName = publishUserName == null ? null : publishUserName.trim();
+    }
+
+    public Date getPublishOperationTime() {
+        return publishOperationTime;
+    }
+
+    public void setPublishOperationTime(Date publishOperationTime) {
+        this.publishOperationTime = publishOperationTime;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 
     public String getAuthor() {

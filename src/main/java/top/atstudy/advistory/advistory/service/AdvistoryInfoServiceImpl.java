@@ -1,6 +1,7 @@
 package top.atstudy.advistory.advistory.service;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,10 @@ import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.enums.EnumDeleted;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +57,13 @@ public class AdvistoryInfoServiceImpl implements IAdvistoryInfoService {
         AdvistoryInfoDTO targetDto = this.advistoryInfoDao.getByExample(example);
         if (targetDto != null) {
             target = AdvistoryInfoResp.parseSinglet(targetDto);
+
+            //获取资讯详情
+            List<AdvistoryDetailDTO> details = this.advistoryDetailDao.getByAdvistoryId(id);
+            target.setDetails(AdvistoryDetailResp.parseList(details));
+
         }
+
         return target;
     }
 
@@ -80,36 +90,46 @@ public class AdvistoryInfoServiceImpl implements IAdvistoryInfoService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public AdvistoryInfoResp createAndGet(AdvistoryInfoReq req, IOperatorAware operator) {
+    public AdvistoryInfoResp createAndGet(AdvistoryInfoReq req, IOperatorAware operator) throws ParseException {
+
         AdvistoryInfoDTO target = req.convertToDTO();
         target.setOperator(operator, true);
+        if(StringUtils.isNotBlank(req.getPublishTimeStr())){
+            updatePublishTime(req.getPublishTimeStr(), target, operator);
+        }
+
         target = this.advistoryInfoDao.createAndGet(target);
-        AdvistoryInfoResp resp = new AdvistoryInfoResp();
+        AdvistoryInfoResp resp = AdvistoryInfoResp.parseSinglet(target);
         if(CollectionUtils.isEmpty(req.getDetails()))
             return resp;
 
         //维护文章详情
-        List<AdvistoryDetailDTO> details = new ArrayList<>();
-        for(AdvistoryDetailReq detailReq:req.getDetails()){
-            detailReq.setAdvistoryId(target.getAdvistoryId());
-
-            AdvistoryDetailDTO temp = detailReq.convertToDTO();
-            temp.setOperator(operator, true);
-            temp = this.advistoryDetailDao.createAndGet(temp);
-
-            details.add(temp);
-        }
-        resp.setDetails(AdvistoryDetailResp.parseList(details));
+        resp.setDetails(saveDetails(target.getAdvistoryId(), req.getDetails(), operator));
         return resp;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public AdvistoryInfoResp update(AdvistoryInfoReq req, IOperatorAware operator) {
+    public AdvistoryInfoResp update(AdvistoryInfoReq req, IOperatorAware operator) throws ParseException {
+        //1.删除当前文章的详情
+        this.advistoryDetailDao.deleteByAdvistoryId(req.getAdvistoryId());
+
+        //2.保存文章主信息
         AdvistoryInfoDTO target = req.convertToDTO();
         target.setOperator(operator, false);
+        if(StringUtils.isNotBlank(req.getPublishTimeStr())){
+            updatePublishTime(req.getPublishTimeStr(), target, operator);
+        }
+
         target = this.advistoryInfoDao.updateAndGet(target);
-        return AdvistoryInfoResp.parseSinglet(target);
+        AdvistoryInfoResp resp = AdvistoryInfoResp.parseSinglet(target);
+        if(CollectionUtils.isEmpty(req.getDetails()))
+            return resp;
+
+        //3.编辑文章详细信息
+        resp.setDetails(saveDetails(target.getAdvistoryId(), req.getDetails(), operator));
+
+        return resp;
     }
 
     @Override
@@ -121,6 +141,33 @@ public class AdvistoryInfoServiceImpl implements IAdvistoryInfoService {
     /******* GetSet Area ******/
 
     /******* Method Area *******/
+    private List<AdvistoryDetailResp> saveDetails(Long advistoryId, List<AdvistoryDetailReq> detailReqs, IOperatorAware operator){
+        List<AdvistoryDetailDTO> details = new ArrayList<>();
+        for(AdvistoryDetailReq detailReq:detailReqs){
+            detailReq.setAdvistoryId(advistoryId);
 
+            AdvistoryDetailDTO temp = detailReq.convertToDTO();
+            temp.setOperator(operator, true);
+            temp = this.advistoryDetailDao.createAndGet(temp);
+
+            details.add(temp);
+        }
+        return AdvistoryDetailResp.parseList(details);
+    }
+
+    /**
+     * 维护发布人信息
+     * @param publishTimeStr
+     * @param target
+     * @param operator
+     */
+    private void updatePublishTime(String publishTimeStr, AdvistoryInfoDTO target, IOperatorAware operator) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        target.setPublishTime(sdf.parse(publishTimeStr));
+
+        target.setPublishUserId(operator.getOperatorId());
+        target.setPublishUserName(operator.getOperatorName());
+        target.setPublishOperationTime(new Date());
+    }
 
 }

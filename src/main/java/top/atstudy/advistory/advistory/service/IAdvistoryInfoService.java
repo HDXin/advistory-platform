@@ -7,6 +7,7 @@ import top.atstudy.advistory.advistory.vo.resp.AdvistoryInfoResp;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -27,9 +28,9 @@ public interface IAdvistoryInfoService {
 
     Long countByQuery(AdvistoryInfoQuery query);
 
-    AdvistoryInfoResp createAndGet(AdvistoryInfoReq req, IOperatorAware operator);
+    AdvistoryInfoResp createAndGet(AdvistoryInfoReq req, IOperatorAware operator) throws ParseException;
 
-    AdvistoryInfoResp update(AdvistoryInfoReq req, IOperatorAware operator);
+    AdvistoryInfoResp update(AdvistoryInfoReq req, IOperatorAware operator) throws ParseException;
 
     boolean remove(Long id, IOperatorAware operator);
 

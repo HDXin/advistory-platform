@@ -1,8 +1,8 @@
 package top.atstudy.advistory.advistory.dao.dto;
 
+import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
 import top.atstudy.component.enums.EnumDeleted;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -267,6 +267,76 @@ public class AdvistoryInfoDTOExample {
 
         public Criteria andAdvistoryIdNotBetween(Long value1, Long value2) {
             addCriterion("advistory_id not between", value1, value2, "advistoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelIsNull() {
+            addCriterion("advistory_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelIsNotNull() {
+            addCriterion("advistory_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelEqualTo(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level =", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelNotEqualTo(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level <>", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelGreaterThan(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level >", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelGreaterThanOrEqualTo(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level >=", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelLessThan(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level <", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelLessThanOrEqualTo(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level <=", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelLike(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level like", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelNotLike(EnumAdvistoryLevel value) {
+            addCriterion("advistory_level not like", value, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelIn(List<EnumAdvistoryLevel> values) {
+            addCriterion("advistory_level in", values, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelNotIn(List<EnumAdvistoryLevel> values) {
+            addCriterion("advistory_level not in", values, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelBetween(EnumAdvistoryLevel value1, EnumAdvistoryLevel value2) {
+            addCriterion("advistory_level between", value1, value2, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryLevelNotBetween(EnumAdvistoryLevel value1, EnumAdvistoryLevel value2) {
+            addCriterion("advistory_level not between", value1, value2, "advistoryLevel");
             return (Criteria) this;
         }
 
@@ -600,66 +670,6 @@ public class AdvistoryInfoDTOExample {
             return (Criteria) this;
         }
 
-        public Criteria andPublishTimeIsNull() {
-            addCriterion("publish_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeIsNotNull() {
-            addCriterion("publish_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeEqualTo(Date value) {
-            addCriterion("publish_time =", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeNotEqualTo(Date value) {
-            addCriterion("publish_time <>", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeGreaterThan(Date value) {
-            addCriterion("publish_time >", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("publish_time >=", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeLessThan(Date value) {
-            addCriterion("publish_time <", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeLessThanOrEqualTo(Date value) {
-            addCriterion("publish_time <=", value, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeIn(List<Date> values) {
-            addCriterion("publish_time in", values, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeNotIn(List<Date> values) {
-            addCriterion("publish_time not in", values, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeBetween(Date value1, Date value2) {
-            addCriterion("publish_time between", value1, value2, "publishTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andPublishTimeNotBetween(Date value1, Date value2) {
-            addCriterion("publish_time not between", value1, value2, "publishTime");
-            return (Criteria) this;
-        }
-
         public Criteria andCoverImageIsNull() {
             addCriterion("cover_image is null");
             return (Criteria) this;
@@ -727,6 +737,316 @@ public class AdvistoryInfoDTOExample {
 
         public Criteria andCoverImageNotBetween(String value1, String value2) {
             addCriterion("cover_image not between", value1, value2, "coverImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusIsNull() {
+            addCriterion("recommend_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusIsNotNull() {
+            addCriterion("recommend_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusEqualTo(Boolean value) {
+            addCriterion("recommend_status =", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusNotEqualTo(Boolean value) {
+            addCriterion("recommend_status <>", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusGreaterThan(Boolean value) {
+            addCriterion("recommend_status >", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("recommend_status >=", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusLessThan(Boolean value) {
+            addCriterion("recommend_status <", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("recommend_status <=", value, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusIn(List<Boolean> values) {
+            addCriterion("recommend_status in", values, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusNotIn(List<Boolean> values) {
+            addCriterion("recommend_status not in", values, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("recommend_status between", value1, value2, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecommendStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("recommend_status not between", value1, value2, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdIsNull() {
+            addCriterion("publish_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdIsNotNull() {
+            addCriterion("publish_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdEqualTo(Long value) {
+            addCriterion("publish_user_id =", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdNotEqualTo(Long value) {
+            addCriterion("publish_user_id <>", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdGreaterThan(Long value) {
+            addCriterion("publish_user_id >", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("publish_user_id >=", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdLessThan(Long value) {
+            addCriterion("publish_user_id <", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("publish_user_id <=", value, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdIn(List<Long> values) {
+            addCriterion("publish_user_id in", values, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdNotIn(List<Long> values) {
+            addCriterion("publish_user_id not in", values, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdBetween(Long value1, Long value2) {
+            addCriterion("publish_user_id between", value1, value2, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("publish_user_id not between", value1, value2, "publishUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameIsNull() {
+            addCriterion("publish_user_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameIsNotNull() {
+            addCriterion("publish_user_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameEqualTo(String value) {
+            addCriterion("publish_user_name =", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameNotEqualTo(String value) {
+            addCriterion("publish_user_name <>", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameGreaterThan(String value) {
+            addCriterion("publish_user_name >", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("publish_user_name >=", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameLessThan(String value) {
+            addCriterion("publish_user_name <", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameLessThanOrEqualTo(String value) {
+            addCriterion("publish_user_name <=", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameLike(String value) {
+            addCriterion("publish_user_name like", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameNotLike(String value) {
+            addCriterion("publish_user_name not like", value, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameIn(List<String> values) {
+            addCriterion("publish_user_name in", values, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameNotIn(List<String> values) {
+            addCriterion("publish_user_name not in", values, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameBetween(String value1, String value2) {
+            addCriterion("publish_user_name between", value1, value2, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishUserNameNotBetween(String value1, String value2) {
+            addCriterion("publish_user_name not between", value1, value2, "publishUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeIsNull() {
+            addCriterion("publish_operation_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeIsNotNull() {
+            addCriterion("publish_operation_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeEqualTo(Date value) {
+            addCriterion("publish_operation_time =", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeNotEqualTo(Date value) {
+            addCriterion("publish_operation_time <>", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeGreaterThan(Date value) {
+            addCriterion("publish_operation_time >", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("publish_operation_time >=", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeLessThan(Date value) {
+            addCriterion("publish_operation_time <", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeLessThanOrEqualTo(Date value) {
+            addCriterion("publish_operation_time <=", value, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeIn(List<Date> values) {
+            addCriterion("publish_operation_time in", values, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeNotIn(List<Date> values) {
+            addCriterion("publish_operation_time not in", values, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeBetween(Date value1, Date value2) {
+            addCriterion("publish_operation_time between", value1, value2, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOperationTimeNotBetween(Date value1, Date value2) {
+            addCriterion("publish_operation_time not between", value1, value2, "publishOperationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeIsNull() {
+            addCriterion("publish_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeIsNotNull() {
+            addCriterion("publish_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeEqualTo(Date value) {
+            addCriterion("publish_time =", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeNotEqualTo(Date value) {
+            addCriterion("publish_time <>", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeGreaterThan(Date value) {
+            addCriterion("publish_time >", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("publish_time >=", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeLessThan(Date value) {
+            addCriterion("publish_time <", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeLessThanOrEqualTo(Date value) {
+            addCriterion("publish_time <=", value, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeIn(List<Date> values) {
+            addCriterion("publish_time in", values, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeNotIn(List<Date> values) {
+            addCriterion("publish_time not in", values, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeBetween(Date value1, Date value2) {
+            addCriterion("publish_time between", value1, value2, "publishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishTimeNotBetween(Date value1, Date value2) {
+            addCriterion("publish_time not between", value1, value2, "publishTime");
             return (Criteria) this;
         }
 
