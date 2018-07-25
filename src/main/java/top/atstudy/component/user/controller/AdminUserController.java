@@ -3,22 +3,18 @@ package top.atstudy.component.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.config.Constants;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.SessionUser;
+import top.atstudy.component.user.AdminSessionUser;
 import top.atstudy.component.user.service.IAdminUserService;
 import top.atstudy.component.user.vo.req.AdminUserQuery;
 import top.atstudy.component.user.vo.req.AdminUserReq;
 import top.atstudy.component.user.vo.req.PassVo;
 import top.atstudy.component.user.vo.resp.AdminUserResp;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 @RequestMapping("/api/admin/user")
-public class AdminUserController extends BasicController {
+public class AdminUserController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired
@@ -35,7 +31,7 @@ public class AdminUserController extends BasicController {
     @ResponseBody
     @PostMapping("")
     public AdminUserResp create(@RequestBody AdminUserReq req) throws APIException {
-        SessionUser sessionUser = getSessionUser();
+        AdminSessionUser sessionUser = getSessionUser();
         return this.adminUserService.createAndGet(req, sessionUser);
     }
 
@@ -107,7 +103,7 @@ public class AdminUserController extends BasicController {
     @ResponseBody
     @PutMapping("/pass/update")
     public Boolean passUpdate(@RequestBody PassVo passVo) throws APIException {
-        SessionUser sessionUser = getSessionUser();
+        AdminSessionUser sessionUser = getSessionUser();
         passVo.setUserId(sessionUser.getUserId());
         return this.adminUserService.passUpdate(passVo, getSessionUser());
     }

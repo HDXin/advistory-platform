@@ -8,14 +8,12 @@ import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.article.service.IArticleInfoService;
 import top.atstudy.component.article.vo.ContentItem;
 import top.atstudy.component.article.vo.req.ArticleInfoQuery;
-import top.atstudy.component.article.vo.req.ArticleInfoReq;
 import top.atstudy.component.article.vo.req.ArticleReq;
 import top.atstudy.component.article.vo.resp.ArticleInfoResp;
 import top.atstudy.component.article.vo.resp.ArticleResp;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,7 +35,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/admin/article")
-public class ArticleInfoController extends BasicController {
+public class ArticleInfoController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

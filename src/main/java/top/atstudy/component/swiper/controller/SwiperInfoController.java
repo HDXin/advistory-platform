@@ -3,7 +3,7 @@ package top.atstudy.component.swiper.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.swiper.service.ISwiperInfoService;
 import top.atstudy.component.swiper.vo.req.SwiperInfoQuery;
@@ -28,7 +28,7 @@ import top.atstudy.component.swiper.vo.resp.SwiperInfoResp;
  */
 @RestController
 @RequestMapping("/api/admin/swiper")
-public class SwiperInfoController extends BasicController {
+public class SwiperInfoController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

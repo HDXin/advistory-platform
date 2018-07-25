@@ -4,7 +4,6 @@ package top.atstudy.component.user.service;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.SessionUser;
 import top.atstudy.component.user.vo.req.AdminUserQuery;
 import top.atstudy.component.user.vo.req.AdminUserReq;
 import top.atstudy.component.user.vo.req.PassVo;

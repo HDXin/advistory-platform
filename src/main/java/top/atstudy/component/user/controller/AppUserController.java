@@ -3,7 +3,7 @@ package top.atstudy.component.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.user.service.IAppUserService;
 import top.atstudy.component.user.vo.req.AppUserQuery;
@@ -27,7 +27,7 @@ import top.atstudy.component.user.vo.resp.AppUserResp;
  */
 @RestController
 @RequestMapping("/api/admin/appUser")
-public class AppUserController extends BasicController {
+public class AppUserController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

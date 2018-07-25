@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
  */
 public class AppUserResp extends BaseSpecFields implements Serializable {
 
-
     private Long userId;
 
     private String userName;

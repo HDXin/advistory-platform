@@ -3,7 +3,6 @@ package top.atstudy.component.user.service;
 
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.user.SessionUser;
 import top.atstudy.component.user.vo.req.AppUserQuery;
 import top.atstudy.component.user.vo.req.AppUserReq;
 import top.atstudy.component.user.vo.resp.AppUserResp;

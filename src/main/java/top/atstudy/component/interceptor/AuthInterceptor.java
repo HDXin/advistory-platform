@@ -9,8 +9,14 @@ import top.atstudy.advistory.base.enums.http.Unauthorized;
 import top.atstudy.component.base.config.AuthToken;
 import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.base.config.SelfConfig;
+import top.atstudy.component.base.util.BeanUtils;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.SessionUser;
+import top.atstudy.component.user.AdminSessionUser;
+import top.atstudy.component.user.AppSessionUser;
+import top.atstudy.component.user.service.IAdminUserService;
+import top.atstudy.component.user.service.IAppUserService;
+import top.atstudy.component.user.vo.resp.AdminUserResp;
+import top.atstudy.component.user.vo.resp.AppUserResp;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -30,6 +36,12 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Autowired
     private SelfConfig selfConfig;
+
+    @Autowired
+    private IAdminUserService adminUserService;
+
+    @Autowired
+    private IAppUserService appUserService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -61,10 +73,15 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (AuthToken.isActive(authToken)) {
             // place user info
-            SessionUser sessionUser = new SessionUser();
-            sessionUser.setUserId(authToken.userId);
-            sessionUser.setUserName(authToken.userName);
-            request.setAttribute(Constants.SESSION_USER_KEY, sessionUser);
+            if(authToken.userName.startsWith("WX-")){
+                AppUserResp appUserResp = appUserService.getById(authToken.userId);
+                AppSessionUser appSessionUser = BeanUtils.copyProperties(appUserResp, AppSessionUser.class);
+                request.setAttribute(Constants.SESSION_USER_KEY, appSessionUser);
+            }else{
+                AdminUserResp adminUserResp = adminUserService.getById(authToken.userId);
+                AdminSessionUser adminSessionUser = BeanUtils.copyProperties(adminUserResp, AdminSessionUser.class);
+                request.setAttribute(Constants.SESSION_USER_KEY, adminSessionUser);
+            }
             return true;
         }
 

@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import top.atstudy.component.base.util.HttpUtil;
-import top.atstudy.component.wechat.remote.accesstoken.enums.EnumAppType;
 import top.atstudy.component.wechat.remote.accesstoken.resp.AccessTokenVo;
-
 import java.io.IOException;
 
 /**
@@ -23,10 +21,10 @@ public class WechatAccessTokenServiceImpl implements IWechatAccessTokenService {
     private static final Logger logger = LoggerFactory.getLogger(WechatAccessTokenServiceImpl.class);
 
     @Value("${wechat.mini.appid}")
-    private String corpid;
+    private String appid;
 
     @Value("${wechat.mini.appsecret}")
-    private String secret;
+    private String appsecret;
 
     private static String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
@@ -38,7 +36,7 @@ public class WechatAccessTokenServiceImpl implements IWechatAccessTokenService {
     public AccessTokenVo getAccessToken() throws IOException{
 
         //获取对应的 SECRET
-        requestUrl = requestUrl.replace("APPID", corpid).replace("APPSECRET", secret);
+        requestUrl = requestUrl.replace("APPID", appid).replace("APPSECRET", appsecret);
 
         JSONObject response = HttpUtil.get(requestUrl, null);
         logger.info(" ===>> get accesstoken response: {}", response.toJSONString());

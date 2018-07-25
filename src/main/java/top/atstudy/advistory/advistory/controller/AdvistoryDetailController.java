@@ -6,7 +6,7 @@ import top.atstudy.advistory.advistory.service.IAdvistoryDetailService;
 import top.atstudy.advistory.advistory.vo.req.AdvistoryDetailQuery;
 import top.atstudy.advistory.advistory.vo.resp.AdvistoryDetailResp;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 
 /**
@@ -27,7 +27,7 @@ import top.atstudy.component.exception.APIException;
  */
 @RestController
 @RequestMapping("/api/admin/advistoryDetail")
-public class AdvistoryDetailController extends BasicController {
+public class AdvistoryDetailController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

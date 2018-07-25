@@ -3,7 +3,7 @@ package top.atstudy.component.feedback.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.feedback.service.IFeedbackService;
 import top.atstudy.component.feedback.vo.req.FeedbackQuery;
@@ -27,7 +27,7 @@ import top.atstudy.component.feedback.vo.resp.FeedbackResp;
  */
 @RestController
 @RequestMapping("/api/admin/feedback")
-public class FeedbackController extends BasicController {
+public class FeedbackController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

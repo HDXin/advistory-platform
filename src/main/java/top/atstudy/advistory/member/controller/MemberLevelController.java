@@ -7,8 +7,7 @@ import top.atstudy.advistory.member.vo.req.MemberLevelQuery;
 import top.atstudy.advistory.member.vo.req.MemberLevelReq;
 import top.atstudy.advistory.member.vo.resp.MemberLevelResp;
 import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicController;
-import top.atstudy.component.exception.APIException;
+import top.atstudy.component.base.controller.BasicAdminController;
 
 /**
  * smart-mybatis-spring-boot-starter
@@ -28,7 +27,7 @@ import top.atstudy.component.exception.APIException;
  */
 @RestController
 @RequestMapping("/api/admin/memberLevel")
-public class MemberLevelController extends BasicController {
+public class MemberLevelController extends BasicAdminController {
     /******* Fields Area *******/
 
     @Autowired

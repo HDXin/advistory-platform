@@ -11,7 +11,10 @@ import top.atstudy.component.enums.http.IError403Enum;
  */
 public enum Forbidden implements IError403Enum<Forbidden> {
 
-    SERVER_FORBIDDEN(4030101, "服务器拒绝执行");
+    SERVER_FORBIDDEN(4030101, "服务器拒绝执行"),
+    WECHAT_USER_INFO_ERROR(4030201, "jscode获取用户信息失败"),
+
+    ;
 
     private Integer code;
     private String message;

@@ -13,11 +13,22 @@ public class AppAuthVo extends AppUserResp{
 
     private String token;
 
+    // 凭证有效时间，单位：秒
+    private String sessionKey;
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 }

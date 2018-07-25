@@ -13,7 +13,7 @@ import top.atstudy.component.auth.vo.AppAuthVo;
 import top.atstudy.component.auth.vo.AdminLoginReq;
 import top.atstudy.component.auth.vo.AppLoginReq;
 import top.atstudy.component.base.config.AuthToken;
-import top.atstudy.component.base.controller.BasicController;
+import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.base.util.BeanUtils;
 import top.atstudy.component.base.util.crypt.PasswordCrypt;
 import top.atstudy.component.exception.APIException;
@@ -22,8 +22,7 @@ import top.atstudy.component.user.dao.IAdminUserDao;
 import top.atstudy.component.user.dao.dto.AdminUserDTO;
 import top.atstudy.component.user.service.IAppUserService;
 import top.atstudy.component.user.vo.resp.AppUserResp;
-import top.atstudy.component.wechat.accesstoken.service.IAccessTokenService;
-
+import top.atstudy.component.wechat.remote.user.service.IWechatMiniUserService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -36,8 +35,9 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController extends BasicController{
+public class AuthController extends BasicAdminController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private static final String WECHAT_SESSION_USER_TYPE = "WX";
 
     @Autowired
     private AuthService authService;
@@ -49,7 +49,7 @@ public class AuthController extends BasicController{
     private IAppUserService appUserService;
 
     @Autowired
-    private IAccessTokenService accessTokenService;
+    private IWechatMiniUserService wechatMiniUserService;
 
     @PostMapping("/mini/login")
     public AppAuthVo miniLogin(HttpServletResponse response,
@@ -59,15 +59,15 @@ public class AuthController extends BasicController{
         if(StringUtils.isBlank(appLoginReq.getJscode()))
             throw new APIException(BadRequest.APP_USER_JSCODE_IS_NULL);
 
-        //2.获取当前用户的 openid
-        String openid = accessTokenService.getBookAccessToken();
+        //2.查询出当前 openid 对应的用户
+        AppAuthVo appAuthVo = wechatMiniUserService.getByJscode(appLoginReq.getJscode());
 
-        //3.查询出当前 openid 对应的用户
-        AppUserResp appUserResp = this.appUserService.getByOpenid(openid, getSessionUser());
+        //3.获取指定 openid 对应的用户信息
+        AppUserResp appUserResp = this.appUserService.getByOpenid(appAuthVo.getOpenid(), getSessionUser());
 
         //4.创建 token
         appLoginReq.setUserId(appUserResp.getUserId());
-        appLoginReq.setUserName(appUserResp.getUserName());
+        appLoginReq.setUserName(WECHAT_SESSION_USER_TYPE + "-" + appAuthVo.getOpenid());
         AuthToken authToken = authService.createToken(appLoginReq);
         String token = buildAuthToken(response, authToken);
         logger.info(" --->> token: {}", token);

@@ -2,7 +2,6 @@ package top.atstudy.component.base.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.atstudy.advistory.base.enums.http.BadRequest;
@@ -11,7 +10,7 @@ import top.atstudy.component.base.config.Constants;
 import top.atstudy.component.base.config.SelfConfig;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.exception.FrameworkException;
-import top.atstudy.component.user.SessionUser;
+import top.atstudy.component.user.AdminSessionUser;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,18 +53,6 @@ public abstract class BasicController {
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
-    }
-
-    protected SessionUser getSessionUser(){
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        SessionUser sessionUser = (SessionUser) request.getAttribute(Constants.SESSION_USER_KEY);
-        if(sessionUser == null || sessionUser.getUserId() == null){
-            sessionUser = new SessionUser();
-            sessionUser.setUserId(-99L);
-            sessionUser.setUserName("test");
-        }
-
-        return sessionUser;
     }
 
     private String getCookieDomain(HttpServletRequest request){
