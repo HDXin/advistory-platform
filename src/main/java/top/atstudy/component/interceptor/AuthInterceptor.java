@@ -3,7 +3,9 @@ package top.atstudy.component.interceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import top.atstudy.advistory.base.enums.http.Unauthorized;
 import top.atstudy.component.base.config.AuthToken;
@@ -74,10 +76,20 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (AuthToken.isActive(authToken)) {
             // place user info
             if(authToken.userName.startsWith("WX-")){
+                if (appUserService == null) {//解决service为null无法注入问题
+                    System.out.println("appUserService is null ... ");
+                    BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+                    appUserService = factory.getBean(IAppUserService.class);
+                }
                 AppUserResp appUserResp = appUserService.getById(authToken.userId);
                 AppSessionUser appSessionUser = BeanUtils.copyProperties(appUserResp, AppSessionUser.class);
                 request.setAttribute(Constants.SESSION_USER_KEY, appSessionUser);
             }else{
+                if (adminUserService == null) {//解决service为null无法注入问题
+                    System.out.println("adminUserService is null ... ");
+                    BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+                    adminUserService = factory.getBean(IAdminUserService.class);
+                }
                 AdminUserResp adminUserResp = adminUserService.getById(authToken.userId);
                 AdminSessionUser adminSessionUser = BeanUtils.copyProperties(adminUserResp, AdminSessionUser.class);
                 request.setAttribute(Constants.SESSION_USER_KEY, adminSessionUser);
@@ -126,6 +138,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private String getCookieDomain(HttpServletRequest request){
+        if (selfConfig == null) {//解决service为null无法注入问题
+            System.out.println("selfConfig is null ... ");
+            BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+            selfConfig = (SelfConfig) factory.getBean("selfConfig");
+        }
         String domain = selfConfig.getCookieDomain();
         if(StringUtils.isBlank(domain)){
             domain = request.getServerName();

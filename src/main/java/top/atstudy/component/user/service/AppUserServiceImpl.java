@@ -44,7 +44,6 @@ public class AppUserServiceImpl implements IAppUserService {
         AppUserDTOExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(id);
         criteria.andDeletedEqualTo(EnumDeleted.NORMAL);
-        List<AppUserDTO> targets = this.appUserDao.listByExample(example);
         AppUserDTO targetDto = this.appUserDao.getByExample(example);
         if (targetDto != null) {
             target = AppUserResp.parseSinglet(targetDto);

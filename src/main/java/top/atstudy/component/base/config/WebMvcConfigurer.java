@@ -21,7 +21,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         //日志处理
         registry.addInterceptor(new LogInterceptor()).addPathPatterns();
         //登录授权
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/admin/**", "/mini/**");
+        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/api/admin/**", "/api/mini/**");
 
         super.addInterceptors(registry);
     }

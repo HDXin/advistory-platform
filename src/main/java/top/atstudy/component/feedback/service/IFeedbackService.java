@@ -2,6 +2,7 @@ package top.atstudy.component.feedback.service;
 
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
+import top.atstudy.component.exception.APIException;
 import top.atstudy.component.feedback.vo.req.FeedbackQuery;
 import top.atstudy.component.feedback.vo.req.FeedbackReq;
 import top.atstudy.component.feedback.vo.resp.FeedbackResp;
@@ -26,7 +27,7 @@ public interface IFeedbackService {
 
     Long countByQuery(FeedbackQuery query);
 
-    FeedbackResp createAndGet(FeedbackReq req, IOperatorAware operator);
+    FeedbackResp createAndGet(FeedbackReq req, IOperatorAware operator) throws APIException;
 
     FeedbackResp update(FeedbackReq req, IOperatorAware operator);
 

@@ -28,6 +28,7 @@ public enum BadRequest implements IError400Enum<BadRequest> {
 
     APP_USER_JSCODE_IS_NULL(4000801, "jscode不能为空"),
     APP_USER_JSCODE_INVALID(4000802, "jscode不正确"),
+    APP_USER_ID_INVALID(4000803, "当前用户不存在"),
 
     ;
 
