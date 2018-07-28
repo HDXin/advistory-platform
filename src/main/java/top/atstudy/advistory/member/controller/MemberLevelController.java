@@ -9,22 +9,6 @@ import top.atstudy.advistory.member.vo.resp.MemberLevelResp;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.controller.BasicAdminController;
 
-/**
- * smart-mybatis-spring-boot-starter
- * <p>
- * Description :
- * <p>
- * Creator :
- *
- * @author Sudao @ Tim Zhang
- * @email : zhanglong@kuaicto.com or solidsnake2007@gmail.com
- * @date: 2017/11/15
- * @time: 下午1:27
- * =========================================
- * <p>
- * Contributors :
- * Tim Zhang - 2017/11/15 下午1:27
- */
 @RestController
 @RequestMapping("/api/admin/memberLevel")
 public class MemberLevelController extends BasicAdminController {

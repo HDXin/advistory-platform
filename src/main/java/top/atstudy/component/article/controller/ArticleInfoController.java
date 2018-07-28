@@ -17,22 +17,6 @@ import top.atstudy.component.exception.APIException;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * smart-mybatis-spring-boot-starter
- * <p>
- * Description :
- * <p>
- * Creator :
- *
- * @author Sudao @ Tim Zhang
- * @email : zhanglong@kuaicto.com or solidsnake2007@gmail.com
- * @date: 2017/11/15
- * @time: 下午1:27
- * =========================================
- * <p>
- * Contributors :
- * Tim Zhang - 2017/11/15 下午1:27
- */
 @RestController
 @RequestMapping("/api/admin/article")
 public class ArticleInfoController extends BasicAdminController {

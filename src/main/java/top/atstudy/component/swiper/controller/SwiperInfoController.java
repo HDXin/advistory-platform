@@ -10,22 +10,6 @@ import top.atstudy.component.swiper.vo.req.SwiperInfoQuery;
 import top.atstudy.component.swiper.vo.req.SwiperInfoReq;
 import top.atstudy.component.swiper.vo.resp.SwiperInfoResp;
 
-/**
- * smart-mybatis-spring-boot-starter
- * <p>
- * Description :
- * <p>
- * Creator :
- *
- * @author Sudao @ Tim Zhang
- * @email : zhanglong@kuaicto.com or solidsnake2007@gmail.com
- * @date: 2017/11/15
- * @time: 下午1:27
- * =========================================
- * <p>
- * Contributors :
- * Tim Zhang - 2017/11/15 下午1:27
- */
 @RestController
 @RequestMapping("/api/admin/swiper")
 public class SwiperInfoController extends BasicAdminController {

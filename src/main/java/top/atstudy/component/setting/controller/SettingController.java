@@ -9,22 +9,6 @@ import top.atstudy.component.setting.service.ISettingService;
 import top.atstudy.component.setting.vo.req.SettingQuery;
 import top.atstudy.component.setting.vo.resp.SettingResp;
 
-/**
- * smart-mybatis-spring-boot-starter
- * <p>
- * Description :
- * <p>
- * Creator :
- *
- * @author Sudao @ Tim Zhang
- * @email : zhanglong@kuaicto.com or solidsnake2007@gmail.com
- * @date: 2017/11/15
- * @time: 下午1:27
- * =========================================
- * <p>
- * Contributors :
- * Tim Zhang - 2017/11/15 下午1:27
- */
 @RestController
 @RequestMapping("/api/admin/setting")
 public class SettingController extends BasicAdminController {
