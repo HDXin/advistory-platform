@@ -2,11 +2,9 @@ package top.atstudy.component.setting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.atstudy.component.base.Page;
 import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.setting.service.ISettingService;
-import top.atstudy.component.setting.vo.req.SettingQuery;
 import top.atstudy.component.setting.vo.req.SettingReq;
 import top.atstudy.component.setting.vo.resp.SettingResp;
 
@@ -27,7 +25,7 @@ public class SettingController extends BasicAdminController {
      * @return
      */
     @PutMapping("/key")
-    public SettingResp updateByKey(@RequestBody SettingReq req){
+    public SettingResp updateByKey(@RequestBody SettingReq req) throws APIException {
         return this.settingService.updateByKey(req, getSessionUser());
     }
 
