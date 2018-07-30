@@ -4,6 +4,7 @@ import top.atstudy.component.enums.base.ILabelCodeEnum;
 
 public enum EnumRelationType implements ILabelCodeEnum<EnumRelationType, String> {
     ADVISTORY("ADVISTORY", "资讯"),
+    MARKET("MARKET", "行情")
     ;
 
     private String code;

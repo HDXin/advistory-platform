@@ -194,7 +194,7 @@ create table favorite_info
    favorite_status      varchar(30) comment '收藏状态(ADD_FAVORITE:添加收藏, CANCEL_FAVORITE:取消收藏)',
    display_order        int(11) default 0 comment '顺序号',
    version              int(11) default 0 comment '版本号',
-   deleted              int(11) default 1 comment '状态',
+   deleted              int(11) default 0 comment '状态',
    create_user_id       bigint(20) comment '创建人',
    create_user_name     varchar(30) comment '创建人姓名',
    create_time          datetime comment '创建时间',

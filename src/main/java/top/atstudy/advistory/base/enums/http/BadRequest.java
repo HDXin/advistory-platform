@@ -32,6 +32,10 @@ public enum BadRequest implements IError400Enum<BadRequest> {
 
     SETTING_KEY_INVALID(4000901, "系统配置KEY不能为空"),
 
+    FAVORITE_RELATION_ID_INVALID(4001001, "关联ID不能为空"),
+    FAVORITE_RELATION_TYPE_INVALID(4001002, "收藏类型不能为空"),
+    FAVORITE_INFO_NOT_EXISTS(4001003, "指定的收藏信息不存在"),
+
     ;
 
     private Integer code;
