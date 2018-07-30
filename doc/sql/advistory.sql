@@ -187,7 +187,7 @@ create table favorite_info
 (
    favorite_id          bigint(20) not null auto_increment comment '主键',
    user_id              bigint(20) comment '用户ID',
-   relation_type        varchar(30) comment '类型(ARTICLE:文章)',
+   relation_type        varchar(30) comment '类型(ADVISTORY:文章)',
    relation_id          bigint(20) comment '业务ID',
    title                varchar(60) comment '标题',
    enable               tinyint(1) comment '收藏是否可用',
