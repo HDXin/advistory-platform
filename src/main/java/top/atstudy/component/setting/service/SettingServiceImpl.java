@@ -1,10 +1,13 @@
 package top.atstudy.component.setting.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.enums.EnumDeleted;
+import top.atstudy.component.exception.APIException;
 import top.atstudy.component.setting.dao.ISettingDao;
 import top.atstudy.component.setting.dao.dto.SettingDTO;
 import top.atstudy.component.setting.dao.dto.SettingDTOExample;
@@ -12,6 +15,7 @@ import top.atstudy.component.setting.vo.req.SettingQuery;
 import top.atstudy.component.setting.vo.req.SettingReq;
 import top.atstudy.component.setting.vo.resp.SettingResp;
 import java.util.List;
+
 
 /**
  * ISettingService 实现类
@@ -90,6 +94,26 @@ public class SettingServiceImpl implements ISettingService {
         target.setOperator(operator, false);
         return this.settingDao.remove(target);
     }
+
+    @Override
+    public SettingResp updateByKey(SettingReq req, IOperatorAware operator) throws APIException {
+
+        //1.configKey 不能为空
+        if(StringUtils.isBlank(req.getConfigKey()))
+            throw new APIException(BadRequest.SETTING_KEY_INVALID);
+
+        //2.
+
+
+
+        return null;
+    }
+
+    @Override
+    public SettingResp getByKey(String configKey) {
+        return null;
+    }
+
     /******* GetSet Area ******/
 
     /******* Method Area *******/

@@ -7,6 +7,7 @@ import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.setting.service.ISettingService;
 import top.atstudy.component.setting.vo.req.SettingQuery;
+import top.atstudy.component.setting.vo.req.SettingReq;
 import top.atstudy.component.setting.vo.resp.SettingResp;
 
 @RestController
@@ -20,26 +21,20 @@ public class SettingController extends BasicAdminController {
     /******* Construction Area *******/
     /******* GetSet Area ******/
 
-
-    @GetMapping("/{id}")
-    public SettingResp get(@PathVariable("id") Long id) {
-        SettingResp target = this.settingService.getById(id);
-        return target;
+    /**
+     * 编辑配置
+     * @param req
+     * @return
+     */
+    @PutMapping("/key")
+    public SettingResp updateByKey(@RequestBody SettingReq req){
+        return this.settingService.updateByKey(req, getSessionUser());
     }
 
-    @GetMapping("")
-    public Page<SettingResp> find(SettingQuery query) {
-        Page<SettingResp> target = this.settingService.findByQuery(query);
-        return target;
+    @GetMapping("/key")
+    public SettingResp getByKey(@RequestParam("configKey") String configKey){
+        return this.settingService.getByKey(configKey);
     }
-
-    @DeleteMapping("/{id}")
-    public void remove(@PathVariable("id") Long id) throws APIException {
-        this.settingService.remove(id, super.getSessionUser());
-    }
-
-    /******* Method Area *******/
-
 
 }
 

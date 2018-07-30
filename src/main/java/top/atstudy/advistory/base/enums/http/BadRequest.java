@@ -30,6 +30,8 @@ public enum BadRequest implements IError400Enum<BadRequest> {
     APP_USER_JSCODE_INVALID(4000802, "jscode不正确"),
     APP_USER_ID_INVALID(4000803, "当前用户不存在"),
 
+    SETTING_KEY_INVALID(4000901, "系统配置KEY不能为空"),
+
     ;
 
     private Integer code;
