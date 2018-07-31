@@ -25,28 +25,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TomcatConfig {
 
-//    @Bean
-//    public EmbeddedServletContainerCustomizer cookieProcessorCustomizer() {
-//        return new EmbeddedServletContainerCustomizer() {
-//
-//            @Override
-//            public void customize(ConfigurableEmbeddedServletContainer container) {
-//                if (container instanceof TomcatEmbeddedServletContainerFactory) {
-//                    ((TomcatEmbeddedServletContainerFactory) container)
-//                            .addContextCustomizers(new TomcatContextCustomizer() {
-//
-//                                @Override
-//                                public void customize(Context context) {
-//                                    context.setCookieProcessor(new LegacyCookieProcessor());
-//                                }
-//
-//                            });
-//                }
-//            }
-//
-//        };
-//    }
-
     @Bean
     public ConfigurableServletWebServerFactory webServerFactory() {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();

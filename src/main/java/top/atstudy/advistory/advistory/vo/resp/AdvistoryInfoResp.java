@@ -53,6 +53,8 @@ public class AdvistoryInfoResp extends BaseSpecFields implements Serializable {
 
     private EnumDeleted deleted;
 
+    private boolean favorite;
+
     private List<AdvistoryDetailResp> details = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
@@ -185,6 +187,14 @@ public class AdvistoryInfoResp extends BaseSpecFields implements Serializable {
 
     public void setDetails(List<AdvistoryDetailResp> details) {
         this.details = details;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public static AdvistoryInfoResp parseSinglet(AdvistoryInfoDTO target) {
