@@ -163,4 +163,25 @@ public interface IAdvistoryInfoDao {
      * 这里需要业务逻辑层做回滚, 生成的代码没有做回滚操作
      */
     boolean batchRemove(List<AdvistoryInfoDTO> targets);
+
+    /**
+     * 阅读量加1
+     * @param advistoryId
+     * @return
+     */
+    boolean addReadNumber(Long advistoryId);
+
+    /**
+     * 收藏量加1
+     * @param advistoryId
+     * @return
+     */
+    boolean addFavoriteNumber(Long advistoryId);
+
+    /**
+     * 收藏量减1
+     * @param advistoryId
+     * @return
+     */
+    boolean subFavoriteNumber(Long advistoryId);
 }

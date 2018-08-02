@@ -138,6 +138,22 @@ public class AdvistoryInfoServiceImpl implements IAdvistoryInfoService {
         target.setOperator(operator, false);
         return this.advistoryInfoDao.remove(target);
     }
+
+    @Override
+    public boolean addReadNumber(Long advistoryId) {
+        return this.advistoryInfoDao.addReadNumber(advistoryId);
+    }
+
+    @Override
+    public boolean addFavoriteNumber(Long advistoryId) {
+        return this.advistoryInfoDao.addFavoriteNumber(advistoryId);
+    }
+
+    @Override
+    public boolean subFavoriteNumber(Long advistoryId) {
+        return this.advistoryInfoDao.subFavoriteNumber(advistoryId);
+    }
+
     /******* GetSet Area ******/
 
     /******* Method Area *******/

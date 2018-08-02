@@ -3,6 +3,7 @@ package top.atstudy.advistory.advistory.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.atstudy.advistory.advistory.dao.IAdvistoryInfoDao;
 import top.atstudy.advistory.advistory.dao.IFavoriteInfoDao;
 import top.atstudy.advistory.advistory.dao.dto.FavoriteInfoDTO;
 import top.atstudy.advistory.advistory.dao.dto.FavoriteInfoDTOExample;
@@ -14,6 +15,7 @@ import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.enums.EnumDeleted;
 import top.atstudy.component.enums.EnumFavoriteStatus;
+import top.atstudy.component.enums.EnumRelationType;
 import top.atstudy.component.exception.APIException;
 
 import java.util.List;
@@ -31,6 +33,9 @@ public class FavoriteInfoServiceImpl implements IFavoriteInfoService {
     /******* Fields Area *******/
 
     private IFavoriteInfoDao favoriteInfoDao;
+
+    @Autowired
+    private IAdvistoryInfoDao advistoryInfoDao;
 
     /******* Construction Area *******/
     public FavoriteInfoServiceImpl(@Autowired IFavoriteInfoDao favoriteInfoDao) {
@@ -118,7 +123,12 @@ public class FavoriteInfoServiceImpl implements IFavoriteInfoService {
         //3.判断是否已收藏过
         FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(req.getRelationId(), req.getRelationType(), operator.getOperatorId());
 
-        //4.若已收藏过, 则直接更改状态; 否则新增一条记录;
+        //4.更新收藏量
+        if(req.getRelationType() == EnumRelationType.ADVISTORY){
+            this.advistoryInfoDao.addFavoriteNumber(req.getRelationId());
+        }
+
+        //5.若已收藏过, 则直接更改状态; 否则新增一条记录;
         FavoriteInfoDTO target = new FavoriteInfoDTO();
         target.setRelationId(req.getRelationId());
         target.setRelationType(req.getRelationType());
@@ -162,7 +172,12 @@ public class FavoriteInfoServiceImpl implements IFavoriteInfoService {
         if(temp == null || temp.getFavoriteId() == null)
             throw new APIException(BadRequest.FAVORITE_INFO_NOT_EXISTS);
 
-        //4.取消收藏
+        //4.更新收藏量
+        if(req.getRelationType() == EnumRelationType.ADVISTORY){
+            this.advistoryInfoDao.subFavoriteNumber(req.getRelationId());
+        }
+
+        //5.取消收藏
         FavoriteInfoDTO target = new FavoriteInfoDTO();
         target.setFavoriteId(temp.getFavoriteId());
         target.setEnable(false);

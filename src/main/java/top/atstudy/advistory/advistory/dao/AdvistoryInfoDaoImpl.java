@@ -161,6 +161,21 @@ public class AdvistoryInfoDaoImpl extends BaseDao implements IAdvistoryInfoDao {
         return batchFlag;
     }
 
+    @Override
+    public boolean addReadNumber(Long advistoryId) {
+        return this.advistoryInfoDTOMapper.addReadNumber(advistoryId) > 0;
+    }
+
+    @Override
+    public boolean addFavoriteNumber(Long advistoryId) {
+        return this.advistoryInfoDTOMapper.addFavoriteNumber(advistoryId) > 0;
+    }
+
+    @Override
+    public boolean subFavoriteNumber(Long advistoryId) {
+        return this.advistoryInfoDTOMapper.subFavoriteNumber(advistoryId) > 0;
+    }
+
     private void loadDefaultOrder(AdvistoryInfoDTOExample example) {
         if (StringUtils.isEmpty(example.getOrderByClause())) {
             String orderBySql = "create_time" + " " + EnumOrder.DESC.getCode();

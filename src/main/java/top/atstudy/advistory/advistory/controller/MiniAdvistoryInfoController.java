@@ -3,7 +3,9 @@ package top.atstudy.advistory.advistory.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import top.atstudy.advistory.advistory.dao.IAdvistoryInfoDao;
 import top.atstudy.advistory.advistory.service.IAdvistoryInfoService;
 import top.atstudy.advistory.advistory.vo.req.AdvistoryInfoQuery;
 import top.atstudy.advistory.advistory.vo.resp.AdvistoryInfoResp;
@@ -31,12 +33,16 @@ public class MiniAdvistoryInfoController extends BasicAppController {
      * @param id
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @GetMapping("/{id}")
     public AdvistoryInfoResp get(@PathVariable("id") Long id) {
         AdvistoryInfoResp target = this.advistoryInfoService.getById(id);
 
         //封面域名拼接
         converImage(target);
+
+        //点击量加1
+        this.advistoryInfoService.addReadNumber(id);
 
         return target;
     }

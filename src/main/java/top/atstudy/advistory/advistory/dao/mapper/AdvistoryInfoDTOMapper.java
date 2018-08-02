@@ -28,4 +28,10 @@ public interface AdvistoryInfoDTOMapper {
     int updateByPrimaryKeySelective(AdvistoryInfoDTO record);
 
     int updateByPrimaryKey(AdvistoryInfoDTO record);
+
+    int addReadNumber(Long advistoryId);
+
+    int addFavoriteNumber(Long advistoryId);
+
+    int subFavoriteNumber(Long advistoryId);
 }

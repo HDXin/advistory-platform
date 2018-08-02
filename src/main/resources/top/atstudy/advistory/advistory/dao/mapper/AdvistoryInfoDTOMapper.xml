@@ -551,4 +551,18 @@
       last_update = #{lastUpdate,jdbcType=TIMESTAMP}
     where advistory_id = #{advistoryId,jdbcType=BIGINT}
   </update>
+
+  <update id="addReadNumber" parameterType="java.lang.Long">
+    update advistory_info set read_number = read_number + 1 where advistory_id = #{advistoryId}
+  </update>
+
+  <update id="addFavoriteNumber" parameterType="java.lang.Long">
+    update advistory_info set favorite_number = favorite_number + 1 where advistory_id = #{advistoryId}
+  </update>
+
+  <update id="subFavoriteNumber" parameterType="java.lang.Long">
+    update advistory_info set favorite_number = favorite_number - 1 where advistory_id = #{advistoryId}
+  </update>
+
+
 </mapper>

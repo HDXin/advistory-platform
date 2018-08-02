@@ -34,6 +34,10 @@ public interface IAdvistoryInfoService {
 
     boolean remove(Long id, IOperatorAware operator);
 
+    boolean addReadNumber(Long advistoryId);
 
+    boolean addFavoriteNumber(Long advistoryId);
+
+    boolean subFavoriteNumber(Long advistoryId);
 }
 
