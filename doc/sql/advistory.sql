@@ -77,23 +77,23 @@ CREATE TABLE `advistory_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='咨询详情';
 
 
-
 drop table if exists advistory_info;
-
 /*==============================================================*/
 /* Table: advistory_info                                        */
 /*==============================================================*/
 create table advistory_info
 (
    advistory_id         bigint(20) not null auto_increment comment '主键',
-   advistory_level      varchar(30) comment '文章等级',
-   advistory_type       varchar(30) comment '文章类型',
+   advistory_level      varchar(30) comment '文章等级(LEVEL_A, LEVEL_B, LEVEL_C)',
+   advistory_category   varchar(30) comment '文章分类(教育类, 医学类, 互联网, 金融, 等等)',
+   advistory_type       varchar(30) comment '文章类型(精选文章, VIP, 等等)',
    title                varchar(60) comment '标题',
    digest               varchar(300) comment '摘要',
    favorite_number      bigint(20) default 0 comment '收藏数',
    read_number          bigint(20) default 0 comment '阅读数',
    cover_image          varchar(300) comment '封面图',
-   recommend_status     tinyint(1) comment '是否推荐',
+   recommend_status     tinyint(1) DEFAULT 0 comment '是否推荐(0:否, 1:是)',
+   stick_status         tinyint(1) DEFAULT 0 comment '是否置顶(0:否, 1:是)',
    publish_user_id      bigint(20) comment '发布人ID',
    publish_user_name    varchar(30) comment '发布人名',
    publish_operation_time datetime comment '操作发布时间',
@@ -111,10 +111,7 @@ create table advistory_info
    last_update          timestamp comment '最后更新时间',
    primary key (advistory_id)
 );
-
 alter table advistory_info comment '咨询';
-
-
 
 
 /*==============================================================*/

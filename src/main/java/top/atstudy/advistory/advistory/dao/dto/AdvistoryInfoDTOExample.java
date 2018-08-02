@@ -1,8 +1,10 @@
 package top.atstudy.advistory.advistory.dao.dto;
 
+import top.atstudy.component.enums.EnumAdvistoryCategory;
 import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
 import top.atstudy.component.enums.EnumDeleted;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -337,6 +339,76 @@ public class AdvistoryInfoDTOExample {
 
         public Criteria andAdvistoryLevelNotBetween(EnumAdvistoryLevel value1, EnumAdvistoryLevel value2) {
             addCriterion("advistory_level not between", value1, value2, "advistoryLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryIsNull() {
+            addCriterion("advistory_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryIsNotNull() {
+            addCriterion("advistory_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryEqualTo(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category =", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryNotEqualTo(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category <>", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryGreaterThan(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category >", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryGreaterThanOrEqualTo(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category >=", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryLessThan(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category <", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryLessThanOrEqualTo(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category <=", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryLike(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category like", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryNotLike(EnumAdvistoryCategory value) {
+            addCriterion("advistory_category not like", value, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryIn(List<EnumAdvistoryCategory> values) {
+            addCriterion("advistory_category in", values, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryNotIn(List<EnumAdvistoryCategory> values) {
+            addCriterion("advistory_category not in", values, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryBetween(EnumAdvistoryCategory value1, EnumAdvistoryCategory value2) {
+            addCriterion("advistory_category between", value1, value2, "advistoryCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdvistoryCategoryNotBetween(EnumAdvistoryCategory value1, EnumAdvistoryCategory value2) {
+            addCriterion("advistory_category not between", value1, value2, "advistoryCategory");
             return (Criteria) this;
         }
 
@@ -797,6 +869,66 @@ public class AdvistoryInfoDTOExample {
 
         public Criteria andRecommendStatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("recommend_status not between", value1, value2, "recommendStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusIsNull() {
+            addCriterion("stick_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusIsNotNull() {
+            addCriterion("stick_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusEqualTo(Boolean value) {
+            addCriterion("stick_status =", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusNotEqualTo(Boolean value) {
+            addCriterion("stick_status <>", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusGreaterThan(Boolean value) {
+            addCriterion("stick_status >", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("stick_status >=", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusLessThan(Boolean value) {
+            addCriterion("stick_status <", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("stick_status <=", value, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusIn(List<Boolean> values) {
+            addCriterion("stick_status in", values, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusNotIn(List<Boolean> values) {
+            addCriterion("stick_status not in", values, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("stick_status between", value1, value2, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andStickStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("stick_status not between", value1, value2, "stickStatus");
             return (Criteria) this;
         }
 

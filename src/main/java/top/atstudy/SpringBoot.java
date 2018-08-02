@@ -37,8 +37,9 @@ public class SpringBoot {
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumDeleted.class, NumberCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumUserStatus.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumMemberLevel.class, StringCodeEnumTypeHandler.class);
-        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumMemberLevel.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryLevel.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryType.class, StringCodeEnumTypeHandler.class);
+        sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryCategory.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumAdvistoryDetailType.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumRelationType.class, StringCodeEnumTypeHandler.class);
         sqlSessionFactory.getConfiguration().getTypeHandlerRegistry().register(EnumFavoriteStatus.class, StringCodeEnumTypeHandler.class);

@@ -2,18 +2,16 @@ package top.atstudy.component.enums;
 
 import top.atstudy.component.enums.base.ILabelCodeEnum;
 
-public enum EnumAdvistoryType implements ILabelCodeEnum<EnumAdvistoryType, String> {
+public enum EnumAdvistoryCategory implements ILabelCodeEnum<EnumAdvistoryCategory, String> {
 
     GENERAL("GENERAL", "常规"),
-    VIP("VIP", "VIP"),
-    CHOICENESS("CHOICENESS", "精选"),
 
     ;
 
     private String code;
     private String label;
 
-    EnumAdvistoryType(String code, String label) {
+    EnumAdvistoryCategory(String code, String label) {
         this.code = code;
         this.label = label;
     }
@@ -29,7 +27,7 @@ public enum EnumAdvistoryType implements ILabelCodeEnum<EnumAdvistoryType, Strin
     }
 
     @Override
-    public EnumAdvistoryType codeOf(String s) {
+    public EnumAdvistoryCategory codeOf(String s) {
         return valueOf(s);
     }
 }

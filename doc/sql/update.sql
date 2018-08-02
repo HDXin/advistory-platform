@@ -1,0 +1,1 @@
+alter table advistory_info add column stick_status tinyint(1) comment '是否置顶(0:否, 1:是)' after 'recommend_status';

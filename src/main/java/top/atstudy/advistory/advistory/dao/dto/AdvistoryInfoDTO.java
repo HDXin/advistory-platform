@@ -1,6 +1,7 @@
 package top.atstudy.advistory.advistory.dao.dto;
 
 import top.atstudy.component.base.BaseDTO;
+import top.atstudy.component.enums.EnumAdvistoryCategory;
 import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
 import top.atstudy.component.enums.EnumDeleted;
@@ -11,6 +12,8 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
     private Long advistoryId;
 
     private EnumAdvistoryLevel advistoryLevel;
+
+    private EnumAdvistoryCategory advistoryCategory;
 
     private EnumAdvistoryType advistoryType;
 
@@ -25,6 +28,8 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
     private String coverImage;
 
     private Boolean recommendStatus;
+
+    private Boolean stickStatus;
 
     private Long publishUserId;
 
@@ -54,6 +59,14 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     public void setAdvistoryLevel(EnumAdvistoryLevel advistoryLevel) {
         this.advistoryLevel = advistoryLevel;
+    }
+
+    public EnumAdvistoryCategory getAdvistoryCategory() {
+        return advistoryCategory;
+    }
+
+    public void setAdvistoryCategory(EnumAdvistoryCategory advistoryCategory) {
+        this.advistoryCategory = advistoryCategory;
     }
 
     public EnumAdvistoryType getAdvistoryType() {
@@ -110,6 +123,14 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     public void setRecommendStatus(Boolean recommendStatus) {
         this.recommendStatus = recommendStatus;
+    }
+
+    public Boolean getStickStatus() {
+        return stickStatus;
+    }
+
+    public void setStickStatus(Boolean stickStatus) {
+        this.stickStatus = stickStatus;
     }
 
     public Long getPublishUserId() {

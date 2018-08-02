@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
     <id column="advistory_id" jdbcType="BIGINT" property="advistoryId" />
     <result column="advistory_level" jdbcType="VARCHAR" property="advistoryLevel" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
+    <result column="advistory_category" jdbcType="VARCHAR" property="advistoryCategory" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
     <result column="advistory_type" jdbcType="VARCHAR" property="advistoryType" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="digest" jdbcType="VARCHAR" property="digest" />
@@ -11,6 +12,7 @@
     <result column="read_number" jdbcType="BIGINT" property="readNumber" />
     <result column="cover_image" jdbcType="VARCHAR" property="coverImage" />
     <result column="recommend_status" jdbcType="BIT" property="recommendStatus" />
+    <result column="stick_status" jdbcType="BIT" property="stickStatus" />
     <result column="publish_user_id" jdbcType="BIGINT" property="publishUserId" />
     <result column="publish_user_name" jdbcType="VARCHAR" property="publishUserName" />
     <result column="publish_operation_time" jdbcType="TIMESTAMP" property="publishOperationTime" />
@@ -86,10 +88,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    advistory_id, advistory_level, advistory_type, title, digest, favorite_number, read_number, 
-    cover_image, recommend_status, publish_user_id, publish_user_name, publish_operation_time, 
-    publish_time, author, display_order, version, deleted, create_user_id, create_user_name, 
-    create_time, update_user_id, update_user_name, update_time, last_update
+    advistory_id, advistory_level, advistory_category, advistory_type, title, digest, 
+    favorite_number, read_number, cover_image, recommend_status, stick_status, publish_user_id, 
+    publish_user_name, publish_operation_time, publish_time, author, display_order, version, 
+    deleted, create_user_id, create_user_name, create_time, update_user_id, update_user_name, 
+    update_time, last_update
   </sql>
   <select id="selectByExample" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTOExample" resultMap="BaseResultMap">
     select
@@ -133,18 +136,20 @@
     <selectKey keyProperty="advistoryId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into advistory_info (advistory_level, advistory_type, title, 
-      digest, favorite_number, read_number, 
-      cover_image, recommend_status, publish_user_id, 
+    insert into advistory_info (advistory_level, advistory_category, 
+      advistory_type, title, digest, 
+      favorite_number, read_number, cover_image, 
+      recommend_status, stick_status, publish_user_id, 
       publish_user_name, publish_operation_time, 
       publish_time, author, display_order, 
       version, deleted, create_user_id, 
       create_user_name, create_time, update_user_id, 
       update_user_name, update_time, last_update
       )
-    values (#{advistoryLevel,jdbcType=VARCHAR}, #{advistoryType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{digest,jdbcType=VARCHAR}, #{favoriteNumber,jdbcType=BIGINT}, #{readNumber,jdbcType=BIGINT}, 
-      #{coverImage,jdbcType=VARCHAR}, #{recommendStatus,jdbcType=BIT}, #{publishUserId,jdbcType=BIGINT}, 
+    values (#{advistoryLevel,jdbcType=VARCHAR}, #{advistoryCategory,jdbcType=VARCHAR}, 
+      #{advistoryType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      #{favoriteNumber,jdbcType=BIGINT}, #{readNumber,jdbcType=BIGINT}, #{coverImage,jdbcType=VARCHAR}, 
+      #{recommendStatus,jdbcType=BIT}, #{stickStatus,jdbcType=BIT}, #{publishUserId,jdbcType=BIGINT}, 
       #{publishUserName,jdbcType=VARCHAR}, #{publishOperationTime,jdbcType=TIMESTAMP}, 
       #{publishTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, 
       #{version,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, 
@@ -160,6 +165,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="advistoryLevel != null">
         advistory_level,
+      </if>
+      <if test="advistoryCategory != null">
+        advistory_category,
       </if>
       <if test="advistoryType != null">
         advistory_type,
@@ -181,6 +189,9 @@
       </if>
       <if test="recommendStatus != null">
         recommend_status,
+      </if>
+      <if test="stickStatus != null">
+        stick_status,
       </if>
       <if test="publishUserId != null">
         publish_user_id,
@@ -232,6 +243,9 @@
       <if test="advistoryLevel != null">
         #{advistoryLevel,jdbcType=VARCHAR},
       </if>
+      <if test="advistoryCategory != null">
+        #{advistoryCategory,jdbcType=VARCHAR},
+      </if>
       <if test="advistoryType != null">
         #{advistoryType,jdbcType=VARCHAR},
       </if>
@@ -252,6 +266,9 @@
       </if>
       <if test="recommendStatus != null">
         #{recommendStatus,jdbcType=BIT},
+      </if>
+      <if test="stickStatus != null">
+        #{stickStatus,jdbcType=BIT},
       </if>
       <if test="publishUserId != null">
         #{publishUserId,jdbcType=BIGINT},
@@ -315,6 +332,9 @@
       <if test="record.advistoryLevel != null">
         advistory_level = #{record.advistoryLevel,jdbcType=VARCHAR},
       </if>
+      <if test="record.advistoryCategory != null">
+        advistory_category = #{record.advistoryCategory,jdbcType=VARCHAR},
+      </if>
       <if test="record.advistoryType != null">
         advistory_type = #{record.advistoryType,jdbcType=VARCHAR},
       </if>
@@ -335,6 +355,9 @@
       </if>
       <if test="record.recommendStatus != null">
         recommend_status = #{record.recommendStatus,jdbcType=BIT},
+      </if>
+      <if test="record.stickStatus != null">
+        stick_status = #{record.stickStatus,jdbcType=BIT},
       </if>
       <if test="record.publishUserId != null">
         publish_user_id = #{record.publishUserId,jdbcType=BIGINT},
@@ -390,6 +413,7 @@
     update advistory_info
     set advistory_id = #{record.advistoryId,jdbcType=BIGINT},
       advistory_level = #{record.advistoryLevel,jdbcType=VARCHAR},
+      advistory_category = #{record.advistoryCategory,jdbcType=VARCHAR},
       advistory_type = #{record.advistoryType,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       digest = #{record.digest,jdbcType=VARCHAR},
@@ -397,6 +421,7 @@
       read_number = #{record.readNumber,jdbcType=BIGINT},
       cover_image = #{record.coverImage,jdbcType=VARCHAR},
       recommend_status = #{record.recommendStatus,jdbcType=BIT},
+      stick_status = #{record.stickStatus,jdbcType=BIT},
       publish_user_id = #{record.publishUserId,jdbcType=BIGINT},
       publish_user_name = #{record.publishUserName,jdbcType=VARCHAR},
       publish_operation_time = #{record.publishOperationTime,jdbcType=TIMESTAMP},
@@ -422,6 +447,9 @@
       <if test="advistoryLevel != null">
         advistory_level = #{advistoryLevel,jdbcType=VARCHAR},
       </if>
+      <if test="advistoryCategory != null">
+        advistory_category = #{advistoryCategory,jdbcType=VARCHAR},
+      </if>
       <if test="advistoryType != null">
         advistory_type = #{advistoryType,jdbcType=VARCHAR},
       </if>
@@ -442,6 +470,9 @@
       </if>
       <if test="recommendStatus != null">
         recommend_status = #{recommendStatus,jdbcType=BIT},
+      </if>
+      <if test="stickStatus != null">
+        stick_status = #{stickStatus,jdbcType=BIT},
       </if>
       <if test="publishUserId != null">
         publish_user_id = #{publishUserId,jdbcType=BIGINT},
@@ -494,6 +525,7 @@
   <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
     update advistory_info
     set advistory_level = #{advistoryLevel,jdbcType=VARCHAR},
+      advistory_category = #{advistoryCategory,jdbcType=VARCHAR},
       advistory_type = #{advistoryType,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       digest = #{digest,jdbcType=VARCHAR},
@@ -501,6 +533,7 @@
       read_number = #{readNumber,jdbcType=BIGINT},
       cover_image = #{coverImage,jdbcType=VARCHAR},
       recommend_status = #{recommendStatus,jdbcType=BIT},
+      stick_status = #{stickStatus,jdbcType=BIT},
       publish_user_id = #{publishUserId,jdbcType=BIGINT},
       publish_user_name = #{publishUserName,jdbcType=VARCHAR},
       publish_operation_time = #{publishOperationTime,jdbcType=TIMESTAMP},
