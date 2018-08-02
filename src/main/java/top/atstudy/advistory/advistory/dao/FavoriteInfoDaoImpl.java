@@ -166,7 +166,7 @@ public class FavoriteInfoDaoImpl extends BaseDao implements IFavoriteInfoDao {
     }
 
     @Override
-    public FavoriteInfoDTO getByRelationIdAndType(Long relationId, EnumRelationType relationType, Long userId) {
+    public FavoriteInfoDTO getByRelationIdAndType(Long relationId, EnumRelationType relationType, Long userId, Boolean valid) {
 
         if(relationId == null
                 || relationType == null
@@ -176,12 +176,17 @@ public class FavoriteInfoDaoImpl extends BaseDao implements IFavoriteInfoDao {
         FavoriteInfoDTOExample example = new FavoriteInfoDTOExample();
         FavoriteInfoDTOExample.Criteria criteria = example.createCriteria();
 
-        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
-                .andEnableEqualTo(true)
-                .andFavoriteStatusEqualTo(EnumFavoriteStatus.ADD_FAVORITE)
-                .andRelationIdEqualTo(relationId)
+        //默认查询所有收藏
+        criteria.andRelationIdEqualTo(relationId)
                 .andRelationTypeEqualTo(relationType)
                 .andUserIdEqualTo(userId);
+
+        //查询有效收藏
+        if(valid == null || valid){
+            criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                    .andEnableEqualTo(true)
+                    .andFavoriteStatusEqualTo(EnumFavoriteStatus.ADD_FAVORITE);
+        }
 
         List<FavoriteInfoDTO> list = this.favoriteInfoDTOMapper.selectByExample(example);
         return CollectionUtils.isEmpty(list) ? null:list.get(0);

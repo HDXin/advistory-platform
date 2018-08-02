@@ -170,5 +170,5 @@ public interface IFavoriteInfoDao {
      * @param userId
      * @return
      */
-    FavoriteInfoDTO getByRelationIdAndType(Long relationId, EnumRelationType relationType, Long userId);
+    FavoriteInfoDTO getByRelationIdAndType(Long relationId, EnumRelationType relationType, Long userId, Boolean valid);
 }

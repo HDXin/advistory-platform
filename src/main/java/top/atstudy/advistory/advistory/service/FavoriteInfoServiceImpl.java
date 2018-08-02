@@ -121,7 +121,7 @@ public class FavoriteInfoServiceImpl implements IFavoriteInfoService {
             throw new APIException(BadRequest.FAVORITE_RELATION_TYPE_INVALID);
 
         //3.判断是否已收藏过
-        FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(req.getRelationId(), req.getRelationType(), operator.getOperatorId());
+        FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(req.getRelationId(), req.getRelationType(), operator.getOperatorId(), false);
 
         //4.更新收藏量
         if(req.getRelationType() == EnumRelationType.ADVISTORY){
@@ -168,7 +168,7 @@ public class FavoriteInfoServiceImpl implements IFavoriteInfoService {
             throw new APIException(BadRequest.FAVORITE_RELATION_TYPE_INVALID);
 
         //3.判断是否已收藏过
-        FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(req.getRelationId(), req.getRelationType(), operator.getOperatorId());
+        FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(req.getRelationId(), req.getRelationType(), operator.getOperatorId(), false);
         if(temp == null || temp.getFavoriteId() == null)
             throw new APIException(BadRequest.FAVORITE_INFO_NOT_EXISTS);
 

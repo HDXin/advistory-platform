@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.advistory.advistory.dao.IAdvistoryInfoDao;
+import top.atstudy.advistory.advistory.dao.IFavoriteInfoDao;
+import top.atstudy.advistory.advistory.dao.dto.FavoriteInfoDTO;
 import top.atstudy.advistory.advistory.service.IAdvistoryInfoService;
 import top.atstudy.advistory.advistory.vo.req.AdvistoryInfoQuery;
 import top.atstudy.advistory.advistory.vo.resp.AdvistoryInfoResp;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.controller.BasicAppController;
+import top.atstudy.component.enums.EnumRelationType;
 
 import java.util.stream.Collectors;
 
@@ -21,6 +24,9 @@ public class MiniAdvistoryInfoController extends BasicAppController {
 
     @Autowired
     private IAdvistoryInfoService advistoryInfoService;
+
+    @Autowired
+    private IFavoriteInfoDao favoriteInfoDao;
 
     @Value("${image.domain}")
     private String imageDomain;
@@ -44,6 +50,11 @@ public class MiniAdvistoryInfoController extends BasicAppController {
         //点击量加1
         this.advistoryInfoService.addReadNumber(id);
 
+        //是否已收藏
+        FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(id, EnumRelationType.ADVISTORY, getSessionUser().getUserId(), true);
+        if(temp != null && temp.getFavoriteId() != null)
+            target.setFavorite(true);
+
         return target;
     }
 
@@ -58,7 +69,14 @@ public class MiniAdvistoryInfoController extends BasicAppController {
 
         //封面域名拼接
         target.setItems(target.getItems().stream().map(item -> {
+            //封面域名
             item.setCoverImage(imageDomain + item.getCoverImage());
+
+            //是否已收藏
+            FavoriteInfoDTO temp = this.favoriteInfoDao.getByRelationIdAndType(item.getAdvistoryId(), EnumRelationType.ADVISTORY, getSessionUser().getUserId(), true);
+            if(temp != null && temp.getFavoriteId() != null)
+                item.setFavorite(true);
+
             return item;
         }).collect(Collectors.toList()));
 
