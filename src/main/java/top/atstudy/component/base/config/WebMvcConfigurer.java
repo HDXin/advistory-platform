@@ -3,6 +3,7 @@ package top.atstudy.component.base.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import top.atstudy.component.interceptor.AuthInterceptor;
 import top.atstudy.component.interceptor.LogInterceptor;
 
 /**
@@ -20,7 +21,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         //日志处理
         registry.addInterceptor(new LogInterceptor()).addPathPatterns();
         //登录授权
-//        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/api/admin/**", "/api/mini/**");
+        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/api/admin/**", "/api/mini/**");
 
         super.addInterceptors(registry);
     }
