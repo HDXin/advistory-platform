@@ -94,6 +94,8 @@ create table advistory_info
    cover_image          varchar(300) comment '封面图',
    recommend_status     tinyint(1) DEFAULT 0 comment '是否推荐(0:否, 1:是)',
    stick_status         tinyint(1) DEFAULT 0 comment '是否置顶(0:否, 1:是)',
+   ad_status            tinyint(1) default 1 comment '是否支持广告(0:否, 1:是)',
+   link                 varchar(300) default NULL comment '文章链接',
    publish_user_id      bigint(20) comment '发布人ID',
    publish_user_name    varchar(30) comment '发布人名',
    publish_operation_time datetime comment '操作发布时间',

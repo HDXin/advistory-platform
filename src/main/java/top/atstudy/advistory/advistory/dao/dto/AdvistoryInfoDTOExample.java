@@ -4,7 +4,6 @@ import top.atstudy.component.enums.EnumAdvistoryCategory;
 import top.atstudy.component.enums.EnumAdvistoryLevel;
 import top.atstudy.component.enums.EnumAdvistoryType;
 import top.atstudy.component.enums.EnumDeleted;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -929,6 +928,136 @@ public class AdvistoryInfoDTOExample {
 
         public Criteria andStickStatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("stick_status not between", value1, value2, "stickStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusIsNull() {
+            addCriterion("ad_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusIsNotNull() {
+            addCriterion("ad_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusEqualTo(Boolean value) {
+            addCriterion("ad_status =", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusNotEqualTo(Boolean value) {
+            addCriterion("ad_status <>", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusGreaterThan(Boolean value) {
+            addCriterion("ad_status >", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("ad_status >=", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusLessThan(Boolean value) {
+            addCriterion("ad_status <", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("ad_status <=", value, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusIn(List<Boolean> values) {
+            addCriterion("ad_status in", values, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusNotIn(List<Boolean> values) {
+            addCriterion("ad_status not in", values, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("ad_status between", value1, value2, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("ad_status not between", value1, value2, "adStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkIsNull() {
+            addCriterion("link is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkIsNotNull() {
+            addCriterion("link is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkEqualTo(String value) {
+            addCriterion("link =", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkNotEqualTo(String value) {
+            addCriterion("link <>", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkGreaterThan(String value) {
+            addCriterion("link >", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkGreaterThanOrEqualTo(String value) {
+            addCriterion("link >=", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkLessThan(String value) {
+            addCriterion("link <", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkLessThanOrEqualTo(String value) {
+            addCriterion("link <=", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkLike(String value) {
+            addCriterion("link like", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkNotLike(String value) {
+            addCriterion("link not like", value, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkIn(List<String> values) {
+            addCriterion("link in", values, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkNotIn(List<String> values) {
+            addCriterion("link not in", values, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkBetween(String value1, String value2) {
+            addCriterion("link between", value1, value2, "link");
+            return (Criteria) this;
+        }
+
+        public Criteria andLinkNotBetween(String value1, String value2) {
+            addCriterion("link not between", value1, value2, "link");
             return (Criteria) this;
         }
 

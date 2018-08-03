@@ -13,6 +13,8 @@
     <result column="cover_image" jdbcType="VARCHAR" property="coverImage" />
     <result column="recommend_status" jdbcType="BIT" property="recommendStatus" />
     <result column="stick_status" jdbcType="BIT" property="stickStatus" />
+    <result column="ad_status" jdbcType="BIT" property="adStatus" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
     <result column="publish_user_id" jdbcType="BIGINT" property="publishUserId" />
     <result column="publish_user_name" jdbcType="VARCHAR" property="publishUserName" />
     <result column="publish_operation_time" jdbcType="TIMESTAMP" property="publishOperationTime" />
@@ -89,10 +91,10 @@
   </sql>
   <sql id="Base_Column_List">
     advistory_id, advistory_level, advistory_category, advistory_type, title, digest, 
-    favorite_number, read_number, cover_image, recommend_status, stick_status, publish_user_id, 
-    publish_user_name, publish_operation_time, publish_time, author, display_order, version, 
-    deleted, create_user_id, create_user_name, create_time, update_user_id, update_user_name, 
-    update_time, last_update
+    favorite_number, read_number, cover_image, recommend_status, stick_status, ad_status, 
+    link, publish_user_id, publish_user_name, publish_operation_time, publish_time, author, 
+    display_order, version, deleted, create_user_id, create_user_name, create_time, update_user_id, 
+    update_user_name, update_time, last_update
   </sql>
   <select id="selectByExample" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTOExample" resultMap="BaseResultMap">
     select
@@ -139,23 +141,23 @@
     insert into advistory_info (advistory_level, advistory_category, 
       advistory_type, title, digest, 
       favorite_number, read_number, cover_image, 
-      recommend_status, stick_status, publish_user_id, 
-      publish_user_name, publish_operation_time, 
-      publish_time, author, display_order, 
-      version, deleted, create_user_id, 
-      create_user_name, create_time, update_user_id, 
-      update_user_name, update_time, last_update
-      )
+      recommend_status, stick_status, ad_status, 
+      link, publish_user_id, publish_user_name, 
+      publish_operation_time, publish_time, 
+      author, display_order, version, 
+      deleted, create_user_id, create_user_name, 
+      create_time, update_user_id, update_user_name, 
+      update_time, last_update)
     values (#{advistoryLevel,jdbcType=VARCHAR}, #{advistoryCategory,jdbcType=VARCHAR}, 
       #{advistoryType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
       #{favoriteNumber,jdbcType=BIGINT}, #{readNumber,jdbcType=BIGINT}, #{coverImage,jdbcType=VARCHAR}, 
-      #{recommendStatus,jdbcType=BIT}, #{stickStatus,jdbcType=BIT}, #{publishUserId,jdbcType=BIGINT}, 
-      #{publishUserName,jdbcType=VARCHAR}, #{publishOperationTime,jdbcType=TIMESTAMP}, 
-      #{publishTime,jdbcType=TIMESTAMP}, #{author,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, 
-      #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
-      #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP}
-      )
+      #{recommendStatus,jdbcType=BIT}, #{stickStatus,jdbcType=BIT}, #{adStatus,jdbcType=BIT}, 
+      #{link,jdbcType=VARCHAR}, #{publishUserId,jdbcType=BIGINT}, #{publishUserName,jdbcType=VARCHAR}, 
+      #{publishOperationTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{author,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateUserName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="top.atstudy.advistory.advistory.dao.dto.AdvistoryInfoDTO">
     <selectKey keyProperty="advistoryId" order="AFTER" resultType="java.lang.Long">
@@ -192,6 +194,12 @@
       </if>
       <if test="stickStatus != null">
         stick_status,
+      </if>
+      <if test="adStatus != null">
+        ad_status,
+      </if>
+      <if test="link != null">
+        link,
       </if>
       <if test="publishUserId != null">
         publish_user_id,
@@ -269,6 +277,12 @@
       </if>
       <if test="stickStatus != null">
         #{stickStatus,jdbcType=BIT},
+      </if>
+      <if test="adStatus != null">
+        #{adStatus,jdbcType=BIT},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
       </if>
       <if test="publishUserId != null">
         #{publishUserId,jdbcType=BIGINT},
@@ -359,6 +373,12 @@
       <if test="record.stickStatus != null">
         stick_status = #{record.stickStatus,jdbcType=BIT},
       </if>
+      <if test="record.adStatus != null">
+        ad_status = #{record.adStatus,jdbcType=BIT},
+      </if>
+      <if test="record.link != null">
+        link = #{record.link,jdbcType=VARCHAR},
+      </if>
       <if test="record.publishUserId != null">
         publish_user_id = #{record.publishUserId,jdbcType=BIGINT},
       </if>
@@ -422,6 +442,8 @@
       cover_image = #{record.coverImage,jdbcType=VARCHAR},
       recommend_status = #{record.recommendStatus,jdbcType=BIT},
       stick_status = #{record.stickStatus,jdbcType=BIT},
+      ad_status = #{record.adStatus,jdbcType=BIT},
+      link = #{record.link,jdbcType=VARCHAR},
       publish_user_id = #{record.publishUserId,jdbcType=BIGINT},
       publish_user_name = #{record.publishUserName,jdbcType=VARCHAR},
       publish_operation_time = #{record.publishOperationTime,jdbcType=TIMESTAMP},
@@ -473,6 +495,12 @@
       </if>
       <if test="stickStatus != null">
         stick_status = #{stickStatus,jdbcType=BIT},
+      </if>
+      <if test="adStatus != null">
+        ad_status = #{adStatus,jdbcType=BIT},
+      </if>
+      <if test="link != null">
+        link = #{link,jdbcType=VARCHAR},
       </if>
       <if test="publishUserId != null">
         publish_user_id = #{publishUserId,jdbcType=BIGINT},
@@ -534,6 +562,8 @@
       cover_image = #{coverImage,jdbcType=VARCHAR},
       recommend_status = #{recommendStatus,jdbcType=BIT},
       stick_status = #{stickStatus,jdbcType=BIT},
+      ad_status = #{adStatus,jdbcType=BIT},
+      link = #{link,jdbcType=VARCHAR},
       publish_user_id = #{publishUserId,jdbcType=BIGINT},
       publish_user_name = #{publishUserName,jdbcType=VARCHAR},
       publish_operation_time = #{publishOperationTime,jdbcType=TIMESTAMP},
@@ -563,6 +593,5 @@
   <update id="subFavoriteNumber" parameterType="java.lang.Long">
     update advistory_info set favorite_number = favorite_number - 1 where advistory_id = #{advistoryId}
   </update>
-
 
 </mapper>

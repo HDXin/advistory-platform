@@ -31,6 +31,10 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     private Boolean stickStatus;
 
+    private Boolean adStatus;
+
+    private String link;
+
     private Long publishUserId;
 
     private String publishUserName;
@@ -131,6 +135,22 @@ public class AdvistoryInfoDTO extends BaseDTO implements Serializable {
 
     public void setStickStatus(Boolean stickStatus) {
         this.stickStatus = stickStatus;
+    }
+
+    public Boolean getAdStatus() {
+        return adStatus;
+    }
+
+    public void setAdStatus(Boolean adStatus) {
+        this.adStatus = adStatus;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link == null ? null : link.trim();
     }
 
     public Long getPublishUserId() {
