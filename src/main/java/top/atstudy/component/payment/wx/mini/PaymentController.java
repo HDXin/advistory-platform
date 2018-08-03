@@ -15,11 +15,12 @@ import top.atstudy.component.base.controller.BasicAppController;
  * Time: 17:07
  */
 @RestController
-@RequestMapping("/api/mini/payment")
+@RequestMapping("/payment")
 public class PaymentController extends BasicAppController{
 
     @PostMapping("/notify")
     public String notify(@RequestBody AppAuthVo appAuthVo){
+
 
 
         return "SUCCESS";
