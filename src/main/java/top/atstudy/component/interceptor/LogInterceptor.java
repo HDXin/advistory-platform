@@ -69,7 +69,7 @@ public class LogInterceptor implements HandlerInterceptor {
         System.out.println("---------------- <<Response Body>> ------------------------");
         this.logger.info("<-- <<Response-Http-Status>> : {}", response.getStatus());
         this.logger.info("<-- <<Response-Content-Type>> : {}", response.getContentType());
-//        this.logger.info("<-- {}", ((ReusableHttpServletResponseWrapper)response).getResponseData("utf-8"));
+        this.logger.info("<-- {}", new String(((ReusableHttpServletResponseWrapper)response).toByteArray(), response.getCharacterEncoding()));
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
     }
 

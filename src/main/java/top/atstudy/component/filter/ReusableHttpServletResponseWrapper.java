@@ -1,8 +1,13 @@
 package top.atstudy.component.filter;
 
+import org.apache.commons.io.output.TeeOutputStream;
+
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.xml.ws.ResponseWrapper;
 import java.io.*;
 
 /**
@@ -14,46 +19,48 @@ import java.io.*;
  */
 public class ReusableHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
-    private HttpServletResponse original;
-    private boolean firstTime = true;
+    private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    private PrintWriter writer = new PrintWriter(bos);
 
-    /**
-     * Constructs a response adaptor wrapping the given response.
-     *
-     * @param response The response to be wrapped
-     * @throws IllegalArgumentException if the response is null
-     */
     public ReusableHttpServletResponseWrapper(HttpServletResponse response) {
         super(response);
-        this.original = response;
+    }
+
+    @Override
+    public ServletResponse getResponse() {
+        return this;
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        return new ServletOutputStream() {
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener listener) {
+
+            }
+
+            private TeeOutputStream tee = new TeeOutputStream(ReusableHttpServletResponseWrapper.super.getOutputStream(), bos);
+
+            @Override
+            public void write(int b) throws IOException {
+                tee.write(b);
+            }
+        };
     }
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        if(this.firstTime)
-            this.firstTime();
-
-        return super.getWriter();
+        return new TeePrintWriter(super.getWriter(), writer);
     }
 
-
-    @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        if(this.firstTime)
-            this.firstTime();
-
-        return super.getOutputStream();
+    public byte[] toByteArray(){
+        return bos.toByteArray();
     }
 
-    /**
-     * 将数据读入缓冲流
-     */
-    private void firstTime() throws IOException {
-
-        if (this.firstTime) {
-            this.firstTime = false;
-
-        }
-    }
 }
 
