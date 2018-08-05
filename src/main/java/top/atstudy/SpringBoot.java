@@ -25,7 +25,8 @@ import top.atstudy.component.enums.*;
         "top.atstudy.component.setting.dao.mapper",
         "top.atstudy.component.feedback.dao.mapper",
         "top.atstudy.advistory.member.dao.mapper",
-        "top.atstudy.advistory.advistory.dao.mapper"
+        "top.atstudy.advistory.advistory.dao.mapper",
+        "top.atstudy.advistory.order.dao.mapper"
 })
 public class SpringBoot {
     private static final Logger logger = LoggerFactory.getLogger(SpringBoot.class);

@@ -351,3 +351,65 @@ create table system_config
 
 alter table system_config comment '系统配置表';
 
+drop table if exists order_info;
+
+/*==============================================================*/
+/* Table: order_info                                            */
+/*==============================================================*/
+create table order_info
+(
+   order_id             bigint(20) not null auto_increment comment '主键',
+   order_no             varchar(20) comment '单号',
+   amount               bigint(20) comment '订单金额',
+   order_status         varchar(30) comment '订单状态',
+   level_id             bigint(20) comment '购买项 ID',
+   level_name           varchar(30) comment '购买项名称',
+   month_number         int(11) comment '月数',
+   payment_status       varchar(30) comment '支付状态',
+   prepay_user_id       bigint(20) comment '预支付人ID',
+   prepay_user_name     varchar(30) comment '预支付人名',
+   prepay_time          datetime comment '预支付时间',
+   payer_id             bigint(20) comment '支付人ID',
+   payer_name           varchar(30) comment '支付人名',
+   payment_time         datetime comment '支付时间',
+   display_order        int(11) default 0 comment '顺序号',
+   version              int(11) default 0 comment '版本号',
+   deleted              int(11) default 1 comment '状态',
+   create_user_id       bigint(20) comment '创建人',
+   create_user_name     varchar(30) comment '创建人姓名',
+   create_time          datetime comment '创建时间',
+   update_user_id       bigint(20) comment '修改人',
+   update_user_name     varchar(30) comment '更新人姓名',
+   update_time          datetime comment '修改时间',
+   last_update          timestamp comment '最后更新时间',
+   primary key (order_id)
+);
+alter table order_info comment '订单';
+
+drop table if exists order_log;
+
+/*==============================================================*/
+/* Table: order_log                                             */
+/*==============================================================*/
+create table order_log
+(
+   order_log_id         bigint(20) not null auto_increment comment '主键',
+   order_id             bigint(20) comment '订单ID',
+   order_status         varchar(30) comment '订单状态',
+   operation_id         bigint(20) comment '操作人ID',
+   operation_name       varchar(30) comment '操作人名',
+   operation_time       datetime comment '操作时间',
+   display_order        int(11) default 0 comment '顺序号',
+   version              int(11) default 0 comment '版本号',
+   deleted              int(11) default 1 comment '状态',
+   create_user_id       bigint(20) comment '创建人',
+   create_user_name     varchar(30) comment '创建人姓名',
+   create_time          datetime comment '创建时间',
+   update_user_id       bigint(20) comment '修改人',
+   update_user_name     varchar(30) comment '更新人姓名',
+   update_time          datetime comment '修改时间',
+   last_update          timestamp comment '最后更新时间',
+   primary key (order_log_id)
+);
+alter table order_log comment '订单操作日志';
+

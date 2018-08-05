@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.atstudy.advistory.member.dao.mapper.MemberLevelDTOMapper">
-  <resultMap id="BaseResultMap" type="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
-    <id column="member_level_id" jdbcType="BIGINT" property="memberLevelId" />
-    <result column="level" jdbcType="VARCHAR" property="level" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="origin_price" jdbcType="BIGINT" property="originPrice" />
-    <result column="final_price" jdbcType="BIGINT" property="finalPrice" />
-    <result column="months" jdbcType="INTEGER" property="months" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="order_number" jdbcType="INTEGER" property="orderNumber" />
+<mapper namespace="top.atstudy.advistory.order.dao.mapper.OrderInfoDTOMapper">
+  <resultMap id="BaseResultMap" type="top.atstudy.advistory.order.dao.dto.OrderInfoDTO">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
+    <result column="level_id" jdbcType="BIGINT" property="levelId" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+    <result column="month_number" jdbcType="INTEGER" property="monthNumber" />
+    <result column="payment_status" jdbcType="VARCHAR" property="paymentStatus" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
+    <result column="prepay_user_id" jdbcType="BIGINT" property="prepayUserId" />
+    <result column="prepay_user_name" jdbcType="VARCHAR" property="prepayUserName" />
+    <result column="prepay_time" jdbcType="TIMESTAMP" property="prepayTime" />
+    <result column="payer_id" jdbcType="BIGINT" property="payerId" />
+    <result column="payer_name" jdbcType="VARCHAR" property="payerName" />
+    <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
     <result column="display_order" jdbcType="INTEGER" property="displayOrder" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" typeHandler="top.atstudy.component.enums.NumberCodeEnumTypeHandler"/>
@@ -80,17 +86,18 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    member_level_id, level, description, origin_price, final_price, months, image_url, 
-    order_number, display_order, version, deleted, create_user_id, create_user_name, 
-    create_time, update_user_id, update_user_name, update_time, last_update
+    order_id, order_no, amount, order_status, level_id, level_name, month_number, payment_status, 
+    prepay_user_id, prepay_user_name, prepay_time, payer_id, payer_name, payment_time, 
+    display_order, version, deleted, create_user_id, create_user_name, create_time, update_user_id, 
+    update_user_name, update_time, last_update
   </sql>
-  <select id="selectByExample" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from member_level
+    from order_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -109,62 +116,84 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from member_level
-    where member_level_id = #{memberLevelId,jdbcType=BIGINT}
+    from order_info
+    where order_id = #{orderId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from member_level
-    where member_level_id = #{memberLevelId,jdbcType=BIGINT}
+    delete from order_info
+    where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTOExample">
-    delete from member_level
+  <delete id="deleteByExample" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTOExample">
+    delete from order_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
-    <selectKey keyProperty="memberLevelId" order="AFTER" resultType="java.lang.Long">
+  <insert id="insert" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTO">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into member_level (level, description, origin_price, 
-      final_price, months, image_url, 
-      order_number, display_order, version, 
+    insert into order_info (order_no, amount, order_status, 
+      level_id, level_name, month_number, 
+      payment_status, prepay_user_id, prepay_user_name, 
+      prepay_time, payer_id, payer_name, 
+      payment_time, display_order, version, 
       deleted, create_user_id, create_user_name, 
       create_time, update_user_id, update_user_name, 
       update_time, last_update)
-    values (#{level,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{originPrice,jdbcType=BIGINT}, 
-      #{finalPrice,jdbcType=BIGINT}, #{months,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{orderNumber,jdbcType=INTEGER}, #{displayOrder,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+    values (#{orderNo,jdbcType=VARCHAR}, #{amount,jdbcType=BIGINT}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{levelId,jdbcType=BIGINT}, #{levelName,jdbcType=VARCHAR}, #{monthNumber,jdbcType=INTEGER}, 
+      #{paymentStatus,jdbcType=VARCHAR}, #{prepayUserId,jdbcType=BIGINT}, #{prepayUserName,jdbcType=VARCHAR}, 
+      #{prepayTime,jdbcType=TIMESTAMP}, #{payerId,jdbcType=BIGINT}, #{payerName,jdbcType=VARCHAR}, 
+      #{paymentTime,jdbcType=TIMESTAMP}, #{displayOrder,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
       #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateUserName,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
-    <selectKey keyProperty="memberLevelId" order="AFTER" resultType="java.lang.Long">
+  <insert id="insertSelective" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTO">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into member_level
+    insert into order_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="level != null">
-        level,
+      <if test="orderNo != null">
+        order_no,
       </if>
-      <if test="description != null">
-        description,
+      <if test="amount != null">
+        amount,
       </if>
-      <if test="originPrice != null">
-        origin_price,
+      <if test="orderStatus != null">
+        order_status,
       </if>
-      <if test="finalPrice != null">
-        final_price,
+      <if test="levelId != null">
+        level_id,
       </if>
-      <if test="months != null">
-        months,
+      <if test="levelName != null">
+        level_name,
       </if>
-      <if test="imageUrl != null">
-        image_url,
+      <if test="monthNumber != null">
+        month_number,
       </if>
-      <if test="orderNumber != null">
-        order_number,
+      <if test="paymentStatus != null">
+        payment_status,
+      </if>
+      <if test="prepayUserId != null">
+        prepay_user_id,
+      </if>
+      <if test="prepayUserName != null">
+        prepay_user_name,
+      </if>
+      <if test="prepayTime != null">
+        prepay_time,
+      </if>
+      <if test="payerId != null">
+        payer_id,
+      </if>
+      <if test="payerName != null">
+        payer_name,
+      </if>
+      <if test="paymentTime != null">
+        payment_time,
       </if>
       <if test="displayOrder != null">
         display_order,
@@ -198,26 +227,44 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="level != null">
-        #{level,jdbcType=VARCHAR},
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
       </if>
-      <if test="originPrice != null">
-        #{originPrice,jdbcType=BIGINT},
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
       </if>
-      <if test="finalPrice != null">
-        #{finalPrice,jdbcType=BIGINT},
+      <if test="levelId != null">
+        #{levelId,jdbcType=BIGINT},
       </if>
-      <if test="months != null">
-        #{months,jdbcType=INTEGER},
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null">
-        #{imageUrl,jdbcType=VARCHAR},
+      <if test="monthNumber != null">
+        #{monthNumber,jdbcType=INTEGER},
       </if>
-      <if test="orderNumber != null">
-        #{orderNumber,jdbcType=INTEGER},
+      <if test="paymentStatus != null">
+        #{paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayUserId != null">
+        #{prepayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="prepayUserName != null">
+        #{prepayUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayTime != null">
+        #{prepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payerId != null">
+        #{payerId,jdbcType=BIGINT},
+      </if>
+      <if test="payerName != null">
+        #{payerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null">
+        #{paymentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="displayOrder != null">
         #{displayOrder,jdbcType=INTEGER},
@@ -251,38 +298,56 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTOExample" resultType="java.lang.Long">
-    select count(*) from member_level
+  <select id="countByExample" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTOExample" resultType="java.lang.Long">
+    select count(*) from order_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update member_level
+    update order_info
     <set>
-      <if test="record.memberLevelId != null">
-        member_level_id = #{record.memberLevelId,jdbcType=BIGINT},
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
       </if>
-      <if test="record.level != null">
-        level = #{record.level,jdbcType=VARCHAR},
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=VARCHAR},
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=BIGINT},
       </if>
-      <if test="record.originPrice != null">
-        origin_price = #{record.originPrice,jdbcType=BIGINT},
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
       </if>
-      <if test="record.finalPrice != null">
-        final_price = #{record.finalPrice,jdbcType=BIGINT},
+      <if test="record.levelId != null">
+        level_id = #{record.levelId,jdbcType=BIGINT},
       </if>
-      <if test="record.months != null">
-        months = #{record.months,jdbcType=INTEGER},
+      <if test="record.levelName != null">
+        level_name = #{record.levelName,jdbcType=VARCHAR},
       </if>
-      <if test="record.imageUrl != null">
-        image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      <if test="record.monthNumber != null">
+        month_number = #{record.monthNumber,jdbcType=INTEGER},
       </if>
-      <if test="record.orderNumber != null">
-        order_number = #{record.orderNumber,jdbcType=INTEGER},
+      <if test="record.paymentStatus != null">
+        payment_status = #{record.paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prepayUserId != null">
+        prepay_user_id = #{record.prepayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.prepayUserName != null">
+        prepay_user_name = #{record.prepayUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prepayTime != null">
+        prepay_time = #{record.prepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payerId != null">
+        payer_id = #{record.payerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.payerName != null">
+        payer_name = #{record.payerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentTime != null">
+        payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.displayOrder != null">
         display_order = #{record.displayOrder,jdbcType=INTEGER},
@@ -320,15 +385,21 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update member_level
-    set member_level_id = #{record.memberLevelId,jdbcType=BIGINT},
-      level = #{record.level,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      origin_price = #{record.originPrice,jdbcType=BIGINT},
-      final_price = #{record.finalPrice,jdbcType=BIGINT},
-      months = #{record.months,jdbcType=INTEGER},
-      image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      order_number = #{record.orderNumber,jdbcType=INTEGER},
+    update order_info
+    set order_id = #{record.orderId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=BIGINT},
+      order_status = #{record.orderStatus,jdbcType=VARCHAR},
+      level_id = #{record.levelId,jdbcType=BIGINT},
+      level_name = #{record.levelName,jdbcType=VARCHAR},
+      month_number = #{record.monthNumber,jdbcType=INTEGER},
+      payment_status = #{record.paymentStatus,jdbcType=VARCHAR},
+      prepay_user_id = #{record.prepayUserId,jdbcType=BIGINT},
+      prepay_user_name = #{record.prepayUserName,jdbcType=VARCHAR},
+      prepay_time = #{record.prepayTime,jdbcType=TIMESTAMP},
+      payer_id = #{record.payerId,jdbcType=BIGINT},
+      payer_name = #{record.payerName,jdbcType=VARCHAR},
+      payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
       display_order = #{record.displayOrder,jdbcType=INTEGER},
       version = #{record.version,jdbcType=INTEGER},
       deleted = #{record.deleted,jdbcType=INTEGER},
@@ -343,29 +414,47 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
-    update member_level
+  <update id="updateByPrimaryKeySelective" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTO">
+    update order_info
     <set>
-      <if test="level != null">
-        level = #{level,jdbcType=VARCHAR},
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
+      <if test="amount != null">
+        amount = #{amount,jdbcType=BIGINT},
       </if>
-      <if test="originPrice != null">
-        origin_price = #{originPrice,jdbcType=BIGINT},
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
       </if>
-      <if test="finalPrice != null">
-        final_price = #{finalPrice,jdbcType=BIGINT},
+      <if test="levelId != null">
+        level_id = #{levelId,jdbcType=BIGINT},
       </if>
-      <if test="months != null">
-        months = #{months,jdbcType=INTEGER},
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null">
-        image_url = #{imageUrl,jdbcType=VARCHAR},
+      <if test="monthNumber != null">
+        month_number = #{monthNumber,jdbcType=INTEGER},
       </if>
-      <if test="orderNumber != null">
-        order_number = #{orderNumber,jdbcType=INTEGER},
+      <if test="paymentStatus != null">
+        payment_status = #{paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayUserId != null">
+        prepay_user_id = #{prepayUserId,jdbcType=BIGINT},
+      </if>
+      <if test="prepayUserName != null">
+        prepay_user_name = #{prepayUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayTime != null">
+        prepay_time = #{prepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payerId != null">
+        payer_id = #{payerId,jdbcType=BIGINT},
+      </if>
+      <if test="payerName != null">
+        payer_name = #{payerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentTime != null">
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="displayOrder != null">
         display_order = #{displayOrder,jdbcType=INTEGER},
@@ -398,17 +487,23 @@
         last_update = #{lastUpdate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where member_level_id = #{memberLevelId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.member.dao.dto.MemberLevelDTO">
-    update member_level
-    set level = #{level,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      origin_price = #{originPrice,jdbcType=BIGINT},
-      final_price = #{finalPrice,jdbcType=BIGINT},
-      months = #{months,jdbcType=INTEGER},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
-      order_number = #{orderNumber,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.order.dao.dto.OrderInfoDTO">
+    update order_info
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=BIGINT},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      level_id = #{levelId,jdbcType=BIGINT},
+      level_name = #{levelName,jdbcType=VARCHAR},
+      month_number = #{monthNumber,jdbcType=INTEGER},
+      payment_status = #{paymentStatus,jdbcType=VARCHAR},
+      prepay_user_id = #{prepayUserId,jdbcType=BIGINT},
+      prepay_user_name = #{prepayUserName,jdbcType=VARCHAR},
+      prepay_time = #{prepayTime,jdbcType=TIMESTAMP},
+      payer_id = #{payerId,jdbcType=BIGINT},
+      payer_name = #{payerName,jdbcType=VARCHAR},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
       display_order = #{displayOrder,jdbcType=INTEGER},
       version = #{version,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=INTEGER},
@@ -419,6 +514,6 @@
       update_user_name = #{updateUserName,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       last_update = #{lastUpdate,jdbcType=TIMESTAMP}
-    where member_level_id = #{memberLevelId,jdbcType=BIGINT}
+    where order_id = #{orderId,jdbcType=BIGINT}
   </update>
 </mapper>
