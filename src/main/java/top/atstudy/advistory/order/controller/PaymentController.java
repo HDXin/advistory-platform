@@ -20,7 +20,7 @@ import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
  * Tim Zhang - 2017/11/15 下午1:27
  */
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/payment")
 public class PaymentController extends BasicAdminController {
     /******* Fields Area *******/
 
