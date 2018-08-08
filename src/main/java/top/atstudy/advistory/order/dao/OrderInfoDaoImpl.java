@@ -1,5 +1,6 @@
 package top.atstudy.advistory.order.dao;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import top.atstudy.component.base.Page;
 import top.atstudy.component.base.Pagination;
 import top.atstudy.component.enums.EnumDeleted;
 import top.atstudy.component.enums.EnumOrder;
+import top.atstudy.component.enums.EnumOrderStatus;
+import top.atstudy.component.enums.EnumPaymentStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -160,6 +163,24 @@ public class OrderInfoDaoImpl extends BaseDao implements IOrderInfoDao {
     public boolean batchRemove(List<OrderInfoDTO> targets) {
         boolean batchFlag = targets.stream().map(this::remove).filter(v -> !v).count() == 0;
         return batchFlag;
+    }
+
+    @Override
+    public OrderInfoDTO getByOrderNo(String orderNo) {
+
+        if(StringUtils.isBlank(orderNo))
+            return null;
+
+        OrderInfoDTOExample example = new OrderInfoDTOExample();
+        OrderInfoDTOExample.Criteria criteria = example.createCriteria();
+
+        criteria.andDeletedEqualTo(EnumDeleted.NORMAL)
+                .andOrderStatusEqualTo(EnumOrderStatus.NEW_ORDER)
+                .andPaymentStatusEqualTo(EnumPaymentStatus.NEW_ORDER)
+                .andOrderNoEqualTo(orderNo);
+
+        List<OrderInfoDTO> targets = this.orderInfoDTOMapper.selectByExample(example);
+        return CollectionUtils.isEmpty(targets) ? null:targets.get(0);
     }
 
     private void loadDefaultOrder(OrderInfoDTOExample example) {

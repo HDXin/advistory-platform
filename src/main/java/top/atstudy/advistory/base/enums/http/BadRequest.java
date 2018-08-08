@@ -36,6 +36,13 @@ public enum BadRequest implements IError400Enum<BadRequest> {
     FAVORITE_RELATION_TYPE_INVALID(4001002, "收藏类型不能为空"),
     FAVORITE_INFO_NOT_EXISTS(4001003, "指定的收藏信息不存在"),
 
+    ORDER_INFO_ORDERNO_IS_NULL(4001101, "订单号不能为空"),
+    ORDER_INFO_NOT_EXISTS(4001102, "订单不存在"),
+    ORDER_INFO_STATUS_INVALID(4001103, "订单暂不能支付"),
+
+    LEVEL_ID_IS_NULL(4001201, "购买项ID不能为空"),
+    LEVEL_ID_INVALID(4001202, "购买项ID无效"),
+
     ;
 
     private Integer code;

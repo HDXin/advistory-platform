@@ -162,4 +162,11 @@ public interface IOrderInfoDao {
      * 这里需要业务逻辑层做回滚, 生成的代码没有做回滚操作
      */
     boolean batchRemove(List<OrderInfoDTO> targets);
+
+    /**
+     * 根据订单号获取订单
+     * @param orderNo
+     * @return
+     */
+    OrderInfoDTO getByOrderNo(String orderNo);
 }

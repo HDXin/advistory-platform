@@ -5,7 +5,11 @@ import top.atstudy.advistory.order.vo.req.OrderInfoReq;
 import top.atstudy.advistory.order.vo.resp.OrderInfoResp;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
+import top.atstudy.component.exception.APIException;
+import top.atstudy.component.user.AppSessionUser;
+import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderResp;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -26,12 +30,18 @@ public interface IOrderInfoService {
 
     Long countByQuery(OrderInfoQuery query);
 
-    OrderInfoResp createAndGet(OrderInfoReq req, IOperatorAware operator);
+    OrderInfoResp createAndGet(OrderInfoReq req, IOperatorAware operator) throws APIException;
 
     OrderInfoResp update(OrderInfoReq req, IOperatorAware operator);
 
     boolean remove(Long id, IOperatorAware operator);
 
-
+    /**
+     * 预下单
+     * @param req
+     * @param sessionUser
+     * @return
+     */
+    UnifiedOrderResp prepay(OrderInfoReq req, AppSessionUser sessionUser) throws InvocationTargetException, IllegalAccessException, APIException;
 }
 

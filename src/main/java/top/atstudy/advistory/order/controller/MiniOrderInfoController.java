@@ -1,14 +1,23 @@
 package top.atstudy.advistory.order.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import top.atstudy.advistory.base.config.LocalPayConfig;
+import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.advistory.order.service.IOrderInfoService;
-import top.atstudy.advistory.order.vo.req.OrderInfoQuery;
+import top.atstudy.advistory.order.vo.req.OrderInfoReq;
 import top.atstudy.advistory.order.vo.resp.OrderInfoResp;
-import top.atstudy.component.base.Page;
-import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.base.controller.BasicAppController;
+import top.atstudy.component.base.util.BeanUtils;
 import top.atstudy.component.exception.APIException;
+import top.atstudy.component.user.AppSessionUser;
+import top.atstudy.sdk.payment.wechat.config.PayConfig;
+import top.atstudy.sdk.payment.wechat.service.PaymentService;
+import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderReq;
+import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderResp;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Sudao @ HuangDexin
@@ -31,25 +40,31 @@ public class MiniOrderInfoController extends BasicAppController {
     /******* Construction Area *******/
     /******* GetSet Area ******/
 
-
-    @GetMapping("/{id}")
-    public OrderInfoResp get(@PathVariable("id") Long id) {
-        OrderInfoResp target = this.orderInfoService.getById(id);
-        return target;
+    /**
+     * 购买会员
+     * @param req
+     * @return
+     */
+    @PostMapping("/purchase")
+    public OrderInfoResp create(@RequestBody OrderInfoReq req) throws APIException {
+        return this.orderInfoService.createAndGet(req, getSessionUser());
     }
 
-    @GetMapping("")
-    public Page<OrderInfoResp> find(OrderInfoQuery query) {
-        Page<OrderInfoResp> target = this.orderInfoService.findByQuery(query);
-        return target;
+    /**
+     * 预支付
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @PutMapping("/prepay")
+    public UnifiedOrderResp prepay(@RequestBody OrderInfoReq req) throws InvocationTargetException, IllegalAccessException, APIException {
+
+        //1.判断订单号不能为空
+        if(StringUtils.isBlank(req.getOrderNo()))
+            throw new APIException(BadRequest.ORDER_INFO_ORDERNO_IS_NULL);
+
+        return this.orderInfoService.prepay(req, getSessionUser());
     }
 
-    @DeleteMapping("/{id}")
-    public void remove(@PathVariable("id") Long id) throws APIException {
-        this.orderInfoService.remove(id, super.getSessionUser());
-    }
-
-    /******* Method Area *******/
 
 
 }
