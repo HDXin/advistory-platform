@@ -11,6 +11,8 @@ public class OrderLogDTO extends BaseDTO implements Serializable {
 
     private Long orderId;
 
+    private String orderNo;
+
     private EnumOrderStatus orderStatus;
 
     private Long operationId;
@@ -18,6 +20,8 @@ public class OrderLogDTO extends BaseDTO implements Serializable {
     private String operationName;
 
     private Date operationTime;
+
+    private String content;
 
     private EnumDeleted deleted;
 
@@ -37,6 +41,14 @@ public class OrderLogDTO extends BaseDTO implements Serializable {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 
     public EnumOrderStatus getOrderStatus() {
@@ -69,6 +81,14 @@ public class OrderLogDTO extends BaseDTO implements Serializable {
 
     public void setOperationTime(Date operationTime) {
         this.operationTime = operationTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public EnumDeleted getDeleted() {

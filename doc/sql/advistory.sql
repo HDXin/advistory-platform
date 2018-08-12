@@ -394,11 +394,13 @@ drop table if exists order_log;
 create table order_log
 (
    order_log_id         bigint(20) not null auto_increment comment '主键',
-   order_id             bigint(20) comment '订单ID',
+   order_id             bigint(20) comment '订单',
+   order_no             varchar(20) comment '订单号',
    order_status         varchar(30) comment '订单状态',
    operation_id         bigint(20) comment '操作人ID',
    operation_name       varchar(30) comment '操作人名',
    operation_time       datetime comment '操作时间',
+   content              varchar(3000) default '0' comment '回调日志',
    display_order        int(11) default 0 comment '顺序号',
    version              int(11) default 0 comment '版本号',
    deleted              int(11) default 1 comment '状态',
@@ -411,5 +413,7 @@ create table order_log
    last_update          timestamp comment '最后更新时间',
    primary key (order_log_id)
 );
+
 alter table order_log comment '订单操作日志';
+
 

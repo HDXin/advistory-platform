@@ -1,8 +1,9 @@
 package top.atstudy.advistory.order.service;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.atstudy.advistory.base.config.LocalPayConfig;
@@ -10,24 +11,27 @@ import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.advistory.member.dao.IMemberLevelDao;
 import top.atstudy.advistory.member.dao.dto.MemberLevelDTO;
 import top.atstudy.advistory.order.dao.IOrderInfoDao;
+import top.atstudy.advistory.order.dao.IOrderLogDao;
 import top.atstudy.advistory.order.dao.dto.OrderInfoDTO;
 import top.atstudy.advistory.order.dao.dto.OrderInfoDTOExample;
+import top.atstudy.advistory.order.dao.dto.OrderLogDTO;
 import top.atstudy.advistory.order.vo.req.OrderInfoQuery;
 import top.atstudy.advistory.order.vo.req.OrderInfoReq;
 import top.atstudy.advistory.order.vo.resp.OrderInfoResp;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.base.util.BeanUtils;
-import top.atstudy.component.enums.EnumDeleted;
-import top.atstudy.component.enums.EnumOrderStatus;
-import top.atstudy.component.enums.EnumPaymentStatus;
+import top.atstudy.component.enums.*;
 import top.atstudy.component.exception.APIException;
 import top.atstudy.component.user.AppSessionUser;
+import top.atstudy.component.user.dao.IAppUserDao;
+import top.atstudy.component.user.dao.dto.AppUserDTO;
 import top.atstudy.sdk.payment.wechat.config.PayConfig;
 import top.atstudy.sdk.payment.wechat.service.PaymentService;
+import top.atstudy.sdk.payment.wechat.vo.PayNotifyReq;
+import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
 import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderReq;
 import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderResp;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
@@ -49,9 +53,19 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
     @Autowired
     private IMemberLevelDao memberLevelDao;
 
-
     @Autowired
     private LocalPayConfig localPayConfig;
+
+    @Autowired
+    private IAppUserDao appUserDao;
+
+    @Autowired
+    private IOrderLogDao orderLogDao;
+
+    private static final String DEFAULT_BODY = "用户购买会员";
+
+    @Value("${pay.config.ip}")
+    private String ip;
 
     /******* Construction Area *******/
     public OrderInfoServiceImpl(@Autowired IOrderInfoDao orderInfoDao) {
@@ -72,7 +86,10 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         return target;
     }
 
-
+    @Override
+    public OrderInfoResp getByOrderNo(String orderNo) {
+        return OrderInfoResp.parseSinglet(this.orderInfoDao.getByOrderNo(orderNo));
+    }
 
     @Override
     public Page<OrderInfoResp> findByQuery(OrderInfoQuery query) {
@@ -163,12 +180,89 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         unifiedOrderReq.setOut_trade_no(target.getOrderNo());
         unifiedOrderReq.setTotal_fee(target.getAmount());
         unifiedOrderReq.setOpenid(sessionUser.getOpenid());
+        unifiedOrderReq.setBody(DEFAULT_BODY);
+        unifiedOrderReq.setSpbill_create_ip(this.ip);
 
         //4.维护配置
         PayConfig payConfig = BeanUtils.copyProperties(localPayConfig, PayConfig.class);
 
         //5.统一下单
         UnifiedOrderResp resp = PaymentService.getInstance(payConfig).unifiedorder(unifiedOrderReq);
+
+        //6.订单状态更改为预支付
+        if("SUCCESS".equals(resp.getResult_code())
+                && "SUCCESS".equals(resp.getReturn_code())){
+            OrderInfoDTO order = new OrderInfoDTO();
+            order.setOrderStatus(EnumOrderStatus.PREPAY);
+            order.setPrepayUserId(sessionUser.getUserId());
+            order.setPrepayUserName(sessionUser.getUserName());
+            order.setPrepayTime(new Date());
+
+            order.setOperator(sessionUser, false);
+            this.orderInfoDao.update(order);
+        }
+
+        //7.订单日志 PS: 用户排错处理
+        OrderLogDTO orderLog = new OrderLogDTO();
+        orderLog.setOrderId(target.getOrderId());
+        orderLog.setOrderNo(target.getOrderNo());
+        orderLog.setOrderStatus(EnumOrderStatus.PREPAY);
+        orderLog.setContent(JSONObject.toJSONString(resp));
+        orderLog.setOperator(sessionUser, true);
+        this.orderLogDao.create(orderLog);
+
+        return resp;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public PayNotifyResp callback(PayNotifyReq req, IOperatorAware operator) throws APIException {
+        //1.订单日志
+        OrderLogDTO orderLog = new OrderLogDTO();
+        orderLog.setOrderNo(req.getOut_trade_no());
+        orderLog.setContent(JSONObject.toJSONString(req));
+        orderLog.setOperator(operator, true);
+        if("SUCCESS".equals(req.getResult_code())
+                && "SUCCESS".equals(req.getReturn_code()))
+            orderLog.setOrderStatus(EnumOrderStatus.PAID);
+        this.orderLogDao.create(orderLog);
+
+        //2.微信回调处理
+        PayNotifyResp resp = new PayNotifyResp();
+        if("SUCCESS".equals(req.getReturn_code())
+                && "SUCCESS".equals(req.getResult_code())){
+            resp.setReturn_code("SUCCESS");
+            resp.setResult_code("OK");
+            orderLog.setOrderStatus(EnumOrderStatus.PAID);
+
+            //获取指定订单
+            OrderInfoDTO order = orderInfoDao.getByOrderNo(req.getOut_trade_no());
+            if(order == null || order.getOrderId() == null)
+                return resp;
+
+            //更改订单状态为已支付
+            OrderInfoDTO temp = new OrderInfoDTO();
+            temp.setOrderId(order.getOrderId());
+
+            temp.setOrderStatus(EnumOrderStatus.PAID);
+            temp.setPayerId(order.getPrepayUserId());
+            temp.setPayerName(order.getPrepayUserName());
+            temp.setPaymentTime(new Date());
+
+            temp.setOperator(operator, false);
+            this.orderInfoDao.update(temp);
+
+            //更改当前用户为对应的会员级别
+            MemberLevelDTO level = this.memberLevelDao.getById(order.getLevelId());
+            if(level == null || level.getMemberLevelId() == null)
+                return resp;
+
+            AppUserDTO user = new AppUserDTO();
+            user.setUserId(order.getPrepayUserId());
+            user.setUserType(EnumUserType.valueOf(level.getLevel().getCode()));
+            user.setOperator(operator, false);
+            this.appUserDao.update(user);
+        }
 
         return resp;
     }

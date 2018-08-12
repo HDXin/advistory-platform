@@ -2,10 +2,10 @@ package top.atstudy.advistory.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import top.atstudy.advistory.order.service.IOrderInfoService;
 import top.atstudy.component.base.controller.BasicAdminController;
+import top.atstudy.component.exception.APIException;
 import top.atstudy.sdk.payment.wechat.vo.PayNotifyReq;
 import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
 
@@ -17,7 +17,7 @@ import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
  * =========================================
  * <p>
  * Contributors :
- * Tim Zhang - 2017/11/15 下午1:27
+ * harley - 2017/11/15 下午1:27
  */
 @RestController
 @RequestMapping("/payment")
@@ -32,17 +32,9 @@ public class PaymentController extends BasicAdminController {
      * @return
      */
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     @PostMapping(value = "/notify", produces = MediaType.TEXT_XML_VALUE)
-    public PayNotifyResp callback(@RequestBody PayNotifyReq req){
-        PayNotifyResp resp = new PayNotifyResp();
-        if("SUCCESS".equals(req.getReturn_code())
-                && "SUCCESS".equals(req.getResult_code())){
-            resp.setReturn_code("SUCCESS");
-            resp.setResult_code("OK");
-        }
-
-        return resp;
+    public PayNotifyResp callback(@RequestBody PayNotifyReq req) throws APIException {
+        return this.orderInfoService.callback(req, getSessionUser());
     }
 
 }

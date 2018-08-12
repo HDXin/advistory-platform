@@ -4,10 +4,12 @@
   <resultMap id="BaseResultMap" type="top.atstudy.advistory.order.dao.dto.OrderLogDTO">
     <id column="order_log_id" jdbcType="BIGINT" property="orderLogId" />
     <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="order_status" jdbcType="VARCHAR" property="orderStatus" typeHandler="top.atstudy.component.enums.StringCodeEnumTypeHandler"/>
     <result column="operation_id" jdbcType="BIGINT" property="operationId" />
     <result column="operation_name" jdbcType="VARCHAR" property="operationName" />
     <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="display_order" jdbcType="INTEGER" property="displayOrder" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" typeHandler="top.atstudy.component.enums.NumberCodeEnumTypeHandler"/>
@@ -78,9 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_log_id, order_id, order_status, operation_id, operation_name, operation_time, 
-    display_order, version, deleted, create_user_id, create_user_name, create_time, update_user_id, 
-    update_user_name, update_time, last_update
+    order_log_id, order_id, order_no, order_status, operation_id, operation_name, operation_time, 
+    content, display_order, version, deleted, create_user_id, create_user_name, create_time, 
+    update_user_id, update_user_name, update_time, last_update
   </sql>
   <select id="selectByExample" parameterType="top.atstudy.advistory.order.dao.dto.OrderLogDTOExample" resultMap="BaseResultMap">
     select
@@ -124,18 +126,18 @@
     <selectKey keyProperty="orderLogId" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order_log (order_id, order_status, operation_id, 
-      operation_name, operation_time, display_order, 
-      version, deleted, create_user_id, 
-      create_user_name, create_time, update_user_id, 
-      update_user_name, update_time, last_update
-      )
-    values (#{orderId,jdbcType=BIGINT}, #{orderStatus,jdbcType=VARCHAR}, #{operationId,jdbcType=BIGINT}, 
-      #{operationName,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, #{displayOrder,jdbcType=INTEGER}, 
-      #{version,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, 
-      #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, 
-      #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP}
-      )
+    insert into order_log (order_id, order_no, order_status, 
+      operation_id, operation_name, operation_time, 
+      content, display_order, version, 
+      deleted, create_user_id, create_user_name, 
+      create_time, update_user_id, update_user_name, 
+      update_time, last_update)
+    values (#{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{operationId,jdbcType=BIGINT}, #{operationName,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createUserId,jdbcType=BIGINT}, #{createUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=BIGINT}, #{updateUserName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{lastUpdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="top.atstudy.advistory.order.dao.dto.OrderLogDTO">
     <selectKey keyProperty="orderLogId" order="AFTER" resultType="java.lang.Long">
@@ -145,6 +147,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
         order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
       </if>
       <if test="orderStatus != null">
         order_status,
@@ -157,6 +162,9 @@
       </if>
       <if test="operationTime != null">
         operation_time,
+      </if>
+      <if test="content != null">
+        content,
       </if>
       <if test="displayOrder != null">
         display_order,
@@ -193,6 +201,9 @@
       <if test="orderId != null">
         #{orderId,jdbcType=BIGINT},
       </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
       <if test="orderStatus != null">
         #{orderStatus,jdbcType=VARCHAR},
       </if>
@@ -204,6 +215,9 @@
       </if>
       <if test="operationTime != null">
         #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="displayOrder != null">
         #{displayOrder,jdbcType=INTEGER},
@@ -252,6 +266,9 @@
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=BIGINT},
       </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderStatus != null">
         order_status = #{record.orderStatus,jdbcType=VARCHAR},
       </if>
@@ -263,6 +280,9 @@
       </if>
       <if test="record.operationTime != null">
         operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.displayOrder != null">
         display_order = #{record.displayOrder,jdbcType=INTEGER},
@@ -303,10 +323,12 @@
     update order_log
     set order_log_id = #{record.orderLogId,jdbcType=BIGINT},
       order_id = #{record.orderId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
       order_status = #{record.orderStatus,jdbcType=VARCHAR},
       operation_id = #{record.operationId,jdbcType=BIGINT},
       operation_name = #{record.operationName,jdbcType=VARCHAR},
       operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=VARCHAR},
       display_order = #{record.displayOrder,jdbcType=INTEGER},
       version = #{record.version,jdbcType=INTEGER},
       deleted = #{record.deleted,jdbcType=INTEGER},
@@ -327,6 +349,9 @@
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=BIGINT},
       </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
       <if test="orderStatus != null">
         order_status = #{orderStatus,jdbcType=VARCHAR},
       </if>
@@ -338,6 +363,9 @@
       </if>
       <if test="operationTime != null">
         operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="displayOrder != null">
         display_order = #{displayOrder,jdbcType=INTEGER},
@@ -375,10 +403,12 @@
   <update id="updateByPrimaryKey" parameterType="top.atstudy.advistory.order.dao.dto.OrderLogDTO">
     update order_log
     set order_id = #{orderId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
       order_status = #{orderStatus,jdbcType=VARCHAR},
       operation_id = #{operationId,jdbcType=BIGINT},
       operation_name = #{operationName,jdbcType=VARCHAR},
       operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
       display_order = #{displayOrder,jdbcType=INTEGER},
       version = #{version,jdbcType=INTEGER},
       deleted = #{deleted,jdbcType=INTEGER},
