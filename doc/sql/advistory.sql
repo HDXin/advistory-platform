@@ -387,7 +387,6 @@ create table order_info
 alter table order_info comment '订单';
 
 drop table if exists order_log;
-
 /*==============================================================*/
 /* Table: order_log                                             */
 /*==============================================================*/
@@ -415,5 +414,25 @@ create table order_log
 );
 
 alter table order_log comment '订单操作日志';
+
+drop table if exists order_seq;
+/*==============================================================*/
+/* Table: order_log                                             */
+/*==============================================================*/
+CREATE TABLE `order_seq` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sequence_no` bigint(20) NOT NULL COMMENT '序列号',
+  `display_order` int(11) DEFAULT '100' COMMENT '顺序号',
+  `version` int(11) NOT NULL DEFAULT '0' COMMENT '版本号',
+  `deleted` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(36) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '修改人',
+  `update_user_name` varchar(36) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COMMENT='订单序列表';
 
 

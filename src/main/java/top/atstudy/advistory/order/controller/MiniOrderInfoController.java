@@ -4,19 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import top.atstudy.advistory.base.config.LocalPayConfig;
 import top.atstudy.advistory.base.enums.http.BadRequest;
 import top.atstudy.advistory.order.service.IOrderInfoService;
 import top.atstudy.advistory.order.vo.req.OrderInfoReq;
 import top.atstudy.advistory.order.vo.resp.OrderInfoResp;
 import top.atstudy.component.base.controller.BasicAppController;
-import top.atstudy.component.base.util.BeanUtils;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.AppSessionUser;
-import top.atstudy.sdk.payment.wechat.config.PayConfig;
-import top.atstudy.sdk.payment.wechat.service.PaymentService;
-import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderReq;
-import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderResp;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.UnifiedOrderResp;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**

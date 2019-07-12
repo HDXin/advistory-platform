@@ -1,3 +1,5 @@
-.idea/*
+.idea/**
 advistory-platform.iml
-target/*
+target/**
+logs/**
+platform**

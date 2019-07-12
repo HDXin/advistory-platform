@@ -16,7 +16,7 @@ import top.atstudy.component.enums.*;
  * Created by admin on 2017/11/15.
  */
 @SpringBootApplication
-@ServletComponentScan
+//@ServletComponentScan
 @EnableTransactionManagement
 @MapperScan(basePackages = {
         "top.atstudy.component.user.dao.mapper",

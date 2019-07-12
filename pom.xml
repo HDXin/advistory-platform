@@ -95,11 +95,57 @@
             <version>1.60</version>
         </dependency>
         <dependency>
-            <groupId>top.atstudy.sdk</groupId>
-            <artifactId>sdk-payment</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>top.atstudy.component</groupId>
+            <artifactId>component-sdk-payment</artifactId>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+
+    <repositories>
+        <repository>
+            <id>local_nexus_releases</id>
+            <url>http://nexus.51alf.cn/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>local_nexus_snapshots</id>
+            <url>http://nexus.51alf.cn/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>local_nexus_releases</id>
+            <url>http://nexus.51alf.cn/repository/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>local_nexus_snapshots</id>
+            <url>http://nexus.51alf.cn/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <finalName>advistory-platform</finalName>

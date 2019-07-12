@@ -23,7 +23,7 @@ public class RequestFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         logger.info(" ===>> RequestFilter executor ... ");
     }
 
@@ -34,18 +34,6 @@ public class RequestFilter implements Filter {
         ReusableHttpServletRequestWrapper requestWrapper = new ReusableHttpServletRequestWrapper(request);
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         ReusableHttpServletResponseWrapper responseWrapper = new ReusableHttpServletResponseWrapper(response);
-
-        //解决跨域问题
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-//        response.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie, token, withCredentials");
-//        response.addHeader("Access-Control-Allow-Credentials", "true");
-//        response.setHeader("Access-Control-Max-Age", "3600");
-//        if (requestWrapper.getMethod().equals("OPTIONS")) {
-//            response.setStatus(HttpServletResponse.SC_OK);
-//            response.getWriter().write("OPTIONS returns OK");
-//            return;
-//        }
 
         filterChain.doFilter(requestWrapper, responseWrapper);
     }

@@ -6,11 +6,10 @@ import top.atstudy.advistory.order.vo.resp.OrderInfoResp;
 import top.atstudy.component.base.IOperatorAware;
 import top.atstudy.component.base.Page;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.component.user.AdminSessionUser;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.PayNotifyReq;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.PayNotifyResp;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.UnifiedOrderResp;
 import top.atstudy.component.user.AppSessionUser;
-import top.atstudy.sdk.payment.wechat.vo.PayNotifyReq;
-import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
-import top.atstudy.sdk.payment.wechat.vo.UnifiedOrderResp;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 

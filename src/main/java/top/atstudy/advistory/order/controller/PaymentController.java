@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import top.atstudy.advistory.order.service.IOrderInfoService;
 import top.atstudy.component.base.controller.BasicAdminController;
 import top.atstudy.component.exception.APIException;
-import top.atstudy.sdk.payment.wechat.vo.PayNotifyReq;
-import top.atstudy.sdk.payment.wechat.vo.PayNotifyResp;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.PayNotifyReq;
+import top.atstudy.component.sdk.payment.wxpay.mini.vo.PayNotifyResp;
 
 /**
  * @author Sudao @ HuangDexin
